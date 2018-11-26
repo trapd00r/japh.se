@@ -1,0 +1,81 @@
+---
+layout: post
+title: "archlinux and perl 5.12"
+date: 2010-10-04
+tags: linux,perl
+---
+
+The upgrade from Perl 5.10 to 5.12.1 in Arch have caused a lot of
+headache. I had to manually rebuild almost 600 modules and a lot of
+regular users are frustrated due to the suddenly changed perl-bin-path,
+from the sane */usr/bin/perlbin* path to hiding them in */usr/lib*. What
+the fuck...
+
+I've searched, asked and questioned this decision for a couple of months
+now, to no avail. The path problem isn't hard to fix, though.
+
+First, use *pacman* to see where it actually installed things:
+
+{% highlight bash%}
+$ pacman -Ql colorcoke-git|grep bin
+colorcoke-git /usr/lib/perl5/vendor_perl/bin/
+colorcoke-git /usr/lib/perl5/vendor_perl/bin/colorcoke
+{% endhighlight %}
+
+Right. Add that (and the other missing dirs as well) to your $PATH in
+.bashrc or similar.
+
+{% highlight bash %}
+PATH=$PATH:/usr/lib/perl5/vendor_perl/bin:/usr/lib/perl5/core_perl/bin:/usr/lib/perl5/site_perl/bin
+{% endhighlight %}
+
+Use *hash -r* (bash) or *rehash* (zsh), and the PATH will be rehashed
+for executables.
+
+{% highlight bash %}
+$ which colorcoke
+/usr/lib/perl5/site_perl/bin/colorcoke
+{% endhighlight %}
+
+*UPDATE*
+
+I just talked to <a href="http://allanmcrae.com/">Allan McRae</a> on this issue.
+The reason why Perl executables are installed in */usr/lib/...* is
+because subdirectories in */usr/bin* are not allowed by the <a
+href="http://www.pathname.com/fhs/">Filesystem Hierarchy Standard</a>.
+
+The script that's supposed to update the PATH only works if the
+directories does exist. The first time a user will install a package
+containing Perl executeables, those directories will be created, but the
+PATH wont be updated until the next time that file is sourced (probably
+the next time the user logs in).
+
+I suggested to skip those checks and just add the directories to the
+PATH anyway, but <a
+href="https://bugs.archlinux.org/task/17402">apparently</a> that will
+create other problems.
+
+Therefore I submitted a <a
+href="https://bugs.archlinux.org/task/22197">bug rapport</a> on the
+matter, and the solution is pretty simple:
+
+{%highlight bash%}
+
+# Set path to perl scripts.
+# Remove the perlbin dirs in the next release.
+
+# Create directories and and them to the PATH.
+
+mkdir -p /usr/lib/perl5/{site,vendor,core}_perl/bin &&
+  PATH=$PATH:/usr/lib/perl5/site_perl/bin
+  PATH=$PATH:/usr/lib/perl5/vendor_perl/bin
+  PATH=$PATH:/usr/lib/perl5/core_perl/bin
+
+export PATH
+
+# If you have modules in non-standard directories you can add them here.
+#export PERLLIB=dir1:dir2
+
+{%endhighlight%}
+
+Hopefully, this will be solved pretty fast.
