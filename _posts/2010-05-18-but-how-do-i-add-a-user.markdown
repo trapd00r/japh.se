@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "But, how do I add a user?"
+title: "but, how do I add a user?"
 date: 2010-05-18
 tags: linux, bash, shell, perl
 ---

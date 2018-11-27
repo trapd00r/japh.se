@@ -1,7 +1,8 @@
 ---
 layout: post
-title: "Readline"
+title: "readline"
 date:   2011-01-21 13:04:02 +0100
+tags: perl, terminal, cli
 ---
 
 I've experimented a bit with various readline implementations in Perl.

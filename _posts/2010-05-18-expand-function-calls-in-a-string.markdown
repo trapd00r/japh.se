@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Expand function calls in a string"
+title: "expand function calls in a string"
 date: 2010-05-18
 tags: perl
 ---

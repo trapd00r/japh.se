@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Reset high speed USB device using ehci hcd"
+title: "reset high speed USB device using ehci hcd"
 date: 2010-08-10
 tags: linux, usb
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Control firefox remotely"
+title: "control firefox remotely"
 date: 2010-05-19
 tags: linux, perl, firefox
 ---

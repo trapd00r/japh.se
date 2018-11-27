@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The quest for the element"
+title: "the quest for the element"
 date: 2010-06-30
 tags: perl
 ---

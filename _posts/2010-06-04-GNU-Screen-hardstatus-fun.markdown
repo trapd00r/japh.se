@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "GNU screen hardstatus fun"
+title: "gnu screen hardstatus fun"
 date: 2010-06-04
 tags: linux, cli, shell, screen
 ---

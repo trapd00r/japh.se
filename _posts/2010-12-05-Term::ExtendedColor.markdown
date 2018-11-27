@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Term::ExtendedColor"
+title: "more colors with Term::ExtendedColor"
 date: 2010-12-05
-tags: perl
+tags: perl, terminal, cli
 ---
 
 If you want to colorize screen output in your programs, chances are

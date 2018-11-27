@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Want more colors in your terminal? Enter colorcoke!"
+title: "want more colors in your terminal? Enter colorcoke!"
 date: 2010-10-03
 tags: linux, terminal, cli
 ---
