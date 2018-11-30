@@ -1,7 +1,8 @@
 ---
 layout: default
-permalink: /projects/ls++
+permalink: /dev/ls++
 title: ls++
+author: Magnus Woldrich
 ---
 
 ![ls++ screenshot](/assets/ls++.png)
