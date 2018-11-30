@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: /dev/ls++
+permalink: /dev/ls++/
 title: ls++
 author: Magnus Woldrich
 ---

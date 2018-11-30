@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: /dev/colorcoke
+permalink: /dev/colorcoke/
 title: "colorcoke - modify the extended, non-ANSI terminal colorset"
 author: "Magnus Woldrich"
 ---
