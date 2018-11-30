@@ -2,6 +2,7 @@
 layout: post
 title: "rmshit solves annoying ~/Desktop (et al) creation"
 date: 2010-05-30
+author: "Magnus Woldrich"
 tags: linux, cli, perl
 ---
 

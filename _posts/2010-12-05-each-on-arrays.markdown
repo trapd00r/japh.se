@@ -2,6 +2,7 @@
 layout: post
 title: "each() on arrays"
 date: 2010-12-05
+author: "Magnus Woldrich"
 tags: perl
 ---
 

@@ -2,6 +2,7 @@
 layout: post
 title: "want more colors in your terminal? Enter colorcoke!"
 date: 2010-10-03
+author: "Magnus Woldrich"
 tags: linux, terminal, cli
 ---
 

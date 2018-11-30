@@ -2,6 +2,7 @@
 layout: post
 title: "more colors with Term::ExtendedColor"
 date: 2010-12-05
+author: "Magnus Woldrich"
 tags: perl, terminal, cli
 ---
 

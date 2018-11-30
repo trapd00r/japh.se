@@ -2,6 +2,7 @@
 layout: post
 title: "the quest for the element"
 date: 2010-06-30
+author: "Magnus Woldrich"
 tags: perl
 ---
 

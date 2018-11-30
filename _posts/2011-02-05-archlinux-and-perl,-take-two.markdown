@@ -2,6 +2,7 @@
 layout: post
 title: "archlinux and perl, take two"
 date: 2011-02-05
+author: "Magnus Woldrich"
 tags: linux, archlinux, perl
 ---
 

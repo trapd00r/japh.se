@@ -2,6 +2,7 @@
 layout: post
 title: "archlinux and perl 5.12"
 date: 2010-10-04
+author: "Magnus Woldrich"
 tags: linux,perl
 ---
 

@@ -2,6 +2,7 @@
 layout: post
 title: "but, how do I add a user?"
 date: 2010-05-18
+author: "Magnus Woldrich"
 tags: linux, bash, shell, perl
 ---
 

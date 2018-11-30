@@ -2,6 +2,7 @@
 layout: post
 title: "use several gtk themes simultaneously"
 date: 2011-02-04
+author: "Magnus Woldrich"
 tags: linux, gtk, firefox
 ---
 

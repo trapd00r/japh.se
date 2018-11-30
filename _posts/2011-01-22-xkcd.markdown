@@ -2,6 +2,7 @@
 layout: post
 title: "xkcd in your console"
 date: 2011-01-22
+author: "Magnus Woldrich"
 tags: perl, linux, cli
 ---
 

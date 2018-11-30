@@ -2,6 +2,7 @@
 layout: post
 title: "dotshare"
 date: 2011-07-17
+author: "Magnus Woldrich"
 tags: linux 
 ---
 

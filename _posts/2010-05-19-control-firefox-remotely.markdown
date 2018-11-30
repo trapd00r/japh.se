@@ -2,6 +2,7 @@
 layout: post
 title: "control firefox remotely"
 date: 2010-05-19
+author: "Magnus Woldrich"
 tags: linux, perl, firefox
 ---
 

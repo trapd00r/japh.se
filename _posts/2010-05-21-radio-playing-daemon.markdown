@@ -2,6 +2,7 @@
 layout: post
 title: "radio playing daemon"
 date: 2010-05-21
+author: "Magnus Woldrich"
 tags: linux, mpd, music, radio
 ---
 

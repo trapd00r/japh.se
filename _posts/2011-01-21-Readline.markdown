@@ -2,6 +2,7 @@
 layout: post
 title: "readline"
 date:   2011-01-21 13:04:02 +0100
+author: "Magnus Woldrich"
 tags: perl, terminal, cli
 ---
 

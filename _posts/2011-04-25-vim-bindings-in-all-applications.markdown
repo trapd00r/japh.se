@@ -2,6 +2,7 @@
 layout: post
 title: "vimbindings in all applications"
 date: 2011-04-25
+author: "Magnus Woldrich"
 tags: linux, vim
 ---
 

@@ -2,6 +2,7 @@
 layout: post
 title: "top n commands used in your shell"
 date: 2010-10-03
+author: "Magnus Woldrich"
 tags: linux, terminal, cli, bash, zsh
 ---
 

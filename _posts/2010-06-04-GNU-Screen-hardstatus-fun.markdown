@@ -2,6 +2,7 @@
 layout: post
 title: "gnu screen hardstatus fun"
 date: 2010-06-04
+author: "Magnus Woldrich"
 tags: linux, cli, shell, screen
 ---
 

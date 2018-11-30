@@ -2,6 +2,7 @@
 layout: post
 title: "expand function calls in a string"
 date: 2010-05-18
+author: "Magnus Woldrich"
 tags: perl
 ---
 
