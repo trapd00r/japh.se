@@ -73,3 +73,8 @@ generate standard ANSI colorschemes, one might try
 {%highlight perl%}
 colorcoke --random -s 0 -e 15 -rg 0 -rb 200
 {%endhighlight%}
+
+See also
+--------
+
+[colorcoke](/dev/colorcoke)

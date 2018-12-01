@@ -15,6 +15,8 @@ colors. Nowadays, most terminals support the extended colorset as
 well, and I was quite surprised there wasn't a module dealing with
 this already.
 
+I present to you [Term::ExtendedColor](/dev/term-extendedcolor).
+
 As of today, it's really hard to find a terminal that <b>does not</b>
 support these extended colors.
 
