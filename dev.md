@@ -25,7 +25,7 @@ Makes use of [Term::ExtendedColor::Xresources](/dev/term-extendedcolor-xresource
 
 --------
 
-[colortest-256-ng](/dev/colortest-256-ng)
+[colortest-256-ng](/dev/c256)
 
 Print defined terminal colors to stdout in various ways.
 
