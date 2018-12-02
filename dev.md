@@ -161,6 +161,6 @@ Better filemanagement with vim, in vim!
 
 [vimcat](/dev/vimcat/)
 
-Cat code in style with vim. I wrote an article about this [here](2018/11/27/use-vim-to-cat-files-in-style.html).
+Cat code in style with vim. I wrote an article about this [here](../2018/11/27/use-vim-to-cat-files-in-style.html).
 
 --------
