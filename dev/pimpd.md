@@ -1,7 +1,7 @@
 ---
 layout: default
 permalink: /dev/pimpd/
-title: "pimpd - an mpd client written in perl
+title: "pimpd - an mpd client written in perl"
 author: "Magnus Woldrich"
 ---
 
