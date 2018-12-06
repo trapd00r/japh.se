@@ -1,43 +1,56 @@
 ---
 layout: default
-permalink: /dev/file-lscolor
+permalink: /dev/file-lscolor/
 title: "File::LsColor - colorize input filenames like ls(1)"
 author: Magnus Woldrich
 ---
 
-# NAME
+# File::LsColor - Colorize input filenames just like ls does
 
-File::LsColor - Colorize input filenames just like ls does
+
+![find with lscolors](/assets/ls_color_find.png)
+
+![lookup lscolors](/assets/ls_color_lookup.png)
+
+
 
 # SYNOPSIS
 
-{%highlight perl%}
-use File::LsColor qw(:all);
-# Is equal to:
-use File::LsColor qw(
-  ls_color
-  ls_color_custom
-  ls_color_default
-  ls_color_internal
-);
+    use File::LsColor qw(:all);
+    # Is equal to:
+    use File::LsColor qw(
+      ls_color
+      ls_color_custom
+      ls_color_default
+      ls_color_internal
+    );
 
-my @files = glob("$ENV{HOME}/*");
+    my @files = glob("$ENV{HOME}/*");
 
-print ls_color($_), "\n" for(@files);
+    print ls_color($_), "\n" for(@files);
 
-# or specify own pattern
+    # or specify own pattern
 
-@files = ls_color_custom('*.pl=38;5;196;1:*.pm=38;5;220', @files);
+    @files = ls_color_custom('*.pl=38;5;196;1:*.pm=38;5;220', @files);
 
-# or use the internal mappings
+    # or use the internal mappings
 
-@files = ls_color_internal(@files);
+    @files = ls_color_internal(@files);
 
-# or use the defaults (only ANSI colors)
+    # or use the defaults (only ANSI colors)
 
-@files = ls_color_default(@files);
+    @files = ls_color_default(@files);
 
-{%endhighlight%}
+    ...
+
+    # returns a hashref with all defined filetypes and their attributes
+    my $ls_colors = get_ls_colors();
+
+    # what's the defined attributes for directories?
+
+    my $dir_color = lookup_ls_color('di');
+
+get\_ls\_colors()
 
 # DESCRIPTION
 
@@ -92,6 +105,11 @@ definition, like so:
 Returns a hash reference where a key is the extension and its value is the
 attributes attached to it.
 
+## lookup\_ls\_color()
+
+Given a valid name, returns the defined attributes associated with it.
+Else, returns undef.
+
 # AUTHOR
 
     Magnus Woldrich
@@ -101,7 +119,7 @@ attributes attached to it.
 
 # REPORTING BUGS
 
-Report bugs on rt.cpan.org or to m@japh.se
+Report bugs on [https://github.com/trapd00r/File-LsColor](https://github.com/trapd00r/File-LsColor) or to m@japh.se
 
 # CONTRIBUTORS
 
