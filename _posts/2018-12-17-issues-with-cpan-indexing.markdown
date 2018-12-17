@@ -8,7 +8,7 @@ tags: perl, cpan
 
 While getting back to the wonderful world of perl I've been updating some of my
 old distributions on cpan, and also adding new content. Some things seem to have
-changed over the last few years, though, and I've had a number of issues getting
+changed over the last few years, though, and I've had a number of [issues](https://github.com/metacpan/metacpan-web/issues/2136) getting
 my distributions to actually index.
 
 ### Adding an App:: distribution on cpan
