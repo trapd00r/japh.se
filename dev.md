@@ -147,7 +147,7 @@ Set colors and colorschemes in the TTY/Virtual console.
 
 --------
 
-[utils](https://github.com/trapd00r/utils)
+[utils](/dev/utils)
 
 Small, handy utilities for everyday work.
 
