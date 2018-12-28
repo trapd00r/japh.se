@@ -1,9 +1,14 @@
-  [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=65SFZJ25PSKG8&currency_code=SEK&source=url) - Every tiny cent helps a lot!
+---
+layout: default
+permalink: /dev/utils/
+title: "utils - small useful utilities for everyday work"
+author: Magnus Woldrich
+---
 
-  [github](https://github.com/trapd00r/utils)
+  
 
-  $HOME/dev/utils
-  ---------------
+  $HOME/dev/utils - [github](https://github.com/trapd00r/utils)
+-----------------
 
   This is essentially my **~/bin**:
 
