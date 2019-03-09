@@ -8,15 +8,15 @@
 <meta property="og:title" content="rtorrent harddrive lockup with many torrents solution" />
 <meta name="author" content="Magnus Woldrich" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="rtorrent is a great piece of software, and with patches from the rtorrent-ps project it’s even better. I started noticing harddrive lockups every now and then, where the program wouldn’t respond until I forcefully removed the usb cable to one of my drives." />
-<meta property="og:description" content="rtorrent is a great piece of software, and with patches from the rtorrent-ps project it’s even better. I started noticing harddrive lockups every now and then, where the program wouldn’t respond until I forcefully removed the usb cable to one of my drives." />
+<meta name="description" content="rtorrent is a great piece of software, and with patches from the rtorrent-ps project it’s even better. Seeding many torrents, I started noticing harddrive lockups every now and then, where the program wouldn’t respond until I forcefully removed the usb cable to one of my drives." />
+<meta property="og:description" content="rtorrent is a great piece of software, and with patches from the rtorrent-ps project it’s even better. Seeding many torrents, I started noticing harddrive lockups every now and then, where the program wouldn’t respond until I forcefully removed the usb cable to one of my drives." />
 <link rel="canonical" href="http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html" />
 <meta property="og:url" content="http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html" />
 <meta property="og:site_name" content="http/japh.se" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-03-09T00:00:00+01:00" />
 <script type="application/ld+json">
-{"dateModified":"2019-03-09T00:00:00+01:00","description":"rtorrent is a great piece of software, and with patches from the rtorrent-ps project it’s even better. I started noticing harddrive lockups every now and then, where the program wouldn’t respond until I forcefully removed the usb cable to one of my drives.","datePublished":"2019-03-09T00:00:00+01:00","headline":"rtorrent harddrive lockup with many torrents solution","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html"},"@type":"BlogPosting","url":"http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html","author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
+{"dateModified":"2019-03-09T00:00:00+01:00","description":"rtorrent is a great piece of software, and with patches from the rtorrent-ps project it’s even better. Seeding many torrents, I started noticing harddrive lockups every now and then, where the program wouldn’t respond until I forcefully removed the usb cable to one of my drives.","datePublished":"2019-03-09T00:00:00+01:00","headline":"rtorrent harddrive lockup with many torrents solution","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html"},"@type":"BlogPosting","url":"http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html","author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script>
 if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
@@ -62,10 +62,10 @@ if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNo
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>rtorrent is a great piece of software, and with patches from the <a href="https://github.com/pyroscope/rtorrent-ps">rtorrent-ps</a>
-project it’s even better. I started noticing harddrive lockups every now
-and then, where the program wouldn’t respond until I forcefully removed
-the usb cable to one of my drives.</p>
+    <p>rtorrent is a great piece of software, and with patches from the <a href="https://github.com/pyroscope/rtorrent-
+ps">rtorrent-ps</a> project it’s even better. Seeding many torrents, I started noticing
+harddrive lockups every now and then, where the program wouldn’t respond
+until I forcefully removed the usb cable to one of my drives.</p>
 
 <p>Figuring it could be that the drive itself was running bad, I just lived
 with the issue for a while. Upon accident, I stumbled upon an <a href="https://github.com/rakshasa/rtorrent/issues/180">issue</a> that looked relevant.</p>
@@ -89,7 +89,7 @@ performance hog.</p>
 schedule2 = session_save, 1200, 43200, ((session.save))
 </code></p>
 
-<p>and I’ve had zero lockups or crasches since then.</p>
+<p>and I’ve had zero lockups or crashes since then.</p>
 
 <p>Current situation looks like this:</p>
 

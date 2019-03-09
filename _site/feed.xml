@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://japh.se/feed.xml" rel="self" type="application/atom+xml" /><link href="http://japh.se/" rel="alternate" type="text/html" /><updated>2019-03-09T07:09:45+01:00</updated><id>http://japh.se/feed.xml</id><title type="html">http/japh.se</title><subtitle>just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment.</subtitle><entry><title type="html">rtorrent harddrive lockup with many torrents solution</title><link href="http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html" rel="alternate" type="text/html" title="rtorrent harddrive lockup with many torrents solution" /><published>2019-03-09T00:00:00+01:00</published><updated>2019-03-09T00:00:00+01:00</updated><id>http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents</id><content type="html" xml:base="http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html">&lt;p&gt;rtorrent is a great piece of software, and with patches from the &lt;a href=&quot;https://github.com/pyroscope/rtorrent-ps&quot;&gt;rtorrent-ps&lt;/a&gt;
-project it’s even better. I started noticing harddrive lockups every now
-and then, where the program wouldn’t respond until I forcefully removed
-the usb cable to one of my drives.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://japh.se/feed.xml" rel="self" type="application/atom+xml" /><link href="http://japh.se/" rel="alternate" type="text/html" /><updated>2019-03-09T07:52:54+01:00</updated><id>http://japh.se/feed.xml</id><title type="html">http/japh.se</title><subtitle>just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment.</subtitle><entry><title type="html">rtorrent harddrive lockup with many torrents solution</title><link href="http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html" rel="alternate" type="text/html" title="rtorrent harddrive lockup with many torrents solution" /><published>2019-03-09T00:00:00+01:00</published><updated>2019-03-09T00:00:00+01:00</updated><id>http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents</id><content type="html" xml:base="http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html">&lt;p&gt;rtorrent is a great piece of software, and with patches from the &lt;a href=&quot;https://github.com/pyroscope/rtorrent-
+ps&quot;&gt;rtorrent-ps&lt;/a&gt; project it’s even better. Seeding many torrents, I started noticing
+harddrive lockups every now and then, where the program wouldn’t respond
+until I forcefully removed the usb cable to one of my drives.&lt;/p&gt;
 
 &lt;p&gt;Figuring it could be that the drive itself was running bad, I just lived
 with the issue for a while. Upon accident, I stumbled upon an &lt;a href=&quot;https://github.com/rakshasa/rtorrent/issues/180&quot;&gt;issue&lt;/a&gt; that looked relevant.&lt;/p&gt;
@@ -25,7 +25,7 @@ performance hog.&lt;/p&gt;
 schedule2 = session_save, 1200, 43200, ((session.save))
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;and I’ve had zero lockups or crasches since then.&lt;/p&gt;
+&lt;p&gt;and I’ve had zero lockups or crashes since then.&lt;/p&gt;
 
 &lt;p&gt;Current situation looks like this:&lt;/p&gt;
 
@@ -35,7 +35,55 @@ schedule2 = session_save, 1200, 43200, ((session.save))
 1.5 GiB +   1.8 MiB =   1.5 GiB    rtorrent main
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;which is pretty darn good I must say.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="rtorrent," /><category term="linux" /><summary type="html">rtorrent is a great piece of software, and with patches from the rtorrent-ps project it’s even better. I started noticing harddrive lockups every now and then, where the program wouldn’t respond until I forcefully removed the usb cable to one of my drives.</summary></entry><entry><title type="html">clone all github repos and gists in one go</title><link href="http://japh.se/2019/02/04/clone_all_github_repos_and_gists_in_one_go.html" rel="alternate" type="text/html" title="clone all github repos and gists in one go" /><published>2019-02-04T00:00:00+01:00</published><updated>2019-02-04T00:00:00+01:00</updated><id>http://japh.se/2019/02/04/clone_all_github_repos_and_gists_in_one_go</id><content type="html" xml:base="http://japh.se/2019/02/04/clone_all_github_repos_and_gists_in_one_go.html">&lt;p&gt;At times I find myself wanting to clone every repository I have on
+&lt;p&gt;which is pretty darn good I must say.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="rtorrent," /><category term="linux" /><summary type="html">rtorrent is a great piece of software, and with patches from the rtorrent-ps project it’s even better. Seeding many torrents, I started noticing harddrive lockups every now and then, where the program wouldn’t respond until I forcefully removed the usb cable to one of my drives.</summary></entry><entry><title type="html">ignore blob of text on irssi channel join</title><link href="http://japh.se/2019/02/20/ignore-blob-of-text-on-irssi-channel-join.html" rel="alternate" type="text/html" title="ignore blob of text on irssi channel join" /><published>2019-02-20T00:00:00+01:00</published><updated>2019-02-20T00:00:00+01:00</updated><id>http://japh.se/2019/02/20/ignore-blob-of-text-on-irssi-channel-join</id><content type="html" xml:base="http://japh.se/2019/02/20/ignore-blob-of-text-on-irssi-channel-join.html">&lt;p&gt;Lately I’ve been having some connectivity issues on my wifi-connected
+raspberry pi. I run irssi among other things on it, and when I re-attach to the screen session running on it I’ll be greated by blobs of text like this one:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; Topic set by Zathrus ~tom@redhat/Zathrus [Fri Nov 16 18:15:40 2018]
+&amp;gt; Home page for #vim: http://vi-improved.org
+&amp;gt; Channel #vim created Sun Nov 26 07:42:44 2006
+&amp;gt; Irssi: Join to #vim was synced in 74 secs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This blob of text is re-printed everytime you (re)join a channel, and
+with a not so stable wifi connection it’ll very quickly fill up the
+entire scrollback.&lt;/p&gt;
+
+&lt;p&gt;Since I’m never interested in any of these info texts, I tried to just
+/ignore it all together, but that doesn’t work even with a mask like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;\*: CRAP CTCPS JOINS PARTS QUITS MODES TOPICS WALLOPS INVITES NICKS DCC DCCMSGS CLIENTNOTICES CLIENTCRAP CLIENTERRORS
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It was suggested to me to examine the lines with &lt;a href=&quot;https://scripts.irssi.org/scripts/linebuffer.pl&quot;&gt;linebuffer.pl&lt;/a&gt;, so I did:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; Topic set by %bgrknight%_ ~grknight@gentoo/developer/grknight %K[%b%_Fri Jan  4 20:55:24 2019%K]   [CRAP]
+&amp;gt; Home page for %R#gentoo%n: http://www.gentoo.org [CRAP]
+&amp;gt; Channel %R#gentoo%n created Sat Sep 15 05:15:36 2001   [CRAP]
+&amp;gt; %WIrssi:%_ Join to %_#gentoo%_ was synced in 2%_ secs     [NO_ACT CLIENTNOTICES]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To me it seems that the ignore mask SHOULD work, and this is indeed a &lt;a href=&quot;https://github.com/irssi/irssi/issues/992&quot;&gt;bug&lt;/a&gt; in irssi.&lt;/p&gt;
+
+&lt;p&gt;I went ahead and just &lt;a href=&quot;https://github.com/trapd00r/irssi/commit/87f38a20beda81e409a72efd323f5db45d824927&quot;&gt;removed&lt;/a&gt; the formats defined in module-
+formats.c.
+It works, but kind of annoying having to recompile (remember, this is a pi and it takes forever).&lt;/p&gt;
+
+&lt;p&gt;A better solution was to whip up a simple &lt;a href=&quot;https://github.com/irssi/scripts.irssi.org/blob/master/scripts/ignore_join_blob.pl&quot;&gt;script&lt;/a&gt; that stops the text to be printed to the terminal:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;k&quot;&gt;sub &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sig_print_text&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$dest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$stripped&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;@_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$dest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;level&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;MSGLEVEL_CRAP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$stripped&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;m/Topic (for|set)|Channel [#]\S+ created|Home page for [#]\S+/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nn&quot;&gt;Irssi::&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;signal_stop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nn&quot;&gt;Irssi::&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;signal_add_first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'print text'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&amp;amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sig_print_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Works great and now I’m able to follow up on conversations without
+having to scroll like crazy whenever I reattach my screen session.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="irssi," /><category term="perl" /><summary type="html">Lately I’ve been having some connectivity issues on my wifi-connected raspberry pi. I run irssi among other things on it, and when I re-attach to the screen session running on it I’ll be greated by blobs of text like this one:</summary></entry><entry><title type="html">clone all github repos and gists in one go</title><link href="http://japh.se/2019/02/04/clone_all_github_repos_and_gists_in_one_go.html" rel="alternate" type="text/html" title="clone all github repos and gists in one go" /><published>2019-02-04T00:00:00+01:00</published><updated>2019-02-04T00:00:00+01:00</updated><id>http://japh.se/2019/02/04/clone_all_github_repos_and_gists_in_one_go</id><content type="html" xml:base="http://japh.se/2019/02/04/clone_all_github_repos_and_gists_in_one_go.html">&lt;p&gt;At times I find myself wanting to clone every repository I have on
 github. Additionally, today I wanted to check out all the forgotten
 gists I’ve made over the years.&lt;/p&gt;
 
@@ -626,171 +674,4 @@ defaults.&lt;/p&gt;
 &lt;h2 id=&quot;pdf&quot;&gt;pdf&lt;/h2&gt;
 
 &lt;p&gt;For PDF viewing I use &lt;a href=&quot;https://github.com/naihe2010/apvlv&quot;&gt;apvlv&lt;/a&gt; which is the least
-annoying PDF viewer I know of and it ‘works just like Vim’.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="linux," /><category term="vim," /><category term="cli," /><category term="terminal" /><summary type="html">I love vim. It’s quite possibly one of the best engineered pieces of software ever created. Let me describe how I use vi(m) keymaps in every single application that I use on a daily basis.</summary></entry><entry><title type="html">modifying x resources on the fly</title><link href="http://japh.se/2018/11/28/modifying-x-resources-on-the-fly.html" rel="alternate" type="text/html" title="modifying x resources on the fly" /><published>2018-11-28T00:00:00+01:00</published><updated>2018-11-28T00:00:00+01:00</updated><id>http://japh.se/2018/11/28/modifying-x-resources-on-the-fly</id><content type="html" xml:base="http://japh.se/2018/11/28/modifying-x-resources-on-the-fly.html">&lt;p&gt;For these tricks, I am going to assume that you are using a somewhat
-sane terminal emulator.
-Everything I write about here works in xterm and urxvt, and most things
-should work in any vte-based terminal (gnome-terminal, termite,
-lxterminal etc).&lt;/p&gt;
-
-&lt;p&gt;Some things might or might not work in iTerm…&lt;/p&gt;
-
-&lt;p&gt;All things listed here does work in both GNU Screen and Tmux, but you will
-have to &lt;a href=&quot;https://github.com/trapd00r/Term-ExtendedColor-Xresources/blob/5973c08d7a4624a6e1b5d4a3c4f90a025985ea31/lib/Term/ExtendedColor/Xresources.pm#L115&quot;&gt;escape the escape sequences&lt;/a&gt;. ;)&lt;/p&gt;
-
-&lt;p&gt;Here’s a gif to keep you interested:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/t_e_x_rainbow.gif&quot; alt=&quot;gif&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;changing-terminal-color-schemes&quot;&gt;Changing terminal color schemes&lt;/h1&gt;
-
-&lt;p&gt;If you for some reason wish to change the colorscheme in your terminal,
-this is the usual way to do so:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;vim ~/.Xresources
-&amp;lt;tedious edit&amp;gt;
-&amp;lt;save&amp;gt;
-xrdb &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
-&amp;lt;close terminal session&amp;gt;
-&amp;lt;start a new one&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;This gets old quickly, especially if you’re in the process of trying new
-colors out, not sure what you’ll end up with.&lt;/p&gt;
-
-&lt;p&gt;Most people are aware of the fact that you can modify some colors of
-your terminal, i.e the so called ANSI colors; color index 0-15. The
-colors are usualy set during xinit, like so:&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;~/.xinitrc&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;xrdb ${XDG_CONFIG_HOME}/Xresources
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Xresources&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; .color0: #1b1d1e
- .color1: #1b1d1e
-...
-.color15: #f8f8f2
-.color16: #000000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;When you log in to your system and start your first terminal, these
-colors will be set… in stone.&lt;/p&gt;
-
-&lt;p&gt;No, not really.&lt;/p&gt;
-
-&lt;p&gt;Let’s start two terminals, side by side:
-[IMAGE]&lt;/p&gt;
-
-&lt;p&gt;In both terminals, run this command:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;i &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;0..15&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[48;5;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;m%.2d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[m&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;[IMAGE]&lt;/p&gt;
-
-&lt;p&gt;What you see is the currently defined ANSI color table. Now, in one of
-the terminals, run this:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;i &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;0..15&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;]4;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$x&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;;rgb:ff/00/00&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e\\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;[IMAGE]&lt;/p&gt;
-
-&lt;p&gt;We’ve just changed all of the defined ANSI colors to #ff0000, also known as
-‘very red’, but &lt;em&gt;only&lt;/em&gt; in the currently running terminal session. Not
-very useful, but bare with me.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Over the years I’ve stumbled upon countless open source projects that
-deal with terminal colors in any way that hardcode the color values. It
-seems to be a little known fact that the extended colorset is not only
-customizable, but you can modify them on the fly as well. Needless to say, 
-hardcoded values are never good.&lt;/p&gt;
-
-&lt;p&gt;Let’s try to modify some non-ANSI colors, shall we?&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;i &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;17..33&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;]4;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;;rgb:00/00/00&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e\\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/modify_index_17_to_33.svg&quot; alt=&quot;svg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;If this doesn’t work for you and you’re using xterm, you might need to
-set these options in your Xresources configuration:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;XTerm*dynamicColors: 1
-XTerm*allowColorOps: 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If you’re using urxvt and it doesn’t work, you might need to &lt;a href=&quot;https://github.com/trapd00r/rxvt-unicode/commit/8b254b10e18d2cc1c0d8de37781e8982fb0aa284&quot;&gt;patch&lt;/a&gt; it.&lt;/p&gt;
-
-&lt;p&gt;So, we can modify colors, that’s great. But what about the hardcoded
-values we talked about earlier? If we modify our colors like crazy, the
-software that relies on those hardcoded default will break?&lt;/p&gt;
-
-&lt;p&gt;Well, they are broken to begin with, and they need to be fixed. We can query the terminal for the actual colors:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;]4;197;?&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\a&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Output:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rgb:ffff/0000/5f5f
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Color index 197 has the value of ff005f (default).&lt;/p&gt;
-
-&lt;p&gt;Let’s change its value and query the terminal again:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;]4;197;rgb:ff/ff/00&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e\\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;]4;197;?&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\a&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Output:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rgb:ffff/ffff/0000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Pink turned yellow.&lt;/p&gt;
-
-&lt;p&gt;Maybe we can get away with assuming the first 16 ANSI colors are set to
-something somewhat sane, but applications that deal with these extended
-colors should either:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Do the right thing and &lt;strong&gt;query&lt;/strong&gt; the terminal for set colors.&lt;/li&gt;
-  &lt;li&gt;Explicitly state that it assumes that no colors are modified; i.e;
-default xterm colors.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;other-escapes&quot;&gt;Other escapes&lt;/h2&gt;
-
-&lt;p&gt;The development of new terminal features has been pretty sparse over the
-past 27 years (&lt;a href=&quot;https://www.ecma-international.org/publications/standards/Ecma-
-048.htm&quot;&gt;ECMA-48, 1991&lt;/a&gt;).&lt;/p&gt;
-
-&lt;p&gt;And for good reasons. Having a standard is crucial for developers and users alike.
-Nowadays when talking about standards, the phrase ‘xterm compatible’ is common.
-Terminals claim to emulate &lt;em&gt;most&lt;/em&gt; of xterm, when in reality they emulate
-the &lt;a href=&quot;https://invisible-
-island.net/xterm/xterm.faq.html#compare_versions&quot;&gt;most commonly used&lt;/a&gt; control sequences.&lt;/p&gt;
-
-&lt;p&gt;There has been new development in this area though as of lately.
-A few new terminals that market themselves as using opengl to render the
-screen have seen the light, most notably
-&lt;a href=&quot;https://sw.kovidgoyal.net/kitty&quot;&gt;kitty&lt;/a&gt; (not to be confused with the
-putty fork of the same name).&lt;/p&gt;
-
-&lt;h1 id=&quot;resources&quot;&gt;Resources&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://metacpan.org/pod/release/WOLDRICH/Term-ExtendedColor-0.222/lib/Term/ExtendedColor.pm&quot;&gt;Term::ExtendedColor - Perl library for using extended colors in your terminal&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://metacpan.org/pod/Term::ExtendedColor::Xresources&quot;&gt;Term::ExtendedColor::Xresources - Perl library for modifying colors and query the terminal for set values&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/trapd00r/Term-ExtendedColor-TTY&quot;&gt;Text::ExtendedColor::TTY - Perl library for changing and querying the TTY/VC for various resources, such as colors&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/trapd00r/colorcoke/tree/4dc70684a33995694812f5ce59ce7241a97b30e4&quot;&gt;Colorcoke - Program for changing the terminal colors in many ways&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/trapd00r/rgbterm&quot;&gt;rgbterm - query the terminal for rgb values of defined terminal colors&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/trapd00r/Term-ExtendedColor/blob/master/bin/uncolor&quot;&gt;uncolor - strip input data from escape sequences&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/trapd00r/configs/blob/a7c67925a2e1a14a777e26592f6de0e5973e3d89/Xresources&quot;&gt;My Xresources&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/trapd00r/configs/blob/master/Xcolors/nancy.Xresources&quot;&gt;My defined terminal colors&lt;/a&gt;&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="linux," /><category term="colors," /><category term="terminals" /><summary type="html">For these tricks, I am going to assume that you are using a somewhat sane terminal emulator. Everything I write about here works in xterm and urxvt, and most things should work in any vte-based terminal (gnome-terminal, termite, lxterminal etc).</summary></entry></feed>
+annoying PDF viewer I know of and it ‘works just like Vim’.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="linux," /><category term="vim," /><category term="cli," /><category term="terminal" /><summary type="html">I love vim. It’s quite possibly one of the best engineered pieces of software ever created. Let me describe how I use vi(m) keymaps in every single application that I use on a daily basis.</summary></entry></feed>
