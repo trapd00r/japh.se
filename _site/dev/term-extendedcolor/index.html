@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Term::ExtendedColor - Color screen output using 256 colors | http/japh.se</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="Term::ExtendedColor - Color screen output using 256 colors" />
+<meta name="author" content="Magnus Woldrich" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment." />
+<meta property="og:description" content="just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment." />
+<link rel="canonical" href="http://japh.se/dev/term-extendedcolor/" />
+<meta property="og:url" content="http://japh.se/dev/term-extendedcolor/" />
+<meta property="og:site_name" content="http/japh.se" />
+<script type="application/ld+json">
+{"description":"just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment.","headline":"Term::ExtendedColor - Color screen output using 256 colors","@type":"WebPage","url":"http://japh.se/dev/term-extendedcolor/","author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-11890504-2', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">http/japh.se </a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+
+        <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+        |
+        <a href="/dev">dev()</a>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <p>Term::ExtendedColor provides functions for sending so called extended
+escape sequences to the terminal.</p>
+
+<p>This ought to be used with a 256-color compatible terminal; see the
+NOTES section for a matrix of terminal emulators currently
+supporting this.</p>
+
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">use</span> <span class="nn">Term::</span><span class="nv">ExtendedColor</span> <span class="sx">qw(:all)</span><span class="p">;</span>
+
+<span class="c1"># Or use the 'attributes' tag to only import the functions for setting</span>
+<span class="c1"># attributes.</span>
+<span class="c1"># This will import the following functions:</span>
+
+<span class="c1"># fg(), bg(), bold(), underline(), inverse(), italic(), clear()</span>
+<span class="k">use</span> <span class="nn">Term::</span><span class="nv">ExtendedColor</span> <span class="s">':attributes'</span><span class="p">;</span>
+
+<span class="c1">## Foreground colors</span>
+
+<span class="k">my</span> <span class="nv">$red_text</span> <span class="o">=</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'red2'</span><span class="p">,</span> <span class="s">'this is in red'</span><span class="p">);</span>
+<span class="k">my</span> <span class="nv">$spring</span>   <span class="o">=</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'springgreen3'</span><span class="p">,</span> <span class="s">'this is green'</span><span class="p">);</span>
+
+<span class="c1">## Background colors</span>
+
+<span class="k">print</span> <span class="nv">bg</span><span class="p">(</span><span class="s">'red5'</span><span class="p">,</span> <span class="s">"Default foreground text on dark red background"</span><span class="p">),</span> <span class="s">"\n"</span><span class="p">;</span>
+<span class="k">my</span> <span class="nv">$red_on_green</span> <span class="o">=</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'red3'</span><span class="p">,</span> <span class="nv">bg</span><span class="p">(</span><span class="s">'green12'</span><span class="p">,</span> <span class="s">'Red text on green background'</span><span class="p">));</span>
+<span class="k">print</span> <span class="s">"$red_on_green\n"</span><span class="p">;</span>
+
+<span class="c1">## Fall-through attributes</span>
+
+<span class="nn">Term::ExtendedColor::</span><span class="nv">autoreset</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">my</span> <span class="nv">$bold</span>  <span class="o">=</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'bold'</span><span class="p">,</span> <span class="s">'This is bold'</span><span class="p">);</span>
+<span class="k">my</span> <span class="nv">$red</span>   <span class="o">=</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'red2'</span><span class="p">,</span> <span class="s">'This is red... and bold'</span><span class="p">);</span>
+<span class="k">my</span> <span class="nv">$green</span> <span class="o">=</span> <span class="nv">bg</span><span class="p">(</span><span class="s">'green28'</span><span class="p">,</span> <span class="s">'This is bold red on green background'</span><span class="p">);</span>
+
+<span class="c1"># Make sure to clear all attributes when autoreset turned OFF,</span>
+<span class="c1"># or else the users shell will be messed up</span>
+
+<span class="k">my</span> <span class="nv">$clear</span> <span class="o">=</span> <span class="nv">clear</span><span class="p">();</span>
+<span class="k">print</span> <span class="s">"$bold\n"</span><span class="p">;</span>
+<span class="k">print</span> <span class="s">"$red\n"</span><span class="p">;</span>
+<span class="k">print</span> <span class="s">"$green $clear\n"</span><span class="p">;</span>
+
+<span class="c1">## Non-color attributes</span>
+
+<span class="c1"># Turn on autoreset again</span>
+<span class="nn">Term::ExtendedColor::</span><span class="nv">autoreset</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="k">for</span><span class="p">(</span><span class="sx">qw(italic underline blink reverse bold)</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">print</span> <span class="nv">fg</span><span class="p">(</span><span class="nv">$_</span><span class="p">,</span> <span class="nv">$_</span><span class="p">),</span> <span class="s">"\n"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1"># For convenience</span>
+
+<span class="k">my</span> <span class="nv">$bolded</span> <span class="o">=</span> <span class="nv">bold</span><span class="p">(</span><span class="s">"Bold text!"</span><span class="p">);</span>
+<span class="k">my</span> <span class="nv">$italic</span> <span class="o">=</span> <span class="nv">italic</span><span class="p">(</span><span class="s">"Text in italics!"</span><span class="p">);</span>
+
+<span class="c1">## Remove all attributes from input data</span>
+<span class="k">my</span> <span class="nv">@colored</span><span class="p">;</span>
+<span class="nb">push</span><span class="p">(</span><span class="nv">@colored</span><span class="p">,</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'bold'</span><span class="p">,</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'red2'</span><span class="p">,</span> <span class="s">'Bold and red'</span><span class="p">)));</span>
+<span class="nb">push</span><span class="p">(</span><span class="nv">@colored</span><span class="p">,</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'green13'</span><span class="p">,</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'italic'</span><span class="p">,</span> <span class="s">'Green, italic'</span><span class="p">)));</span>
+
+<span class="k">print</span> <span class="s">"$_\n"</span> <span class="k">for</span> <span class="nv">@colored</span><span class="p">;</span>
+<span class="k">print</span> <span class="s">"$_\n"</span> <span class="k">for</span> <span class="nv">uncolor</span><span class="p">(</span><span class="nv">@colored</span><span class="p">);</span></code></pre></figure>
+
+<h2 id="exports">EXPORTS</h2>
+
+<p>None by default.</p>
+
+<p>Two tags are provided for convience:</p>
+
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="c1"># Import all functions</span>
+<span class="k">use</span> <span class="nn">Term::</span><span class="nv">ExtendedColor</span> <span class="sx">qw(:all)</span><span class="p">;</span>
+
+<span class="c1"># Import functions for setting attributes</span>
+<span class="c1"># fg(), bg(), bold(), italic(), underline(), inverse(), clear()</span>
+<span class="k">use</span> <span class="nn">Term::</span><span class="nv">ExtendedColor</span> <span class="sx">qw(:attributes)</span><span class="p">;</span></code></pre></figure>
+
+<h2 id="functions">FUNCTIONS</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fg($color, $string)
+
+Set foreground colors and attributes.
+</code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">my</span> <span class="nv">$green</span> <span class="o">=</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'green2'</span><span class="p">,</span> <span class="s">'green foreground'</span><span class="p">);</span>
+<span class="k">my</span> <span class="nv">@blue</span>  <span class="o">=</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'blue4'</span><span class="p">,</span>  <span class="p">[</span><span class="s">'takes arrayrefs as well'</span><span class="p">]);</span>
+
+<span class="k">my</span> <span class="nv">$x_color</span> <span class="o">=</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'mediumorchid1'</span><span class="p">,</span> <span class="s">'Using mappings from the X11 rgb.txt'</span><span class="p">);</span>
+
+<span class="k">my</span> <span class="nv">$arbitary_color</span> <span class="o">=</span> <span class="nv">fg</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s">'This is colored in the fifth ANSI color'</span><span class="p">);</span></code></pre></figure>
+
+<p>See “COLORS AND ATTRIBUTES” for valid first arguments. Additionally,
+colors can be specified using their index value:</p>
+
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">my</span> <span class="nv">$yellow</span> <span class="o">=</span> <span class="nv">fg</span><span class="p">(</span><span class="mi">220</span><span class="p">,</span> <span class="s">'Yellow'</span><span class="p">);</span></code></pre></figure>
+
+<p>If the internal $AUTORESET variable is non-zero (default), every element
+in the list of strings will be wrapped in escape sequences in such a way
+that the requested attributes will be set before the string and reset to
+defaults after the string.</p>
+
+<p>Fall-through attributes can be enabled by setting $AUTORESET to a false
+value.</p>
+
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="nn">Term::ExtendedColor::</span><span class="nv">autoreset</span><span class="p">(</span> <span class="mi">0</span> <span class="p">);</span>
+<span class="k">my</span> <span class="nv">$red</span>   <span class="o">=</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'red1'</span><span class="p">,</span> <span class="s">'Red'</span><span class="p">);</span>
+<span class="k">my</span> <span class="nv">$green</span> <span class="o">=</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'green1'</span><span class="p">,</span> <span class="s">'Green'</span><span class="p">);</span>
+
+<span class="k">print</span> <span class="s">"Text after $red is red until $green\n"</span><span class="p">;</span>
+<span class="k">print</span> <span class="s">"Text is still green, "</span><span class="p">,</span> <span class="nv">bold</span><span class="p">(</span><span class="s">'and now bold as well!'</span><span class="p">);</span>
+
+<span class="c1"># If you exit now without resetting the colors and attributes, chances are</span>
+<span class="c1"># your prompt will be messed up.</span>
+
+<span class="nv">clear</span><span class="p">();</span> <span class="c1"># All back to normal</span></code></pre></figure>
+
+<p>If an invalid attribute is passed, the original data will be returned
+unmodified.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bg($color, $string)
+Like "fg()", but sets background colors.
+</code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">my</span> <span class="nv">$green_bg</span> <span class="o">=</span> <span class="nv">bg</span><span class="p">(</span><span class="s">'green4'</span><span class="p">,</span> <span class="s">'green background'</span><span class="p">);</span>
+<span class="k">my</span> <span class="nv">@blue_bg</span>  <span class="o">=</span> <span class="nv">bg</span><span class="p">(</span><span class="s">'blue6'</span><span class="p">,</span>  <span class="p">[</span><span class="s">'blue background'</span><span class="p">]);</span></code></pre></figure>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uncolor($string)
+Remove all attribute and color escape sequences from the input.
+See perldoc uncolor for a command-line utility using this function.
+</code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">my</span> <span class="nv">$stripped</span> <span class="o">=</span> <span class="nv">uncolor</span><span class="p">(</span><span class="nv">$colored_data</span><span class="p">);</span>
+<span class="k">my</span> <span class="nv">@no_color</span> <span class="o">=</span> <span class="nv">uncolor</span><span class="p">(</span><span class="o">\</span><span class="nv">@colored</span><span class="p">);</span></code></pre></figure>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>get_colors()
+Returns a hash reference with all available attributes and colors.
+</code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">my</span> <span class="nv">$colors</span> <span class="o">=</span> <span class="nv">get_colors</span><span class="p">();</span></code></pre></figure>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>clear()
+When called in scalar context, returns the escape sequence that resets
+all attributes to their defaults.
+
+When called in void context, prints it directly.
+
+autoreset()
+Turn autoreset on/off. Enabled by default.
+</code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="nn">Term::ExtendedColor::</span><span class="nv">autoreset</span><span class="p">(</span> <span class="mi">0</span> <span class="p">);</span> <span class="c1"># Turn off autoreset</span></code></pre></figure>
+
+<h2 id="convenience-functions">Convenience functions</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bold(@data)
+italic(@data)
+underline(@data)
+inverse(@data)
+</code></pre></div></div>
+
+<h2 id="notes">NOTES</h2>
+<p>The codes generated by this module complies to the extension of the ANSI
+colors standard first implemented in xterm in 1999. The first 16 color
+indexes (0 - 15) is the regular ANSI colors, while index 16 - 255 is the
+extension. Not all terminal emulators support this extension, though
+I’ve had a hard time finding one that doesn’t. :)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Terminal    256 colors
+  ----------------------
+  aterm               no
+  eterm              yes
+  gnome-terminal     yes
+  konsole            yes
+  lxterminal         yes
+  mrxvt              yes
+  roxterm            yes
+  rxvt                no
+  rxvt-unicode       yes - Full support added in version 9.09
+  sakura             yes
+  terminal           yes
+  terminator         yes
+  vte                yes
+  xterm              yes
+  iTerm2             yes
+  Terminal.app        no
+
+  GNU Screen         yes
+  tmux               yes
+  TTY/VC              no
+</code></pre></div></div>
+
+<p>There’s no way to give these extended colors meaningful names.</p>
+
+<p>Our first thought was to map them against some standard color names,
+like those in the HTML 4.0 specification or the SVG one. They didn’t
+match.</p>
+
+<p>Therefore, they are named by their base color (red, green, magenta) plus
+index; The first index (always 1) is the brightest shade of that
+particular color, while the last index is the darkest.</p>
+
+<p>It’s also possible to use some X color names, as defined in “rgb.txt”.
+Do note that the color values do not match exactly; it’s just an
+approximation.</p>
+
+<p>A full list of available colors can be retrieved with “get_colors()”.
+See “COLORS AND ATTRIBUTES” for full list. All mapped colors can also be
+retrieved programmatically with “get_colors()”.</p>
+
+<h2 id="colors-and-attributes">COLORS AND ATTRIBUTES</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Attributes
+    reset, clear, normal        reset all attributes
+    bold, bright                bold or bright, depending on implementation
+    faint                       decreased intensity (not widely supported)
+    italic, cursive             italic or cursive
+    underline, underscore       underline
+    blink                       slow blink
+    blink_ms                    rapid blink (only supported in MS DOS)
+    reverse, inverse, negative  reverse video
+    conceal                     conceal, or hide (not widely supported)
+  
+Standard color map
+    FIRST       LAST
+  
+    red1        red5
+    blue1       blue17
+    cyan1       cyan24
+    gray1       gray24
+    green1      green28
+    orange1     orange5
+    purple1     purple30
+    yellow1     yellow18
+    magenta1    magenta26
+  
+X color names
+    aquamarine1
+    aquamarine3
+    blueviolet
+    cadetblue1
+    cadetblue2
+    chartreuse1
+    chartreuse2
+    chartreuse3
+    chartreuse4
+    cornflowerblue
+    cornsilk1
+    darkblue
+    darkcyan
+    darkgoldenrod
+    darkgreen
+    darkkhaki
+    darkmagenta1
+    darkmagenta2
+    darkolivegreen1
+    darkolivegreen2
+    darkolivegreen3
+    darkolivegreen4
+    darkolivegreen5
+    darkorange3
+    darkorange4
+    darkorange1
+    darkred1
+    darkred2
+    darkseagreen1
+    darkseagreen2
+    darkseagreen3
+    darkseagreen4
+    darkslategray1
+    darkslategray2
+    darkslategray3
+    darkturquoise
+    darkviolet
+    deeppink1
+    deeppink2
+    deeppink3
+    deeppink4
+    deepskyblue1
+    deepskyblue2
+    deepskyblue3
+    deepskyblue4
+    deepskyblue4
+    dodgerblue1
+    dodgerblue2
+    dodgerblue3
+    gold1
+    gold3
+    greenyellow
+    grey0
+    grey100
+    grey11
+    grey15
+    grey19
+    grey23
+    grey27
+    grey30
+    grey3
+    grey35
+    grey37
+    grey39
+    grey42
+    grey46
+    grey50
+    grey53
+    grey54
+    grey58
+    grey62
+    grey63
+    grey66
+    grey69
+    grey70
+    grey74
+    grey7
+    grey78
+    grey82
+    grey84
+    grey85
+    grey89
+    grey93
+    honeydew2
+    hotpink2
+    hotpink3
+    hotpink
+    indianred1
+    indianred
+    khaki1
+    khaki3
+    lightcoral
+    lightcyan1
+    lightcyan3
+    lightgoldenrod1
+    lightgoldenrod2
+    lightgoldenrod3
+    lightgreen
+    lightpink1
+    lightpink3
+    lightpink4
+    lightsalmon1
+    lightsalmon3
+    lightsalmon3
+    lightseagreen
+    lightskyblue1
+    lightskyblue3
+    lightskyblue3
+    lightslateblue
+    lightslategrey
+    lightsteelblue1
+    lightsteelblue3
+    lightsteelblue
+    lightyellow3
+    mediumorchid1
+    mediumorchid3
+    mediumorchid
+    mediumpurple1
+    mediumpurple2
+    mediumpurple3
+    mediumpurple4
+    mediumpurple
+    mediumspringgreen
+    mediumturquoise
+    mediumvioletred
+    mistyrose1
+    mistyrose3
+    navajowhite1
+    navajowhite3
+    navyblue
+    orangered1
+    orchid1
+    orchid2
+    orchid
+    palegreen1
+    palegreen3
+    paleturquoise1
+    paleturquoise4
+    palevioletred1
+    pink1
+    pink3
+    plum1
+    plum2
+    plum3
+    plum4
+    purple
+    rosybrown
+    royalblue1
+    salmon1
+    sandybrown
+    seagreen1
+    seagreen2
+    seagreen3
+    skyblue1
+    skyblue2
+    skyblue3
+    slateblue1
+    slateblue3
+    springgreen1
+    springgreen2
+    springgreen3
+    springgreen4
+    steelblue1
+    steelblue3
+    steelblue
+    tan
+    thistle1
+    thistle3
+    turquoise2
+    turquoise4
+    violet
+    wheat1
+    wheat4
+</code></pre></div></div>
+
+<h2 id="see-also">SEE ALSO</h2>
+
+<p><a href="/dev/term-extendedcolor-xresources">Term::ExtendedColor::Xresources</a></p>
+
+<p><a href="/dev/term-extendedcolor-tty">Term::ExtendedColor::TTY</a></p>
+
+<h2 id="author">AUTHOR</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Magnus Woldrich
+  CPAN ID: WOLDRICH
+  m@japh.se
+  http://japh.se
+</code></pre></div></div>
+
+
+<!--      <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a> -->
+
+      </div>
+
+
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+<!--    <h2 class="footer-heading">http/japh.se</h2> -->
+    <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">http/japh.se</li><li><a class="u-email" href="mailto:m@japh.se">m@japh.se</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/trapd00r"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">trapd00r</span></a></li><li><a href="https://www.linkedin.com/in/japh"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">japh</span></a></li><li><a href="https://www.twitter.com/wantarray"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">wantarray</span></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg> <span>rss</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

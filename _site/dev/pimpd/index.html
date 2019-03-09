@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>pimpd - an mpd client written in perl | http/japh.se</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="pimpd - an mpd client written in perl" />
+<meta name="author" content="Magnus Woldrich" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment." />
+<meta property="og:description" content="just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment." />
+<link rel="canonical" href="http://japh.se/dev/pimpd/" />
+<meta property="og:url" content="http://japh.se/dev/pimpd/" />
+<meta property="og:site_name" content="http/japh.se" />
+<script type="application/ld+json">
+{"description":"just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment.","headline":"pimpd - an mpd client written in perl","@type":"WebPage","url":"http://japh.se/dev/pimpd/","author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-11890504-2', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">http/japh.se </a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+
+        <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+        |
+        <a href="/dev">dev()</a>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <h1 id="name">NAME</h1>
+
+<p>pimpd - Perl Interface for the Music Player Daemon</p>
+
+<h1 id="synopsis">SYNOPSIS</h1>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pimpd [OPTIONS...] (ARG)
+</code></pre></div></div>
+
+<h1 id="description">DESCRIPTION</h1>
+
+<p>pimpd is an MPD client written in Perl that aims to implement what the
+excellent mpc client is lacking (for good reasons), as well as all the
+regular functionality one would expect.</p>
+
+<h2 id="local-playback">Local playback</h2>
+
+<p>If defined in the configuration file, an external player can be used for
+playback of music running on another box (the MPD server). This is fully
+transparent; when MPD is stopped, so is the external player.</p>
+
+<p>When the –play flag is given, pimpd will connect to MPD and start playback
+if neccessary, and at the same time connect to the stream with the specified
+external player.</p>
+
+<p>Issues with unreliable network connections/slow disks causing the external
+player to exit is eliminated, as well as scenarios where the MPD playlist
+might be temporary empty (no playback - external player exits).</p>
+
+<h2 id="regular-expression-based-queries">Regular expression based queries</h2>
+
+<p>You can search the database and playlist using regular expressions. There are
+several other (faster) ways to search as well - by artist, album or title.</p>
+
+<p>Additionally, it’s possible to search through all favlists at the same time,
+adding the matches to the current playlist. Since pimpd internally keeps an
+csv-style database up to date with the favorized tracks, it’s enough to search
+for artist, album, title, genre and/or file, in any combination.</p>
+
+<h2 id="randomizing">Randomizing</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-r will create a new playlist with &lt;num&gt; randomly selected tracks from the
+   database added.
+
+-ra will create a new playlist with &lt;num&gt; randomly selected albums from the
+    database added.
+
+-rt will play a random track from the current playlist.
+</code></pre></div></div>
+
+<h2 id="favorites">Favorites</h2>
+
+<p>Favorites are handled in several ways. When the -f flag is used, pimpd will
+check for the genre tag of the song and, if existing, save it in the playlist
+directory with a year-month_genre-notation.
+If there’s no genre tag, the $fallback_playlist, specified in the
+configuration file, is used.</p>
+
+<p>pimpd will also keep a CSV-style database updated with more additional data on
+the song. This have several purposes:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* other applications might expect regular m3u-style playlists with only a
+  defined "file"-field,
+
+* the database holds additional information on the favorites, which allows for
+  more powerful search capabilities, and
+
+* we can generate nifty stats for loved songs
+</code></pre></div></div>
+
+<h2 id="transfering-of-music">Transfering of music</h2>
+
+<p>There are several ways of transfering music.</p>
+
+<p>This is especially useful if the MPD server is running elsewhere and you want
+to listen to the music locally, or if you want to transfer some music to your
+portable music player.</p>
+
+<p>The $ssh_host, $ssh_port and $ssh_user variables in the configuration file
+must be defined in the configuration file, and you must be using SSH keys for
+this to work over networks.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-cp  simply copies the currently playing track to the specifed location.
+
+-cpa copies the full album where the currently playing track is featured.
+
+-cpl copies all tracks in the specified playlist to the specified location.
+</code></pre></div></div>
+
+<h2 id="interactive-shell">Interactive shell</h2>
+
+<p>From the interactive shell one can access almost all functionality that’s
+available through regular option flags.</p>
+
+<h2 id="monitor-song-changes">Monitor song changes</h2>
+
+<p>There are two ways to monitor song changes:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-m  simply print song changes to stdout.
+
+-md monitor in daemon mode. This is useful for things like OSD notifications,
+    integration in dzen2 and so on. Most window managers uses their own sort
+    of notification functionality which can also be used.
+</code></pre></div></div>
+
+<h2 id="now-playing">Now playing</h2>
+
+<p>There are three options that will yeild some info on the current track:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-i     print all information available.
+
+-np    print information on the currently playing track only, on a single line.
+
+-nprt  print information on the currently playing track in realtime mode.
+</code></pre></div></div>
+
+<h2 id="colors">Colors</h2>
+
+<p>pimpd does support colorschemes, which are defined and loaded from the
+configuration file. 256 colors is supported, as well as no colors at all.</p>
+
+<p>All of this works on local MPD servers as well as remote ones.</p>
+
+<h1 id="options">OPTIONS</h1>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-i,     --info          show all info for the currently playing song
+-np,    --current       print basic song info on a single lin
+        --np-rt         print updating song info on a single line
+-r,     --random        randomize a new playlist with &lt;num&gt; tracks
+-ra,    --random-album  randomize a new playlist with &lt;num&gt; albums
+-rt,    --random-track  play a random track from the playlist
+-cp,    --copy          copy the current track to specified location
+-cpa,   --cp-album      copy the current album to specified location
+-cpl,   --cp-list       copy playlist &lt;str&gt; to specified location
+-f,     --fav           add the current track to the favorites
+-fs,    --favstats      generate statistics based on previous favorizations
+-l,     --listalbums    list all albums featuring artist
+-lsa,   --listsongs     list all songs on the current album
+-lsp,   --list-pl       list all available playlists
+-pls    --playlist      show the current playlist
+-t,     --track         play track &lt;num&gt; from playlist
+-a,     --add           add playlist &lt;str&gt;. If &lt;str&gt; eq "all", add all
+-aa,    --add-album     add the current album to the playlist
+-m,     --monitor       monitor MPD for song changes (output on STDOUT)
+-md,    --monitor-d     monitor MPD for song changes in daemon mode
+-k,     --kill          kill pimpd when running in daemon mode
+-q,     --queue         queue &lt;num&gt; tracks
+-e,     --external      list all tracks in external playlist
+-sh,    --shell         spawn the interactive pimpd shell
+-spl,   --search-pl     search the playlist for [&lt;pattern&gt;]
+-sdb,   --search-db     search the database for [&lt;pattern&gt;]
+-sar,   --search-artist search the database for [&lt;artist&gt;]
+-sal,   --search-album  search the database for [&lt;album&gt;]
+-set,   --search-title  search the database for [&lt;title&gt;]
+-sap,   --favsearch     search the favlists for artist, album, title, file
+-c,     --clear         clear the playlist before performing any action that
+                        generates a new playlist
+        --play          start remote/local playback
+        --stop          stop remote/local playback
+-no,    --no-color      turn colors off
+        --mpd-kill      shut down the MPD server
+        --host          remote MPD host
+        --port          remote MPD port
+        --pass          remote MPD password
+        --ssh-host      remote SSH server host
+        --ssh-port      remote SSH server port
+        --ssh-user      remote SSH server user
+
+-h,     --help          show the help and exit
+        --man           show the manpage and exit
+</code></pre></div></div>
+
+<h1 id="environment">ENVIRONMENT</h1>
+
+<p>The configuration file should be placed in $XDG_CONFIG_HOME/pimpd/pimpd.conf OR
+/etc/pimpd.conf</p>
+
+<h1 id="author">AUTHOR</h1>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Magnus Woldrich
+CPAN ID: WOLDRICH
+m@japh.se
+http://japh.se
+</code></pre></div></div>
+
+<h1 id="contributors">CONTRIBUTORS</h1>
+
+<p>Olof Johansson made the original scp routines.</p>
+
+<h1 id="copyright">COPYRIGHT</h1>
+
+<p>Copyright (C) 2009, 2010, 2011 <strong>pimpd</strong>s <a href="#author">“AUTHOR”</a> and <a href="#contributors">“CONTRIBUTORS”</a> as
+listed above.</p>
+
+<h1 id="license">LICENSE</h1>
+
+<p>This program is free software; you may redistribute it and/or modify it under
+the same terms as Perl itself.</p>
+
+<h1 id="see-also">SEE ALSO</h1>
+
+<p><strong>pimpd2</strong>  &lt;http://github.com/trapd00r/pimpd2&gt;</p>
+
+
+<!--      <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a> -->
+
+      </div>
+
+
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+<!--    <h2 class="footer-heading">http/japh.se</h2> -->
+    <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">http/japh.se</li><li><a class="u-email" href="mailto:m@japh.se">m@japh.se</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/trapd00r"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">trapd00r</span></a></li><li><a href="https://www.linkedin.com/in/japh"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">japh</span></a></li><li><a href="https://www.twitter.com/wantarray"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">wantarray</span></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg> <span>rss</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

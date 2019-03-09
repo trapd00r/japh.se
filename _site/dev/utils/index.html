@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>utils - small useful utilities for everyday work | http/japh.se</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="utils - small useful utilities for everyday work" />
+<meta name="author" content="Magnus Woldrich" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment." />
+<meta property="og:description" content="just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment." />
+<link rel="canonical" href="http://japh.se/dev/utils/" />
+<meta property="og:url" content="http://japh.se/dev/utils/" />
+<meta property="og:site_name" content="http/japh.se" />
+<script type="application/ld+json">
+{"description":"just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment.","headline":"utils - small useful utilities for everyday work","@type":"WebPage","url":"http://japh.se/dev/utils/","author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-11890504-2', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">http/japh.se </a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+
+        <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+        |
+        <a href="/dev">dev()</a>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <h2 id="homedevutils---github">$HOME/dev/utils - <a href="https://github.com/trapd00r/utils">github</a></h2>
+
+<p>This is essentially my <strong>~/bin</strong>:</p>
+
+<p>A collection of smaller and larger scripts that help me get by
+  doing everyday tasks, yet they don’t deserve their own repository.</p>
+
+<p>A few scripts explained below by extracting the abstract using <a href="https://github.com/trapd00r/utils/blob/master/utils_readme">utils_readme</a>.</p>
+
+<ul>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/1984">1984</a> - fun with pv</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/absname">absname</a> - you can’t trust $PWD in linux</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/albumlist">albumlist</a> - display all albums by artist</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/alias">alias</a> - display zsh aliases</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/all_unicode">all_unicode</a> - print all unicode chars</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/amigaremix_dump">amigaremix_dump</a> - rip all songs from amigaremix.com - in parallel</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/amigaremix_dump_noprereq">amigaremix_dump_noprereq</a> - rip all songs from amigaremix.com</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/ansi_pacman">ansi_pacman</a> - pacman with ansi colors</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/ansic">ansic</a> - show defined ansi colors</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/author">author</a> - print japh author</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/bake">bake</a> - build perl stuff</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/bigrand">bigrand</a> - generate n random numbers</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/bob">bob</a> - mount bob the boxeebox</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/bolaget">bolaget</a> - is the systembolaget open today?</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/build">build</a> - install missing modules automagically</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/by_extension">by_extension</a> - fetch filetype information based on extensions</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/c256-grey-colorscheme">c256-grey-colorscheme</a> - generate a grey 256 color colorscheme</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/calc">calc</a> - simple calculator</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/cconvert">cconvert</a> - convert to/from bin, oct, hex, dec</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/clarify">clarify</a> - show line endings</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/clean">clean</a> - clean up a release dir</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/clftail">clftail</a> - color-follow-tail for access.log</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/colorclock">colorclock</a> - a terminal color clock</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/colorls">colorls</a> - ls with colors</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/colorscheme">colorscheme</a> - change ansi colorscheme to mine</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/colorx">colorx</a> - print defined colors in an X shape</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/crossmake">crossmake</a> - makes cross’s in all kinds of shapes and colors</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/cs_preview.vim">cs_preview.vim</a> - colorscheme previews in vim</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/define">define</a> - look up words in the terminal</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/dircolors2vim">dircolors2vim</a> - generate vim syntax file for defined LS_COLORS</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/dltrack">dltrack</a> - track a file while it’s being downloaded</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/dmesg-a">dmesg-a</a> - a colored dmesg</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/domain_gen">domain_gen</a> - generate a valid domain name</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/domain_snatch">domain_snatch</a> - generate a valid domain name and snatch it</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/dupe_tv_by_episode">dupe_tv_by_episode</a> - only keep the best quality tv show</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/dusch">dusch</a> - what’s eating all the space?</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/duschiamej">duschiamej</a> - what’s eating all the space, take two?</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/everywhere">everywhere</a> - run cmd everywhere</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/exifdel">exifdel</a> - delete all exif data from photos</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/facebook_url_count">facebook_url_count</a> - how many times have $url been shared on facebook?</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/facebook_user_info">facebook_user_info</a> - print information for $user on facebook</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/filebytype">filebytype</a> - move files to dirs compelling to actual file-type</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/filter_ext_lscolor">filter_ext_lscolor</a> - prints filetypes matching query, colored if defined in LS_COLORS</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/fimpc">fimpc</a> - use fifos to control mpd using mpc</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/font_preview">font_preview</a> - preview all fonts in your terminal</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/ft">ft</a> - show filetype info</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/generate_xresources">generate_xresources</a> - generate a hash with colorschemes from X resources</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/generate_zsh_completion">generate_zsh_completion</a> - generate zsh completion</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/get_ls_colors">get_ls_colors</a> - print all defined LS_COLORS</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/gh_clone_all_user_repos.sh">gh_clone_all_user_repos.sh</a> - clone all repos from $GITHUB_USER</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/git-diff-syntaxhl">git-diff-syntaxhl</a> - prettier git diff</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/git-rec">git-rec</a> - perform git actions recursively</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/hits">hits</a> - show httpd resources with most hits</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/html2txt">html2txt</a> - turn html into plain text</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/imv">imv</a> - watch a dir and scp all created files therein to another host</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/invert_screen">invert_screen</a> - invert the entire screen</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/kitty_dump_colors">kitty_dump_colors</a> - generate kitty colorscheme from defined term colors</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/knnp">knnp</a> - now playing for knradio</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/laleh-check">laleh-check</a> - check if string is present in Laleh’s lyrics</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/limpdeg">limpdeg</a> - injects n moldy playlists in mpd</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/lmame">lmame</a> - mame frontend using ratmenu</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/lnes">lnes</a> - nes frontend using ratmenu</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/load">load</a> - a non-interactive top</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/ls2">ls2</a> - colored ls, again</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/ls3">ls3</a> - colored ls, yet again</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/lscolorpicker">lscolorpicker</a> - generate LS_COLORS interactively</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/md2html">md2html</a> - convert input markdown file to html</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/mkdr">mkdr</a> - given file.ext, mkdir file/ and move file.ext to file/file.ext</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/mpd_del">mpd_del</a> - remove songs matching PATTERN from mpd playlist</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/mpd_del_album">mpd_del_album</a> - remove album from mpd playlist</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/mpd_keep">mpd_keep</a> - remove songs NOT matching PATTERN from mpd playlist</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/mpd_playlist_fix">mpd_playlist_fix</a> - remove invalid entries from m3u playlists</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/mpd_twmn">mpd_twmn</a> - mpd notifications in a tiling wm</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/mpd_update_status">mpd_update_status</a> - mpd update with status</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/mplayer_exec">mplayer_exec</a> - mplayer client for mplayer daemon</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/mplayerd">mplayerd</a> - mplayer as a daemon</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/mpnp">mpnp</a> - mplayer now-playing using Mplayer::NowPlaying</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/music">music</a> - start a music session in tmux</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/net_on_på_sid">net_on_på_sid</a> - enable ethernet on 82579V chipsets</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/nicefind">nicefind</a> - a very nice find ui</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/np">np</a> - mpd now playing</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/pacstat">pacstat</a> - pacman statisticts</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/passwd_gen">passwd_gen</a> - generate a safe password</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/peak">peak</a> - return human readable strings from bins</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/pilsner">pilsner</a> - what later turned into ls++</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/pimpla">pimpla</a> - perl interface for mplayer using fifos</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/pkgfont">pkgfont</a> - list packages that includes fonts</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/post">post</a> - tool to aid me in writing a new blog post using jekyll</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/prename">prename</a> - rename with perl regex</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/pshot">pshot</a> - take screenshot, transfer it to host and return url</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/rainbow">rainbow</a> - a rainbow in your shell</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/ratrepl">ratrepl</a> - ratpoison repl</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/rel">rel</a> - flexget parser</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/rename-tv">rename-tv</a> - rename tv episodes</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/rename_youtube">rename_youtube</a> - rename files downloaded with clive to something a bit more sensible</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/rescue_chmod">rescue_chmod</a> - chmod -x /bin/chmod, HELP</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/rgb_by_index">rgb_by_index</a> - rgb by xterm index</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/rgbtohex">rgbtohex</a> - converts the X11 colortable RGB values to hexadecimal</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/rgbxterm">rgbxterm</a> - term color definitions &gt; {tty, html}</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/rmfile">rmfile</a> - there’s rmdir but no rmfile…</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/rmtpy">rmtpy</a> - given a root directory, remove empty directories or directories one level deep with only empty files in them</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/rotate">rotate</a> - rotate screen based on current rotation</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/rp-groups-menu">rp-groups-menu</a> - ratpoison groups menu</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/rp-runorraise">rp-runorraise</a> - ratpoison run OR raise (hi firefox)</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/sanitize">sanitize</a> - sanitize filenames</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/sascii">sascii</a> - interactive key inspector</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/scat">scat</a> - a cat with syntax highlighting powers</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/seen">seen</a> - abuse sticky bits etc to mark a movie or show as seen</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/setallfonts">setallfonts</a> - set all fonts to ARG</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/setbg">setbg</a> - set terminal background</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/shivastream">shivastream</a> - nokia n900 mpd streaming aid</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/srinfo">srinfo</a> - sveriges radio info fetcher</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/srnp">srnp</a> - now playing for sveriges radio</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/strip_esc">strip_esc</a> - strip data from escape sequences</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/term_attr">term_attr</a> - dump all term attributes</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/to_phone">to_phone</a> - scp files to the phone and place it where I want it</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/topsi">topsi</a> - a bunch of tops in one go</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/traffic">traffic</a> - visualize httpd traffic</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/translate">translate</a> - translate</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/u-arrows">u-arrows</a> - unicode arrows</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/u-blocks">u-blocks</a> - unicode blocks</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/u-boxdrawing">u-boxdrawing</a> - unicode boxes</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/u-brackets">u-brackets</a> - unicode brackets</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/u-fullwidth">u-fullwidth</a> - unicode fullwidth</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/u-music">u-music</a> - unicode music</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/u-punctation">u-punctation</a> - unicode punctation</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/u-whitespace">u-whitespace</a> - unicode whitespace</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/ucfirst">ucfirst</a> - uppercase first</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/uncode">uncode</a> - transform ascii data to unicode chars</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/unrarec">unrarec</a> - unrar stuff recursively</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/url_find">url_find</a> - extracts URLs from data</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/utils_readme">utils_readme</a> - generate README.md from utils/*</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/vim-time-fix-db">vim-time-fix-db</a> - remove various non-file records from the vim-times db</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/vim_old">vim_old</a> - how much time do I spend in my vim?</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/vimcolors">vimcolors</a> - dump vim colors to terminal</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/vimsyntax">vimsyntax</a> - generate html from vim syntax hl</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/vw">vw</a> - format text properly and send it to vim</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/wallpaper_daemon">wallpaper_daemon</a> - changes background on htpc connected tv every $sleep seconds</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/whatfont">whatfont</a> - query the terminal for the current fonts in use.</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/xdgdirs">xdgdirs</a> - check that XDG_* dirs are defined</li>
+  <li><a href="https://github.com/trapd00r/utils/blob/master/♫">♫</a> - set oss4 audio levels</li>
+</ul>
+
+
+<!--      <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a> -->
+
+      </div>
+
+
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+<!--    <h2 class="footer-heading">http/japh.se</h2> -->
+    <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">http/japh.se</li><li><a class="u-email" href="mailto:m@japh.se">m@japh.se</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/trapd00r"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">trapd00r</span></a></li><li><a href="https://www.linkedin.com/in/japh"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">japh</span></a></li><li><a href="https://www.twitter.com/wantarray"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">wantarray</span></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg> <span>rss</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

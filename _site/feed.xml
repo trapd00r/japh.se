@@ -1,0 +1,796 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://japh.se/feed.xml" rel="self" type="application/atom+xml" /><link href="http://japh.se/" rel="alternate" type="text/html" /><updated>2019-03-09T07:09:45+01:00</updated><id>http://japh.se/feed.xml</id><title type="html">http/japh.se</title><subtitle>just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment.</subtitle><entry><title type="html">rtorrent harddrive lockup with many torrents solution</title><link href="http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html" rel="alternate" type="text/html" title="rtorrent harddrive lockup with many torrents solution" /><published>2019-03-09T00:00:00+01:00</published><updated>2019-03-09T00:00:00+01:00</updated><id>http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents</id><content type="html" xml:base="http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html">&lt;p&gt;rtorrent is a great piece of software, and with patches from the &lt;a href=&quot;https://github.com/pyroscope/rtorrent-ps&quot;&gt;rtorrent-ps&lt;/a&gt;
+project it’s even better. I started noticing harddrive lockups every now
+and then, where the program wouldn’t respond until I forcefully removed
+the usb cable to one of my drives.&lt;/p&gt;
+
+&lt;p&gt;Figuring it could be that the drive itself was running bad, I just lived
+with the issue for a while. Upon accident, I stumbled upon an &lt;a href=&quot;https://github.com/rakshasa/rtorrent/issues/180&quot;&gt;issue&lt;/a&gt; that looked relevant.&lt;/p&gt;
+
+&lt;p&gt;Although some people think it could be an dns issue, some people also
+reports that:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;It seems to happen when the session directory is being updated.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Turns out that rtorrent saves all the sessions every 20 minutes by
+default. With a large amount of torrents this can be a disk
+performance hog.&lt;/p&gt;
+
+&lt;p&gt;I tried to increase the interval to 12 hours instead:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;~/.rtorrent.rc&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+schedule2 = session_save, 1200, 43200, ((session.save))
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;and I’ve had zero lockups or crasches since then.&lt;/p&gt;
+
+&lt;p&gt;Current situation looks like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/rtorrent.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+1.5 GiB +   1.8 MiB =   1.5 GiB    rtorrent main
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;which is pretty darn good I must say.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="rtorrent," /><category term="linux" /><summary type="html">rtorrent is a great piece of software, and with patches from the rtorrent-ps project it’s even better. I started noticing harddrive lockups every now and then, where the program wouldn’t respond until I forcefully removed the usb cable to one of my drives.</summary></entry><entry><title type="html">clone all github repos and gists in one go</title><link href="http://japh.se/2019/02/04/clone_all_github_repos_and_gists_in_one_go.html" rel="alternate" type="text/html" title="clone all github repos and gists in one go" /><published>2019-02-04T00:00:00+01:00</published><updated>2019-02-04T00:00:00+01:00</updated><id>http://japh.se/2019/02/04/clone_all_github_repos_and_gists_in_one_go</id><content type="html" xml:base="http://japh.se/2019/02/04/clone_all_github_repos_and_gists_in_one_go.html">&lt;p&gt;At times I find myself wanting to clone every repository I have on
+github. Additionally, today I wanted to check out all the forgotten
+gists I’ve made over the years.&lt;/p&gt;
+
+&lt;p&gt;I whipped up these two scripts:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;clone_all_repos&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# abstract: clone all github repos from GITHUB_USER&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;CNTX&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'users'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GITHUB_USER&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# a maximum of 100 repos per page&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;END_PAGE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;3
+
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;PAGE &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;1..&lt;span class=&quot;nv&quot;&gt;$END_PAGE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do
+  &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://api.github.com/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CNTX&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$NAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/repos?page=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PAGE&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;amp;per_page=100&quot;&lt;/span&gt; |
+    &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'git_url*'&lt;/span&gt; |
+    &lt;span class=&quot;nb&quot;&gt;cut&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; 4     |
+    xargs &lt;span class=&quot;nt&quot;&gt;-L1&lt;/span&gt; git clone
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;strong&gt;clone_all_gists&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# abstract: clone all gists from GITHUB_USER&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GITHUB_USER&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;gist &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  curl &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; https://api.github.com/users/&lt;span class=&quot;nv&quot;&gt;$NAME&lt;/span&gt;/gists &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    | &lt;span class=&quot;nb&quot;&gt;grep &lt;/span&gt;git_pull_url &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Po&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'https:.+[.]git'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do
+  &lt;/span&gt;git clone &lt;span class=&quot;nv&quot;&gt;$gist&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Remember to set your GITHUB_USER environment variable, and adjust the
+END_PAGE variable in the clone_all_repos script if necessary.&lt;/p&gt;
+
+&lt;p&gt;They are both available &lt;a href=&quot;https://github.com/trapd00r/github-clone-all&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="github," /><category term="cli," /><category term="git" /><summary type="html">At times I find myself wanting to clone every repository I have on github. Additionally, today I wanted to check out all the forgotten gists I’ve made over the years.</summary></entry><entry><title type="html">use a custom sound file for terminal bell</title><link href="http://japh.se/2019/02/02/use-a-custom-sound-file-for-terminal-bell.html" rel="alternate" type="text/html" title="use a custom sound file for terminal bell" /><published>2019-02-02T00:00:00+01:00</published><updated>2019-02-02T00:00:00+01:00</updated><id>http://japh.se/2019/02/02/use-a-custom-sound-file-for-terminal-bell</id><content type="html" xml:base="http://japh.se/2019/02/02/use-a-custom-sound-file-for-terminal-bell.html">&lt;p&gt;I wanted to enable my internal pc speaker; you know that annoying
+beeping thing. Normally the pcspkr module is blacklisted by default
+(since it’s so annoying), so I re-enabled it.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;modprobe pcspkr
+&lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;a&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;No beep.&lt;/p&gt;
+
+&lt;p&gt;Upon closer inspection of my computer, turns out there’s no actual
+speaker inside my computer. Well isn’t that a shame.
+I did however discover that you can simulate one by using X resources:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;URxvt&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;bell-command: play ~/awp.wav&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The actual sound will obviously go through your normal speakers or
+headphones, but that’s okay. Now I can do things like:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;unrar x big_movie.rar &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cp &lt;/span&gt;Big_movie.mkv /mnt/NAS/movies &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;a&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;and walk away from the computer. I will still hear the sound of the &lt;a href=&quot;https://github.com/trapd00r/configs/blob/master/awp.wav?raw=true&quot;&gt;CS 1.6 AWP&lt;/a&gt;
+firing off at me when the operation is done.&lt;/p&gt;
+
+&lt;p&gt;The bell-command can be anything, and the play command is part of the
+ALSA packages.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="linux," /><category term="terminal" /><summary type="html">I wanted to enable my internal pc speaker; you know that annoying beeping thing. Normally the pcspkr module is blacklisted by default (since it’s so annoying), so I re-enabled it.</summary></entry><entry><title type="html">use mhddfs to mount several physical disks as one</title><link href="http://japh.se/2019/01/27/use-mhddfs-to-mount-several-physical-disks-as-one.html" rel="alternate" type="text/html" title="use mhddfs to mount several physical disks as one" /><published>2019-01-27T00:00:00+01:00</published><updated>2019-01-27T00:00:00+01:00</updated><id>http://japh.se/2019/01/27/use-mhddfs-to-mount-several-physical-disks-as-one</id><content type="html" xml:base="http://japh.se/2019/01/27/use-mhddfs-to-mount-several-physical-disks-as-one.html">&lt;p&gt;I’m guilty as charged with obsessive compulsion disorder when it comes to
+my files. Nothing more so than my music collection. I’ve spent more time
+sorting it through the years than I’d like to think about.&lt;/p&gt;
+
+&lt;p&gt;An annoying thing with this behavior is that I have to move files from
+time to time across physical disks and partitions. This can be quite
+tiresome and time consuming.&lt;/p&gt;
+
+&lt;p&gt;Let me present &lt;a href=&quot;https://romanrm.net/mhddfs&quot;&gt;mhddfs&lt;/a&gt;. It’s a filesystem
+in userspace that allows you to mount several physical drives into one
+fixed mount point. Doesn’t have to be physical drives either, can be
+partitions or plain directories as well.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;df -h /mnt/music*&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Filesystem                          Size  Used Avail Use% Mounted on
+/dev/sdc1                           916G  840G   30G  97% /mnt/music
+/dev/sdb1                           916G  788G   82G  91% /mnt/music2
+/dev/sdd1                           1.8T  126G  1.6T   8% /mnt/music3
+/mnt/music;/mnt/music2;/mnt/music3  3.6T  1.8T  1.7T  51% /mnt/music4
+total                               7.2T  3.5T  3.4T  51% -
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As you can see, the first three drives are mounted in /mnt/music4.
+Everything on sdb1, sdc1 and sdd1 can be found at that mount point.
+If I decide to stop using mhddfs, I can do so at any time without any
+form of data loss. Files are written to the disk with enough free space.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mhddfs#/mnt/music,/mnt/music2,/mnt/music3   /mnt/music4 fuse defaults,user,allow_other 0 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Magnus Woldrich</name></author><category term="filesystem," /><category term="linux" /><summary type="html">I’m guilty as charged with obsessive compulsion disorder when it comes to my files. Nothing more so than my music collection. I’ve spent more time sorting it through the years than I’d like to think about.</summary></entry><entry><title type="html">color urls in urxvt without abusing underline property</title><link href="http://japh.se/2019/01/23/color-urls-in-urxvt-without-abusing-underline-property.html" rel="alternate" type="text/html" title="color urls in urxvt without abusing underline property" /><published>2019-01-23T00:00:00+01:00</published><updated>2019-01-23T00:00:00+01:00</updated><id>http://japh.se/2019/01/23/color-urls-in-urxvt-without-abusing-underline-property</id><content type="html" xml:base="http://japh.se/2019/01/23/color-urls-in-urxvt-without-abusing-underline-property.html">&lt;p&gt;The url-select perl addon for urxvt is awesome for mouseless opening of urls.&lt;/p&gt;
+
+&lt;p&gt;Without it, you have to select the url with your mouse, and remember which
+clipboard buffer it ends up in prior to pasting it in your browser (unless you
+&lt;a href=&quot;https://github.com/trapd00r/clipboard_to_primary&quot;&gt;use something that’ll sync your buffers&lt;/a&gt;).
+If you’re anything like me, nine times out of ten you’ll end up pasting
+from the wrong buffer.&lt;/p&gt;
+
+&lt;p&gt;It would be nice if we could have the urls stand out a bit from the rest of the
+text on the screen, and here’s how to do it properly.&lt;/p&gt;
+
+&lt;p&gt;One way to color URLs in urxvt is to set the properties:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;url-select.underline: true
+colorUL: #ff0000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;A couple of downsides to this method:
+ &lt;img src=&quot;/assets/urxvt_underline_red.png&quot; align=&quot;right&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;You have to underline the urls, which can look ugly&lt;/li&gt;
+  &lt;li&gt;You effectively change the properties for &lt;strong&gt;all&lt;/strong&gt; underlined text.
+This is most probably not what you want.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Instead, make sure to set properties for only the matched data, like so:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;matcher.rend.0: Bold fg5
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/urxvt_urls.png&quot; alt=&quot;urls&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The relevant bits from my Xresources:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;URxvt.perl-lib:              /home/scp1/dev/urxvt-extensions
+URxvt.perl-ext-common:       default,clipboard,url-select,keyboard-select,bell-command,matcher
+URxvt.keysym.C-u:            perl:url-select:select_next
+URxvt.perl-ext:              selection,mark-yank-urls
+URxvt.url-select.launcher:   /usr/lib/firefox/firefox
+URxvt.urlLauncher:           /usr/lib/firefox/firefox
+URxvt.url-select.underline:  false
+URxvt.keysym.C-Up:           perl:keyboard-select:activate
+URxvt.keysym.M-s:            perl:keyboard-select:search
+
+URxvt.matcher.rend.0:        Italic fg5
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And as always, my ~/etc is &lt;a href=&quot;https://github.com/trapd00r/configs&quot;&gt;available on github&lt;/a&gt;&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="urxvt," /><category term="colors," /><category term="terminal" /><summary type="html">The url-select perl addon for urxvt is awesome for mouseless opening of urls.</summary></entry><entry><title type="html">automatically fetch lyrics with mpd</title><link href="http://japh.se/2019/01/16/automatically_fetch_lyrics_with_mpd.html" rel="alternate" type="text/html" title="automatically fetch lyrics with mpd" /><published>2019-01-16T00:00:00+01:00</published><updated>2019-01-16T00:00:00+01:00</updated><id>http://japh.se/2019/01/16/automatically_fetch_lyrics_with_mpd</id><content type="html" xml:base="http://japh.se/2019/01/16/automatically_fetch_lyrics_with_mpd.html">&lt;p&gt;I have a decently sized music collection and I use mpd and
+&lt;a href=&quot;https://github.com/trapd00r/pimpd2&quot;&gt;pimpd2&lt;/a&gt; to enjoy it. I rarely use ncmpcpp
+myself, but I’ve found a very good use for it.&lt;/p&gt;
+
+&lt;p&gt;Autostart it when you start your screen session and forget about it:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;.screenrc&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;screen &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; nc ncmpcpp&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;strong&gt;$XDG_CONFIG_HOME/ncmpcpp/config&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;lyrics_directory                            &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ~/dev/lyrics/
+follow_now_playing_lyrics                   &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;yes
+&lt;/span&gt;store_lyrics_in_song_dir                    &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; no
+fetch_lyrics_for_current_song_in_background &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now, whenever a song change occurs in mpd, the lyrics is automatically fetched
+in the background.&lt;/p&gt;
+
+&lt;p&gt;Now we want a way to store the ever-expanding collection of lyrics and always
+keep it up to date. It’s all textual data so obviously we use git.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;lyrics_update&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/dev/lyrics             &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
+  git add &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;                     &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
+  git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'update lyrics'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git push&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;and we stuff that in a crontab:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;0 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; sh /home/scp1/dev/utils/lyrics_update&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The update script will run once every hour.&lt;/p&gt;
+
+&lt;p&gt;As of this writing, I’ve collected a total of &lt;strong&gt;510654&lt;/strong&gt; lines of lyrics and
+they can be digested &lt;a href=&quot;https://github.com/trapd00r/lyrics&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="lyrics," /><category term="mpd," /><category term="music," /><category term="ncmpcpp" /><summary type="html">I have a decently sized music collection and I use mpd and pimpd2 to enjoy it. I rarely use ncmpcpp myself, but I’ve found a very good use for it.</summary></entry><entry><title type="html">issues with cpan indexing</title><link href="http://japh.se/2018/12/17/issues-with-cpan-indexing.html" rel="alternate" type="text/html" title="issues with cpan indexing" /><published>2018-12-17T00:00:00+01:00</published><updated>2018-12-17T00:00:00+01:00</updated><id>http://japh.se/2018/12/17/issues-with-cpan-indexing</id><content type="html" xml:base="http://japh.se/2018/12/17/issues-with-cpan-indexing.html">&lt;p&gt;While getting back to the wonderful world of perl I’ve been updating some of my
+old distributions on cpan, and also adding new content. Some things seem to have
+changed over the last few years, though, and I’ve had a number of &lt;a href=&quot;https://github.com/metacpan/metacpan-web/issues/2136&quot;&gt;issues&lt;/a&gt; getting
+my distributions to actually index.&lt;/p&gt;
+
+&lt;h3 id=&quot;adding-an-app-distribution-on-cpan&quot;&gt;Adding an App:: distribution on cpan&lt;/h3&gt;
+
+&lt;p&gt;I discovered that a large number of App:: dists of mine were missing from the cpan, so
+I started investigating. Here’s what I’ve found:&lt;/p&gt;
+
+&lt;h4 id=&quot;metacpan-wont-index-a-distribution-that-doesnt-have-a-package-declaration&quot;&gt;(Meta)cpan won’t index a distribution that doesn’t have a package declaration.&lt;/h4&gt;
+
+&lt;p&gt;Solution: Create a stub pm file:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;lib/App/Foo.pm
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;nb&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;App::&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;our&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$VERSION&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'0.001'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin/foo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;App::&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;strong&gt;OR&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Add a provides field to the META file by adding this to Makefile.PL:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;nv&quot;&gt;META_ADD&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;provides&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;'App::foo'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'bin/foo'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;index-failed-decreasing-version-number&quot;&gt;Index failed: decreasing version number&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Make sure to NOT include any MYMETA.json or MYMETA.yml in your MANIFEST!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;When you run&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  perl Makefile.PL
+  make
+  makedist
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;META.json and META.yml files are generated for you, and added to the
+distribution tarball.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Make sure to declare your $VERSION like this:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;our $VERSION = ‘0.020’;&lt;/p&gt;
+
+&lt;p&gt;It’s important to stringify your version number; if you represent it using a
+floating point number, version number comparison can fail in various ways.&lt;/p&gt;
+
+&lt;p&gt;Also make sure that the declaration is on a single line.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="perl," /><category term="cpan" /><summary type="html">While getting back to the wonderful world of perl I’ve been updating some of my old distributions on cpan, and also adding new content. Some things seem to have changed over the last few years, though, and I’ve had a number of issues getting my distributions to actually index.</summary></entry><entry><title type="html">make perl distribution making automatic</title><link href="http://japh.se/2018/12/13/make-perl-distribution-making-automatic.html" rel="alternate" type="text/html" title="make perl distribution making automatic" /><published>2018-12-13T00:00:00+01:00</published><updated>2018-12-13T00:00:00+01:00</updated><id>http://japh.se/2018/12/13/make-perl-distribution-making-automatic</id><content type="html" xml:base="http://japh.se/2018/12/13/make-perl-distribution-making-automatic.html">&lt;p&gt;Making a cpan distribution isn’t hard, but I’ve noticed that I sometimes
+hesitate;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What files should go in the tarball and what files do I leave out?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;During development, it’s not unusual for a bunch of temp files to reside in the
+current working directory. Short temp scripts to test functionality, old build
+files and maybe a README that’s aimed for i.e github and not for distribution.
+Simply adding everything in cwd ain’t gonna cut it.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What was the proper command to make said tarball again?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The command to untar a file is forever stuck in my brain, but the command for
+creating a gzipped tarball is not. Not to mention the fact that I feel the
+options and file argument order are messed up.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;What’s the proper way to name the finished tarball?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If I’m about to upload a non-library distribution to cpan, should I add the
+App:: prefix or not? What did I do on the previous release? I can’t remember!&lt;/p&gt;
+
+&lt;p&gt;Was it an underscore, a hyphen or a dot between the distribution name and the
+version number? And it should be .tar.gz or was it just .tar? .gz?&lt;/p&gt;
+
+&lt;h2 id=&quot;makedist&quot;&gt;makedist&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/makedist.png&quot; alt=&quot;makedist&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Because of outlined reasons I decided to &lt;a href=&quot;https://github.com/trapd00r/makedist&quot;&gt;hack something&lt;/a&gt; together to aid
+me in this process. A few other things I wanted to implement:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;I want to copy the finished distribution to a local directory for archiving purposes.&lt;/li&gt;
+  &lt;li&gt;I want to copy the finished distribution to a remote directory for archiving purposes.&lt;/li&gt;
+  &lt;li&gt;I want to automatically upload the finished distribution to cpan.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;integrity-of-files&quot;&gt;Integrity of files&lt;/h3&gt;
+
+&lt;p&gt;There’s no point in doing anything if there’s missing files from the
+distribution. Therefore, we iterate the MANIFEST file and make sure that
+every file that’s supposed to go into the distribution tarball actually
+does exist.&lt;/p&gt;
+
+&lt;h3 id=&quot;building-the-distribution-filename&quot;&gt;Building the distribution filename&lt;/h3&gt;
+
+&lt;p&gt;A perl distribution tarball filename consists of two dynamic objects;
+the distribution name and the version number.&lt;/p&gt;
+
+&lt;p&gt;We can simply use a regex to extract the package name from a perl module like so:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'package Foo::Bar::Baz;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;m/^package\s+(.+);/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The regular expression isn’t perfect, but it works in most cases.&lt;/p&gt;
+
+&lt;p&gt;However, what if what we’re trying to make a distribution out of isn’t a
+perl module, but an application? There might not exist any lib/
+directory, no perl module and no package declaration.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;k&quot;&gt;sub &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get_package_name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;shift&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$fh&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'&amp;lt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;die&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Can't open '$file': $!\n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$fh&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;chomp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# looks like a perl module&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;m/^package\s+(.+);/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;$package&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+      &lt;span class=&quot;c1&quot;&gt;# each two : replaced by a single hyphen for the filename&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;$package&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;s/::/-/g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+      &lt;span class=&quot;c1&quot;&gt;# all good&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;last&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defined&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$package&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$package&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'App-'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;basename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;getcwd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()));&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;If it doesn’t look like a perl module we assume it’s an application,
+so we use the basename of the current working directory and add the
+App- prefix:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;App-makedist
+File-LsColor
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;extracting-the-version-number&quot;&gt;Extracting the version number&lt;/h4&gt;
+
+&lt;p&gt;brian d foy wrote a module way back in 1999 called &lt;a href=&quot;https://metacpan.org/pod/Module::Extract::VERSION&quot;&gt;Module::Extract::VERSION&lt;/a&gt;. It does
+exactly what it claims to do and works great. It can return a bunch of
+information, but we only need the version number so we call the method
+in scalar context and build the final filename:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;nv&quot;&gt;Use&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;File::Find::&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;Rule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;sub &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;build_filename&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$rule&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;File::Find::&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;Rule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;nv&quot;&gt;$rule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$rule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;qr/[.]pm$/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$rule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;getcwd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()))[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;glob&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'./bin/*'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Here we glue the actual filename together&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$dist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;get_package_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$version&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;scalar&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Module::Extract::&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;VERSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;parse_version_safely&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$dist_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s-%s.tar.gz&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$dist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$dist_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;We use File::Find::Rule to traverse the directory for perl module files
+(I had no luck with using glob(‘**/*.pm’)). If we find any, we use the
+first one; else, we look for content in the bin/ directory.&lt;/p&gt;
+
+&lt;p&gt;Now we’ve made sure that all the files does exist, and we’ve created the
+dynamic tarball filename.&lt;/p&gt;
+
+&lt;p&gt;We create the actual tarball using a system call, which I kinda not like,
+but I found no good module for it on the cpan.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'tar'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'czf'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$tarball&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;@files_in_dist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;vg&quot;&gt;$?&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;- Distribution created: %s\n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$tarball&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;What about those extra features I wanted, like auto-uploading to the cpan?
+&lt;a href=&quot;https://github.com/trapd00r/makedist&quot;&gt;makedist&lt;/a&gt; can make use of a configuration file:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;makedist.conf:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;File::&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;Copy&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;qw(cp)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$cpan_dist_dir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;$ENV{HOME}/dev/_cpan_releases&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;our&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$command_on_success&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sub &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;'%s' -&amp;gt; '%s'\n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;ls_color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$finished_product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$cpan_dist_dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;scp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;upload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;sub &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;scp&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'scp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$finished_product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;qw(pi@pi:)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;sub &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;copy&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;cp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$finished_product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$cpan_dist_dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;die&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Copy failed: $!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;sub &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;upload&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'cpan-upload'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-u'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$pause_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$finished_product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The $command_on_success and $finished_product variables are available in the
+configuration file.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;$finished_product&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The basename of the gzipped tarball, i.e. File-LsColor-0.192.tar.gz&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;$command_on_success&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A coderef that’s executed upon success; that is, if we created the tarball
+successfully.&lt;/p&gt;
+
+&lt;h3 id=&quot;uploading-distribution-to-cpan&quot;&gt;Uploading distribution to cpan&lt;/h3&gt;
+
+&lt;p&gt;The upload to cpan is handled by the example script cpan-upload that comes
+with the CPAN::Uploader distribution. We can use the distribution interface
+directly, but we would need to handle logic for supplying PAUSE credentials;
+cpan-upload already handles this nicely.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/makedist_upload.png&quot; alt=&quot;makedist upload&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;makedist uploads itself to &lt;a href=&quot;https://metacpan.org/pod/release/WOLDRICH/App-makedist-0.012/makedist&quot;&gt;cpan&lt;/a&gt; :).&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="perl," /><category term="cpan" /><summary type="html">Making a cpan distribution isn’t hard, but I’ve noticed that I sometimes hesitate;</summary></entry><entry><title type="html">how I use vim-bindings everywhere</title><link href="http://japh.se/2018/12/02/how-i-use-vimbindings-everywhere.html" rel="alternate" type="text/html" title="how I use vim-bindings everywhere" /><published>2018-12-02T00:00:00+01:00</published><updated>2018-12-02T00:00:00+01:00</updated><id>http://japh.se/2018/12/02/how-i-use-vimbindings-everywhere</id><content type="html" xml:base="http://japh.se/2018/12/02/how-i-use-vimbindings-everywhere.html">&lt;p&gt;I love vim. It’s quite possibly one of the best engineered pieces of
+software ever created. Let me describe how I use vi(m) keymaps in every
+single application that I use on a daily basis.&lt;/p&gt;
+
+&lt;h2 id=&quot;xorg&quot;&gt;Xorg&lt;/h2&gt;
+&lt;p&gt;I highly recommend mapping the useless Caps Lock key to ESC globaly in X
+using xmodmap. This will be very useful in every place where we use
+vimbindings, like readline in your shell.&lt;/p&gt;
+
+&lt;p&gt;Use xev to find out the keycode for your caps lock key. On my desktop
+it’s 0x42, on my laptop it’s 60.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;xmodmap &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'clear Lock'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'keycode 60'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Escape&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;the-virtual-console--tty&quot;&gt;The virtual console / TTY&lt;/h2&gt;
+
+&lt;p&gt;Having Caps Lock mapped to ESC outside of X is a tiny bit trickier. Make
+sure you’re in a TTY when you do this, or else you’ll get false results!&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Let's find out what keycodes map to the keys we want to remap&lt;/span&gt;
+dumpkeys &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-P&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'escape|caps'&lt;/span&gt;
+
+  Caps Lock       58
+  Escape           1&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Put our new definition in a file called &lt;em&gt;/usr/local/share/kbd/keymaps/caps_to_esc&lt;/em&gt;
+and use the loadkeys application to load our new values:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'keycode 58 = 1'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; /usr/local/share/kbd/caps_to_esc
+loadkeys &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; /usr/local/share/kbd/caps_to_esc&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;shell&quot;&gt;Shell&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Bash and readline&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Bash uses readline which supports a vi keymap. In bash you can enable it
+by issuing:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; vi&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;You can activate it for other applications using readline (like for example &lt;a href=&quot;/dev/pimpd2/&quot;&gt;pimpd2&lt;/a&gt; by placing
+this in your $HOME/.inputrc:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;editing-mode vi
+&lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;keymap vi-insert&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;See readline(3) for a full list of options. You can also take a peek at &lt;a href=&quot;https://github.com/trapd00r/configs/blob/master/inputrc&quot;&gt;my inputrc&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Zsh&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Zsh doesn’t make use of readline since it got its own command line
+editor called zle. You can still put this in your shell resource
+file though:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; vi&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Additionally, you can use the very powerful zle function &lt;strong&gt;bindkey&lt;/strong&gt; to manipulate
+your keymaps. See&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;zle &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;for a full list of keymaps, or &lt;a href=&quot;https://github.com/trapd00r/configs/blob/master/zsh/03-
+bindkeys.zsh&quot;&gt;checkout mine&lt;/a&gt;. I use full vimbindings along with a subset of useful
+emacs bindings.&lt;/p&gt;
+
+&lt;h2 id=&quot;file-management&quot;&gt;File management&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;vidir&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;All my file management needs is handled in the shell or in &lt;a href=&quot;https://github.com/trapd00r/vidir&quot;&gt;vidir&lt;/a&gt;.
+vidir isn’t a file manager plugin for vim; all the file management is handled in vim itself. 
+A buffer is loaded with the content of a directory in a buffer. All
+operations that you perform on this buffer happens on the files themselves.
+You can use regular expressions, visual mode marks, &lt;a href=&quot;https://github.com/trapd00r/configs/blob/master/vim/nancy/00-
+0-functions.vim#L16&quot;&gt;custom
+functions&lt;/a&gt; and so on.&lt;/p&gt;
+
+&lt;p&gt;Simple example:&lt;/p&gt;
+
+&lt;p&gt;dd (delete linewise) will delete a line in the buffer, and when you :wq, that file will be deleted in the filesystem.&lt;/p&gt;
+
+&lt;h2 id=&quot;irc&quot;&gt;irc&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;irssi&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;For a very long time, irssi was the only place where I couldn’t get
+vimbindings working. I had to use cursor keys and other evilness.
+Then, all of a sudden, &lt;a href=&quot;https://github.com/shabble&quot;&gt;shabble&lt;/a&gt; came along
+and saved the day (and my fingers) with his wonderful &lt;a href=&quot;https://github.com/shabble/irssi-scripts/tree/master/vim-mode&quot;&gt;vim-mode&lt;/a&gt; plugin.&lt;/p&gt;
+
+&lt;p&gt;Make sure to check out his &lt;a href=&quot;https://github.com/shabble/irssi-
+scripts&quot;&gt;other scripts&lt;/a&gt; as well, there are some really nifty stuff in there.&lt;/p&gt;
+
+&lt;h2 id=&quot;browsers&quot;&gt;Browsers&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Firefox&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Quite a sad story, really.&lt;/p&gt;
+
+&lt;p&gt;I used vimperator for many, many years. Along came pentadactyl which was
+supposed to be the successor, and I used it for a few years as well.
+Then, pentadactyl broke somehow and I went back to vimperator where
+development had started again.&lt;/p&gt;
+
+&lt;p&gt;Now, sadly, firefox changed their addon api in a way that renders all
+old addons obsolete and non-functional. Due to the complexity of
+vimperator, writing it again from scratch isn’t a task someone have been
+willing to take on.&lt;/p&gt;
+
+&lt;p&gt;There’s a few options today:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Use firefox =&amp;lt; 56 and vimperator.&lt;/li&gt;
+  &lt;li&gt;Use a recent firefox and &lt;a href=&quot;https://github.com/tridactyl/tridactyl&quot;&gt;tridactyl&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Use Google chrome and Vimium.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I don’t like chrome so I use tridactyl which is ok.&lt;/p&gt;
+
+&lt;h2 id=&quot;music&quot;&gt;Music&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;pimpd2&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The most &lt;a href=&quot;https://github.com/trapd00r/pimpd2&quot;&gt;feature-full&lt;/a&gt; cli mpd client that I know of.
+I also happened to write it. :)&lt;/p&gt;
+
+&lt;p&gt;It’s a command line client that also sports an interactive shell. That
+shell used readline, and using readline we get the vi keymap, remember?&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ncmpcpp&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://unkart.ovh.org/ncmpcpp&quot;&gt;ncmpcpp&lt;/a&gt; is a client built using c++ and
+ncurses. It features vim-like bindings fresh out of the box and is highly configurable.&lt;/p&gt;
+
+&lt;h2 id=&quot;video&quot;&gt;Video&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;mplayer&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;On linux, the obvious choice for video is mplayer. Along with the
+mplayer config, an additional file can be used that specifies your input
+configuration. &lt;a href=&quot;https://github.com/trapd00r/configs/tree/master/mplayer&quot;&gt;Here’s mine&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;git&quot;&gt;Git&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://git.wiki.kernel.org/index.php/Tig&quot;&gt;tig&lt;/a&gt; is a highly
+configurable ncurses git client with vim movement keys being the
+defaults.&lt;/p&gt;
+
+&lt;h2 id=&quot;pdf&quot;&gt;pdf&lt;/h2&gt;
+
+&lt;p&gt;For PDF viewing I use &lt;a href=&quot;https://github.com/naihe2010/apvlv&quot;&gt;apvlv&lt;/a&gt; which is the least
+annoying PDF viewer I know of and it ‘works just like Vim’.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="linux," /><category term="vim," /><category term="cli," /><category term="terminal" /><summary type="html">I love vim. It’s quite possibly one of the best engineered pieces of software ever created. Let me describe how I use vi(m) keymaps in every single application that I use on a daily basis.</summary></entry><entry><title type="html">modifying x resources on the fly</title><link href="http://japh.se/2018/11/28/modifying-x-resources-on-the-fly.html" rel="alternate" type="text/html" title="modifying x resources on the fly" /><published>2018-11-28T00:00:00+01:00</published><updated>2018-11-28T00:00:00+01:00</updated><id>http://japh.se/2018/11/28/modifying-x-resources-on-the-fly</id><content type="html" xml:base="http://japh.se/2018/11/28/modifying-x-resources-on-the-fly.html">&lt;p&gt;For these tricks, I am going to assume that you are using a somewhat
+sane terminal emulator.
+Everything I write about here works in xterm and urxvt, and most things
+should work in any vte-based terminal (gnome-terminal, termite,
+lxterminal etc).&lt;/p&gt;
+
+&lt;p&gt;Some things might or might not work in iTerm…&lt;/p&gt;
+
+&lt;p&gt;All things listed here does work in both GNU Screen and Tmux, but you will
+have to &lt;a href=&quot;https://github.com/trapd00r/Term-ExtendedColor-Xresources/blob/5973c08d7a4624a6e1b5d4a3c4f90a025985ea31/lib/Term/ExtendedColor/Xresources.pm#L115&quot;&gt;escape the escape sequences&lt;/a&gt;. ;)&lt;/p&gt;
+
+&lt;p&gt;Here’s a gif to keep you interested:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/t_e_x_rainbow.gif&quot; alt=&quot;gif&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;changing-terminal-color-schemes&quot;&gt;Changing terminal color schemes&lt;/h1&gt;
+
+&lt;p&gt;If you for some reason wish to change the colorscheme in your terminal,
+this is the usual way to do so:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;vim ~/.Xresources
+&amp;lt;tedious edit&amp;gt;
+&amp;lt;save&amp;gt;
+xrdb &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
+&amp;lt;close terminal session&amp;gt;
+&amp;lt;start a new one&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This gets old quickly, especially if you’re in the process of trying new
+colors out, not sure what you’ll end up with.&lt;/p&gt;
+
+&lt;p&gt;Most people are aware of the fact that you can modify some colors of
+your terminal, i.e the so called ANSI colors; color index 0-15. The
+colors are usualy set during xinit, like so:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;~/.xinitrc&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;xrdb ${XDG_CONFIG_HOME}/Xresources
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Xresources&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; .color0: #1b1d1e
+ .color1: #1b1d1e
+...
+.color15: #f8f8f2
+.color16: #000000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When you log in to your system and start your first terminal, these
+colors will be set… in stone.&lt;/p&gt;
+
+&lt;p&gt;No, not really.&lt;/p&gt;
+
+&lt;p&gt;Let’s start two terminals, side by side:
+[IMAGE]&lt;/p&gt;
+
+&lt;p&gt;In both terminals, run this command:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;i &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;0..15&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[48;5;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;m%.2d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[m&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;[IMAGE]&lt;/p&gt;
+
+&lt;p&gt;What you see is the currently defined ANSI color table. Now, in one of
+the terminals, run this:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;i &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;0..15&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;]4;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$x&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;;rgb:ff/00/00&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e\\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;[IMAGE]&lt;/p&gt;
+
+&lt;p&gt;We’ve just changed all of the defined ANSI colors to #ff0000, also known as
+‘very red’, but &lt;em&gt;only&lt;/em&gt; in the currently running terminal session. Not
+very useful, but bare with me.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Over the years I’ve stumbled upon countless open source projects that
+deal with terminal colors in any way that hardcode the color values. It
+seems to be a little known fact that the extended colorset is not only
+customizable, but you can modify them on the fly as well. Needless to say, 
+hardcoded values are never good.&lt;/p&gt;
+
+&lt;p&gt;Let’s try to modify some non-ANSI colors, shall we?&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;i &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;17..33&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;]4;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;;rgb:00/00/00&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e\\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/modify_index_17_to_33.svg&quot; alt=&quot;svg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;If this doesn’t work for you and you’re using xterm, you might need to
+set these options in your Xresources configuration:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;XTerm*dynamicColors: 1
+XTerm*allowColorOps: 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you’re using urxvt and it doesn’t work, you might need to &lt;a href=&quot;https://github.com/trapd00r/rxvt-unicode/commit/8b254b10e18d2cc1c0d8de37781e8982fb0aa284&quot;&gt;patch&lt;/a&gt; it.&lt;/p&gt;
+
+&lt;p&gt;So, we can modify colors, that’s great. But what about the hardcoded
+values we talked about earlier? If we modify our colors like crazy, the
+software that relies on those hardcoded default will break?&lt;/p&gt;
+
+&lt;p&gt;Well, they are broken to begin with, and they need to be fixed. We can query the terminal for the actual colors:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;]4;197;?&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\a&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rgb:ffff/0000/5f5f
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Color index 197 has the value of ff005f (default).&lt;/p&gt;
+
+&lt;p&gt;Let’s change its value and query the terminal again:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;]4;197;rgb:ff/ff/00&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e\\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;]4;197;?&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\a&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rgb:ffff/ffff/0000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Pink turned yellow.&lt;/p&gt;
+
+&lt;p&gt;Maybe we can get away with assuming the first 16 ANSI colors are set to
+something somewhat sane, but applications that deal with these extended
+colors should either:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Do the right thing and &lt;strong&gt;query&lt;/strong&gt; the terminal for set colors.&lt;/li&gt;
+  &lt;li&gt;Explicitly state that it assumes that no colors are modified; i.e;
+default xterm colors.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;other-escapes&quot;&gt;Other escapes&lt;/h2&gt;
+
+&lt;p&gt;The development of new terminal features has been pretty sparse over the
+past 27 years (&lt;a href=&quot;https://www.ecma-international.org/publications/standards/Ecma-
+048.htm&quot;&gt;ECMA-48, 1991&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;And for good reasons. Having a standard is crucial for developers and users alike.
+Nowadays when talking about standards, the phrase ‘xterm compatible’ is common.
+Terminals claim to emulate &lt;em&gt;most&lt;/em&gt; of xterm, when in reality they emulate
+the &lt;a href=&quot;https://invisible-
+island.net/xterm/xterm.faq.html#compare_versions&quot;&gt;most commonly used&lt;/a&gt; control sequences.&lt;/p&gt;
+
+&lt;p&gt;There has been new development in this area though as of lately.
+A few new terminals that market themselves as using opengl to render the
+screen have seen the light, most notably
+&lt;a href=&quot;https://sw.kovidgoyal.net/kitty&quot;&gt;kitty&lt;/a&gt; (not to be confused with the
+putty fork of the same name).&lt;/p&gt;
+
+&lt;h1 id=&quot;resources&quot;&gt;Resources&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://metacpan.org/pod/release/WOLDRICH/Term-ExtendedColor-0.222/lib/Term/ExtendedColor.pm&quot;&gt;Term::ExtendedColor - Perl library for using extended colors in your terminal&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://metacpan.org/pod/Term::ExtendedColor::Xresources&quot;&gt;Term::ExtendedColor::Xresources - Perl library for modifying colors and query the terminal for set values&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/trapd00r/Term-ExtendedColor-TTY&quot;&gt;Text::ExtendedColor::TTY - Perl library for changing and querying the TTY/VC for various resources, such as colors&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/trapd00r/colorcoke/tree/4dc70684a33995694812f5ce59ce7241a97b30e4&quot;&gt;Colorcoke - Program for changing the terminal colors in many ways&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/trapd00r/rgbterm&quot;&gt;rgbterm - query the terminal for rgb values of defined terminal colors&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/trapd00r/Term-ExtendedColor/blob/master/bin/uncolor&quot;&gt;uncolor - strip input data from escape sequences&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/trapd00r/configs/blob/a7c67925a2e1a14a777e26592f6de0e5973e3d89/Xresources&quot;&gt;My Xresources&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/trapd00r/configs/blob/master/Xcolors/nancy.Xresources&quot;&gt;My defined terminal colors&lt;/a&gt;&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="linux," /><category term="colors," /><category term="terminals" /><summary type="html">For these tricks, I am going to assume that you are using a somewhat sane terminal emulator. Everything I write about here works in xterm and urxvt, and most things should work in any vte-based terminal (gnome-terminal, termite, lxterminal etc).</summary></entry></feed>

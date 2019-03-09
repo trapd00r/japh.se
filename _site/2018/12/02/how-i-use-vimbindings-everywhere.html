@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>how I use vim-bindings everywhere | http/japh.se</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="how I use vim-bindings everywhere" />
+<meta name="author" content="Magnus Woldrich" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I love vim. It’s quite possibly one of the best engineered pieces of software ever created. Let me describe how I use vi(m) keymaps in every single application that I use on a daily basis." />
+<meta property="og:description" content="I love vim. It’s quite possibly one of the best engineered pieces of software ever created. Let me describe how I use vi(m) keymaps in every single application that I use on a daily basis." />
+<link rel="canonical" href="http://japh.se/2018/12/02/how-i-use-vimbindings-everywhere.html" />
+<meta property="og:url" content="http://japh.se/2018/12/02/how-i-use-vimbindings-everywhere.html" />
+<meta property="og:site_name" content="http/japh.se" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-12-02T00:00:00+01:00" />
+<script type="application/ld+json">
+{"dateModified":"2018-12-02T00:00:00+01:00","description":"I love vim. It’s quite possibly one of the best engineered pieces of software ever created. Let me describe how I use vi(m) keymaps in every single application that I use on a daily basis.","datePublished":"2018-12-02T00:00:00+01:00","headline":"how I use vim-bindings everywhere","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2018/12/02/how-i-use-vimbindings-everywhere.html"},"@type":"BlogPosting","url":"http://japh.se/2018/12/02/how-i-use-vimbindings-everywhere.html","author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-11890504-2', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">http/japh.se </a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+
+        <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+        |
+        <a href="/dev">dev()</a>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">how I use vim-bindings everywhere</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-12-02T00:00:00+01:00" itemprop="datePublished">Dec 2, 2018
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Magnus Woldrich</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I love vim. It’s quite possibly one of the best engineered pieces of
+software ever created. Let me describe how I use vi(m) keymaps in every
+single application that I use on a daily basis.</p>
+
+<h2 id="xorg">Xorg</h2>
+<p>I highly recommend mapping the useless Caps Lock key to ESC globaly in X
+using xmodmap. This will be very useful in every place where we use
+vimbindings, like readline in your shell.</p>
+
+<p>Use xev to find out the keycode for your caps lock key. On my desktop
+it’s 0x42, on my laptop it’s 60.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">xmodmap <span class="nt">-e</span> <span class="s1">'clear Lock'</span> <span class="nt">-e</span> <span class="s1">'keycode 60'</span> <span class="o">=</span> Escape</code></pre></figure>
+
+<h2 id="the-virtual-console--tty">The virtual console / TTY</h2>
+
+<p>Having Caps Lock mapped to ESC outside of X is a tiny bit trickier. Make
+sure you’re in a TTY when you do this, or else you’ll get false results!</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Let's find out what keycodes map to the keys we want to remap</span>
+dumpkeys <span class="nt">-l</span> | <span class="nb">grep</span> <span class="nt">-P</span> <span class="s1">'escape|caps'</span>
+
+  Caps Lock       58
+  Escape           1</code></pre></figure>
+
+<p>Put our new definition in a file called <em>/usr/local/share/kbd/keymaps/caps_to_esc</em>
+and use the loadkeys application to load our new values:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s1">'keycode 58 = 1'</span> <span class="o">&gt;&gt;</span> /usr/local/share/kbd/caps_to_esc
+loadkeys <span class="nt">-q</span> /usr/local/share/kbd/caps_to_esc</code></pre></figure>
+
+<h2 id="shell">Shell</h2>
+
+<p><strong>Bash and readline</strong></p>
+
+<p>Bash uses readline which supports a vi keymap. In bash you can enable it
+by issuing:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">set</span> <span class="nt">-o</span> vi</code></pre></figure>
+
+<p>You can activate it for other applications using readline (like for example <a href="/dev/pimpd2/">pimpd2</a> by placing
+this in your $HOME/.inputrc:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">set </span>editing-mode vi
+<span class="nb">set </span>keymap vi-insert</code></pre></figure>
+
+<p>See readline(3) for a full list of options. You can also take a peek at <a href="https://github.com/trapd00r/configs/blob/master/inputrc">my inputrc</a>.</p>
+
+<p><strong>Zsh</strong></p>
+
+<p>Zsh doesn’t make use of readline since it got its own command line
+editor called zle. You can still put this in your shell resource
+file though:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">set</span> <span class="nt">-o</span> vi</code></pre></figure>
+
+<p>Additionally, you can use the very powerful zle function <strong>bindkey</strong> to manipulate
+your keymaps. See</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">zle <span class="nt">-l</span></code></pre></figure>
+
+<p>for a full list of keymaps, or <a href="https://github.com/trapd00r/configs/blob/master/zsh/03-
+bindkeys.zsh">checkout mine</a>. I use full vimbindings along with a subset of useful
+emacs bindings.</p>
+
+<h2 id="file-management">File management</h2>
+
+<p><strong>vidir</strong></p>
+
+<p>All my file management needs is handled in the shell or in <a href="https://github.com/trapd00r/vidir">vidir</a>.
+vidir isn’t a file manager plugin for vim; all the file management is handled in vim itself. 
+A buffer is loaded with the content of a directory in a buffer. All
+operations that you perform on this buffer happens on the files themselves.
+You can use regular expressions, visual mode marks, <a href="https://github.com/trapd00r/configs/blob/master/vim/nancy/00-
+0-functions.vim#L16">custom
+functions</a> and so on.</p>
+
+<p>Simple example:</p>
+
+<p>dd (delete linewise) will delete a line in the buffer, and when you :wq, that file will be deleted in the filesystem.</p>
+
+<h2 id="irc">irc</h2>
+
+<p><strong>irssi</strong></p>
+
+<p>For a very long time, irssi was the only place where I couldn’t get
+vimbindings working. I had to use cursor keys and other evilness.
+Then, all of a sudden, <a href="https://github.com/shabble">shabble</a> came along
+and saved the day (and my fingers) with his wonderful <a href="https://github.com/shabble/irssi-scripts/tree/master/vim-mode">vim-mode</a> plugin.</p>
+
+<p>Make sure to check out his <a href="https://github.com/shabble/irssi-
+scripts">other scripts</a> as well, there are some really nifty stuff in there.</p>
+
+<h2 id="browsers">Browsers</h2>
+
+<p><strong>Firefox</strong></p>
+
+<p>Quite a sad story, really.</p>
+
+<p>I used vimperator for many, many years. Along came pentadactyl which was
+supposed to be the successor, and I used it for a few years as well.
+Then, pentadactyl broke somehow and I went back to vimperator where
+development had started again.</p>
+
+<p>Now, sadly, firefox changed their addon api in a way that renders all
+old addons obsolete and non-functional. Due to the complexity of
+vimperator, writing it again from scratch isn’t a task someone have been
+willing to take on.</p>
+
+<p>There’s a few options today:</p>
+
+<ul>
+  <li>Use firefox =&lt; 56 and vimperator.</li>
+  <li>Use a recent firefox and <a href="https://github.com/tridactyl/tridactyl">tridactyl</a>.</li>
+  <li>Use Google chrome and Vimium.</li>
+</ul>
+
+<p>I don’t like chrome so I use tridactyl which is ok.</p>
+
+<h2 id="music">Music</h2>
+
+<p><strong>pimpd2</strong></p>
+
+<p>The most <a href="https://github.com/trapd00r/pimpd2">feature-full</a> cli mpd client that I know of.
+I also happened to write it. :)</p>
+
+<p>It’s a command line client that also sports an interactive shell. That
+shell used readline, and using readline we get the vi keymap, remember?</p>
+
+<p><strong>ncmpcpp</strong></p>
+
+<p><a href="http://unkart.ovh.org/ncmpcpp">ncmpcpp</a> is a client built using c++ and
+ncurses. It features vim-like bindings fresh out of the box and is highly configurable.</p>
+
+<h2 id="video">Video</h2>
+
+<p><strong>mplayer</strong></p>
+
+<p>On linux, the obvious choice for video is mplayer. Along with the
+mplayer config, an additional file can be used that specifies your input
+configuration. <a href="https://github.com/trapd00r/configs/tree/master/mplayer">Here’s mine</a>.</p>
+
+<h2 id="git">Git</h2>
+
+<p><a href="https://git.wiki.kernel.org/index.php/Tig">tig</a> is a highly
+configurable ncurses git client with vim movement keys being the
+defaults.</p>
+
+<h2 id="pdf">pdf</h2>
+
+<p>For PDF viewing I use <a href="https://github.com/naihe2010/apvlv">apvlv</a> which is the least
+annoying PDF viewer I know of and it ‘works just like Vim’.</p>
+
+
+  </div><a class="u-url" href="/2018/12/02/how-i-use-vimbindings-everywhere.html" hidden></a>
+</article>
+
+
+<!--      <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a> -->
+
+      </div>
+
+
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+<!--    <h2 class="footer-heading">http/japh.se</h2> -->
+    <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">http/japh.se</li><li><a class="u-email" href="mailto:m@japh.se">m@japh.se</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/trapd00r"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">trapd00r</span></a></li><li><a href="https://www.linkedin.com/in/japh"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">japh</span></a></li><li><a href="https://www.twitter.com/wantarray"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">wantarray</span></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg> <span>rss</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>modifying x resources on the fly | http/japh.se</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="modifying x resources on the fly" />
+<meta name="author" content="Magnus Woldrich" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="For these tricks, I am going to assume that you are using a somewhat sane terminal emulator. Everything I write about here works in xterm and urxvt, and most things should work in any vte-based terminal (gnome-terminal, termite, lxterminal etc)." />
+<meta property="og:description" content="For these tricks, I am going to assume that you are using a somewhat sane terminal emulator. Everything I write about here works in xterm and urxvt, and most things should work in any vte-based terminal (gnome-terminal, termite, lxterminal etc)." />
+<link rel="canonical" href="http://japh.se/2018/11/28/modifying-x-resources-on-the-fly.html" />
+<meta property="og:url" content="http://japh.se/2018/11/28/modifying-x-resources-on-the-fly.html" />
+<meta property="og:site_name" content="http/japh.se" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-11-28T00:00:00+01:00" />
+<script type="application/ld+json">
+{"dateModified":"2018-11-28T00:00:00+01:00","description":"For these tricks, I am going to assume that you are using a somewhat sane terminal emulator. Everything I write about here works in xterm and urxvt, and most things should work in any vte-based terminal (gnome-terminal, termite, lxterminal etc).","datePublished":"2018-11-28T00:00:00+01:00","headline":"modifying x resources on the fly","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2018/11/28/modifying-x-resources-on-the-fly.html"},"@type":"BlogPosting","url":"http://japh.se/2018/11/28/modifying-x-resources-on-the-fly.html","author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-11890504-2', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">http/japh.se </a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+
+        <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+        |
+        <a href="/dev">dev()</a>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">modifying x resources on the fly</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-11-28T00:00:00+01:00" itemprop="datePublished">Nov 28, 2018
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Magnus Woldrich</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>For these tricks, I am going to assume that you are using a somewhat
+sane terminal emulator.
+Everything I write about here works in xterm and urxvt, and most things
+should work in any vte-based terminal (gnome-terminal, termite,
+lxterminal etc).</p>
+
+<p>Some things might or might not work in iTerm…</p>
+
+<p>All things listed here does work in both GNU Screen and Tmux, but you will
+have to <a href="https://github.com/trapd00r/Term-ExtendedColor-Xresources/blob/5973c08d7a4624a6e1b5d4a3c4f90a025985ea31/lib/Term/ExtendedColor/Xresources.pm#L115">escape the escape sequences</a>. ;)</p>
+
+<p>Here’s a gif to keep you interested:</p>
+
+<p><img src="/assets/t_e_x_rainbow.gif" alt="gif" /></p>
+
+<h1 id="changing-terminal-color-schemes">Changing terminal color schemes</h1>
+
+<p>If you for some reason wish to change the colorscheme in your terminal,
+this is the usual way to do so:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">vim ~/.Xresources
+&lt;tedious edit&gt;
+&lt;save&gt;
+xrdb <span class="o">!</span><span class="err">$</span>
+&lt;close terminal session&gt;
+&lt;start a new one&gt;</code></pre></figure>
+
+<p>This gets old quickly, especially if you’re in the process of trying new
+colors out, not sure what you’ll end up with.</p>
+
+<p>Most people are aware of the fact that you can modify some colors of
+your terminal, i.e the so called ANSI colors; color index 0-15. The
+colors are usualy set during xinit, like so:</p>
+
+<p><strong>~/.xinitrc</strong>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xrdb ${XDG_CONFIG_HOME}/Xresources
+</code></pre></div></div>
+
+<p><strong>Xresources</strong>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> .color0: #1b1d1e
+ .color1: #1b1d1e
+...
+.color15: #f8f8f2
+.color16: #000000
+</code></pre></div></div>
+
+<p>When you log in to your system and start your first terminal, these
+colors will be set… in stone.</p>
+
+<p>No, not really.</p>
+
+<p>Let’s start two terminals, side by side:
+[IMAGE]</p>
+
+<p>In both terminals, run this command:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">for </span>i <span class="k">in</span> <span class="o">{</span>0..15<span class="o">}</span><span class="p">;</span> <span class="k">do </span><span class="nb">printf</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[48;5;</span><span class="k">${</span><span class="nv">x</span><span class="k">}</span><span class="s2">m%.2d</span><span class="se">\e</span><span class="s2">[m</span><span class="se">\n</span><span class="s2">"</span> <span class="nv">$i</span><span class="p">;</span> <span class="k">done</span></code></pre></figure>
+
+<p>[IMAGE]</p>
+
+<p>What you see is the currently defined ANSI color table. Now, in one of
+the terminals, run this:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">for </span>i <span class="k">in</span> <span class="o">{</span>0..15<span class="o">}</span><span class="p">;</span> <span class="k">do </span><span class="nb">printf</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">]4;</span><span class="nv">$x</span><span class="s2">;rgb:ff/00/00</span><span class="se">\e\\</span><span class="s2">"</span><span class="p">;</span> <span class="k">done</span></code></pre></figure>
+
+<p>[IMAGE]</p>
+
+<p>We’ve just changed all of the defined ANSI colors to #ff0000, also known as
+‘very red’, but <em>only</em> in the currently running terminal session. Not
+very useful, but bare with me.</p>
+
+<hr />
+
+<p>Over the years I’ve stumbled upon countless open source projects that
+deal with terminal colors in any way that hardcode the color values. It
+seems to be a little known fact that the extended colorset is not only
+customizable, but you can modify them on the fly as well. Needless to say, 
+hardcoded values are never good.</p>
+
+<p>Let’s try to modify some non-ANSI colors, shall we?</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">    <span class="k">for </span>i <span class="k">in</span> <span class="o">{</span>17..33<span class="o">}</span><span class="p">;</span> <span class="k">do </span><span class="nb">printf</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">]4;</span><span class="nv">$i</span><span class="s2">;rgb:00/00/00</span><span class="se">\e\\</span><span class="s2">"</span><span class="p">;</span> <span class="k">done</span></code></pre></figure>
+
+<p><img src="/assets/modify_index_17_to_33.svg" alt="svg" /></p>
+
+<p>If this doesn’t work for you and you’re using xterm, you might need to
+set these options in your Xresources configuration:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>XTerm*dynamicColors: 1
+XTerm*allowColorOps: 1
+</code></pre></div></div>
+
+<p>If you’re using urxvt and it doesn’t work, you might need to <a href="https://github.com/trapd00r/rxvt-unicode/commit/8b254b10e18d2cc1c0d8de37781e8982fb0aa284">patch</a> it.</p>
+
+<p>So, we can modify colors, that’s great. But what about the hardcoded
+values we talked about earlier? If we modify our colors like crazy, the
+software that relies on those hardcoded default will break?</p>
+
+<p>Well, they are broken to begin with, and they need to be fixed. We can query the terminal for the actual colors:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">    <span class="nb">printf</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">]4;197;?</span><span class="se">\a</span><span class="s2">"</span></code></pre></figure>
+
+<p>Output:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rgb:ffff/0000/5f5f
+</code></pre></div></div>
+
+<p>Color index 197 has the value of ff005f (default).</p>
+
+<p>Let’s change its value and query the terminal again:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">    <span class="nb">printf</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">]4;197;rgb:ff/ff/00</span><span class="se">\e\\</span><span class="s2">"</span>
+    <span class="nb">printf</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">]4;197;?</span><span class="se">\a</span><span class="s2">"</span></code></pre></figure>
+
+<p>Output:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rgb:ffff/ffff/0000
+</code></pre></div></div>
+
+<p>Pink turned yellow.</p>
+
+<p>Maybe we can get away with assuming the first 16 ANSI colors are set to
+something somewhat sane, but applications that deal with these extended
+colors should either:</p>
+
+<ul>
+  <li>Do the right thing and <strong>query</strong> the terminal for set colors.</li>
+  <li>Explicitly state that it assumes that no colors are modified; i.e;
+default xterm colors.</li>
+</ul>
+
+<h2 id="other-escapes">Other escapes</h2>
+
+<p>The development of new terminal features has been pretty sparse over the
+past 27 years (<a href="https://www.ecma-international.org/publications/standards/Ecma-
+048.htm">ECMA-48, 1991</a>).</p>
+
+<p>And for good reasons. Having a standard is crucial for developers and users alike.
+Nowadays when talking about standards, the phrase ‘xterm compatible’ is common.
+Terminals claim to emulate <em>most</em> of xterm, when in reality they emulate
+the <a href="https://invisible-
+island.net/xterm/xterm.faq.html#compare_versions">most commonly used</a> control sequences.</p>
+
+<p>There has been new development in this area though as of lately.
+A few new terminals that market themselves as using opengl to render the
+screen have seen the light, most notably
+<a href="https://sw.kovidgoyal.net/kitty">kitty</a> (not to be confused with the
+putty fork of the same name).</p>
+
+<h1 id="resources">Resources</h1>
+
+<p><a href="https://metacpan.org/pod/release/WOLDRICH/Term-ExtendedColor-0.222/lib/Term/ExtendedColor.pm">Term::ExtendedColor - Perl library for using extended colors in your terminal</a></p>
+
+<p><a href="https://metacpan.org/pod/Term::ExtendedColor::Xresources">Term::ExtendedColor::Xresources - Perl library for modifying colors and query the terminal for set values</a></p>
+
+<p><a href="https://github.com/trapd00r/Term-ExtendedColor-TTY">Text::ExtendedColor::TTY - Perl library for changing and querying the TTY/VC for various resources, such as colors</a></p>
+
+<p><a href="https://github.com/trapd00r/colorcoke/tree/4dc70684a33995694812f5ce59ce7241a97b30e4">Colorcoke - Program for changing the terminal colors in many ways</a></p>
+
+<p><a href="https://github.com/trapd00r/rgbterm">rgbterm - query the terminal for rgb values of defined terminal colors</a></p>
+
+<p><a href="https://github.com/trapd00r/Term-ExtendedColor/blob/master/bin/uncolor">uncolor - strip input data from escape sequences</a></p>
+
+<p><a href="https://github.com/trapd00r/configs/blob/a7c67925a2e1a14a777e26592f6de0e5973e3d89/Xresources">My Xresources</a></p>
+
+<p><a href="https://github.com/trapd00r/configs/blob/master/Xcolors/nancy.Xresources">My defined terminal colors</a></p>
+
+
+  </div><a class="u-url" href="/2018/11/28/modifying-x-resources-on-the-fly.html" hidden></a>
+</article>
+
+
+<!--      <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a> -->
+
+      </div>
+
+
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+<!--    <h2 class="footer-heading">http/japh.se</h2> -->
+    <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">http/japh.se</li><li><a class="u-email" href="mailto:m@japh.se">m@japh.se</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/trapd00r"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">trapd00r</span></a></li><li><a href="https://www.linkedin.com/in/japh"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">japh</span></a></li><li><a href="https://www.twitter.com/wantarray"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">wantarray</span></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg> <span>rss</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

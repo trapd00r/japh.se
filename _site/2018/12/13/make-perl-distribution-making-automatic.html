@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>make perl distribution making automatic | http/japh.se</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="make perl distribution making automatic" />
+<meta name="author" content="Magnus Woldrich" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Making a cpan distribution isn’t hard, but I’ve noticed that I sometimes hesitate;" />
+<meta property="og:description" content="Making a cpan distribution isn’t hard, but I’ve noticed that I sometimes hesitate;" />
+<link rel="canonical" href="http://japh.se/2018/12/13/make-perl-distribution-making-automatic.html" />
+<meta property="og:url" content="http://japh.se/2018/12/13/make-perl-distribution-making-automatic.html" />
+<meta property="og:site_name" content="http/japh.se" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-12-13T00:00:00+01:00" />
+<script type="application/ld+json">
+{"dateModified":"2018-12-13T00:00:00+01:00","description":"Making a cpan distribution isn’t hard, but I’ve noticed that I sometimes hesitate;","datePublished":"2018-12-13T00:00:00+01:00","headline":"make perl distribution making automatic","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2018/12/13/make-perl-distribution-making-automatic.html"},"@type":"BlogPosting","url":"http://japh.se/2018/12/13/make-perl-distribution-making-automatic.html","author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-11890504-2', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">http/japh.se </a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+
+        <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+        |
+        <a href="/dev">dev()</a>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">make perl distribution making automatic</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-12-13T00:00:00+01:00" itemprop="datePublished">Dec 13, 2018
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Magnus Woldrich</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Making a cpan distribution isn’t hard, but I’ve noticed that I sometimes
+hesitate;</p>
+
+<ul>
+  <li>What files should go in the tarball and what files do I leave out?</li>
+</ul>
+
+<p>During development, it’s not unusual for a bunch of temp files to reside in the
+current working directory. Short temp scripts to test functionality, old build
+files and maybe a README that’s aimed for i.e github and not for distribution.
+Simply adding everything in cwd ain’t gonna cut it.</p>
+
+<ul>
+  <li>What was the proper command to make said tarball again?</li>
+</ul>
+
+<p>The command to untar a file is forever stuck in my brain, but the command for
+creating a gzipped tarball is not. Not to mention the fact that I feel the
+options and file argument order are messed up.</p>
+
+<ul>
+  <li>What’s the proper way to name the finished tarball?</li>
+</ul>
+
+<p>If I’m about to upload a non-library distribution to cpan, should I add the
+App:: prefix or not? What did I do on the previous release? I can’t remember!</p>
+
+<p>Was it an underscore, a hyphen or a dot between the distribution name and the
+version number? And it should be .tar.gz or was it just .tar? .gz?</p>
+
+<h2 id="makedist">makedist</h2>
+
+<p><img src="/assets/makedist.png" alt="makedist" /></p>
+
+<p>Because of outlined reasons I decided to <a href="https://github.com/trapd00r/makedist">hack something</a> together to aid
+me in this process. A few other things I wanted to implement:</p>
+
+<ul>
+  <li>I want to copy the finished distribution to a local directory for archiving purposes.</li>
+  <li>I want to copy the finished distribution to a remote directory for archiving purposes.</li>
+  <li>I want to automatically upload the finished distribution to cpan.</li>
+</ul>
+
+<h3 id="integrity-of-files">Integrity of files</h3>
+
+<p>There’s no point in doing anything if there’s missing files from the
+distribution. Therefore, we iterate the MANIFEST file and make sure that
+every file that’s supposed to go into the distribution tarball actually
+does exist.</p>
+
+<h3 id="building-the-distribution-filename">Building the distribution filename</h3>
+
+<p>A perl distribution tarball filename consists of two dynamic objects;
+the distribution name and the version number.</p>
+
+<p>We can simply use a regex to extract the package name from a perl module like so:</p>
+
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">my</span> <span class="nv">$str</span> <span class="o">=</span> <span class="s">'package Foo::Bar::Baz;'</span><span class="p">;</span>
+<span class="k">my</span> <span class="p">(</span><span class="nv">$package</span><span class="p">)</span> <span class="o">=</span> <span class="nv">$str</span> <span class="o">=~</span> <span class="sr">m/^package\s+(.+);/</span><span class="p">;</span></code></pre></figure>
+
+<p>The regular expression isn’t perfect, but it works in most cases.</p>
+
+<p>However, what if what we’re trying to make a distribution out of isn’t a
+perl module, but an application? There might not exist any lib/
+directory, no perl module and no package declaration.</p>
+
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">sub </span><span class="nf">get_package_name</span> <span class="p">{</span>
+  <span class="k">my</span> <span class="nv">$file</span> <span class="o">=</span> <span class="nb">shift</span><span class="p">;</span>
+  <span class="k">my</span> <span class="nv">$package</span><span class="p">;</span>
+
+  <span class="nb">open</span><span class="p">(</span><span class="k">my</span> <span class="nv">$fh</span><span class="p">,</span> <span class="s">'&lt;'</span><span class="p">,</span>  <span class="nv">$file</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">die</span> <span class="s">"Can't open '$file': $!\n"</span><span class="p">;</span>
+  <span class="k">while</span><span class="p">(</span><span class="o">&lt;</span><span class="nv">$fh</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">chomp</span><span class="p">;</span>
+
+    <span class="c1"># looks like a perl module</span>
+    <span class="k">if</span><span class="p">(</span><span class="nv">$_</span> <span class="o">=~</span> <span class="sr">m/^package\s+(.+);/</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nv">$package</span> <span class="o">=</span> <span class="nv">$1</span><span class="p">;</span>
+
+      <span class="c1"># each two : replaced by a single hyphen for the filename</span>
+      <span class="nv">$package</span> <span class="o">=~</span> <span class="sr">s/::/-/g</span><span class="p">;</span>
+
+      <span class="c1"># all good</span>
+      <span class="k">last</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="p">(</span><span class="nb">defined</span> <span class="nv">$package</span> <span class="p">?</span> <span class="nv">$package</span> <span class="p">:</span> <span class="s">'App-'</span> <span class="o">.</span> <span class="nv">basename</span><span class="p">(</span><span class="nv">getcwd</span><span class="p">()));</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>If it doesn’t look like a perl module we assume it’s an application,
+so we use the basename of the current working directory and add the
+App- prefix:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>App-makedist
+File-LsColor
+</code></pre></div></div>
+
+<h4 id="extracting-the-version-number">Extracting the version number</h4>
+
+<p>brian d foy wrote a module way back in 1999 called <a href="https://metacpan.org/pod/Module::Extract::VERSION">Module::Extract::VERSION</a>. It does
+exactly what it claims to do and works great. It can return a bunch of
+information, but we only need the version number so we call the method
+in scalar context and build the final filename:</p>
+
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="nv">Use</span> <span class="nn">File::Find::</span><span class="nv">Rule</span><span class="p">;</span>
+
+<span class="k">sub </span><span class="nf">build_filename</span> <span class="p">{</span>
+  <span class="k">my</span> <span class="nv">$file</span><span class="p">;</span>
+  <span class="k">my</span> <span class="nv">$rule</span> <span class="o">=</span> <span class="nn">File::Find::</span><span class="nv">Rule</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">;</span>
+
+  <span class="nv">$rule</span><span class="o">-&gt;</span><span class="nv">file</span><span class="p">;</span>
+  <span class="nv">$rule</span><span class="o">-&gt;</span><span class="nv">name</span><span class="p">(</span><span class="sx">qr/[.]pm$/</span><span class="p">);</span>
+
+  <span class="nv">$file</span> <span class="o">=</span> <span class="p">(</span><span class="nv">$rule</span><span class="o">-&gt;</span><span class="nv">in</span><span class="p">(</span><span class="nv">getcwd</span><span class="p">()))[</span><span class="mi">0</span><span class="p">];</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nv">$file</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$file</span> <span class="o">=</span> <span class="p">(</span><span class="nb">glob</span><span class="p">(</span><span class="s">'./bin/*'</span><span class="p">))[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="p">}</span>
+
+  <span class="c1"># Here we glue the actual filename together</span>
+  <span class="k">my</span> <span class="nv">$dist</span> <span class="o">=</span> <span class="nv">get_package_name</span><span class="p">(</span><span class="nv">$file</span><span class="p">);</span>
+  <span class="k">my</span> <span class="nv">$version</span> <span class="o">=</span> <span class="nb">scalar</span> <span class="nn">Module::Extract::</span><span class="nv">VERSION</span><span class="o">-&gt;</span><span class="nv">parse_version_safely</span><span class="p">(</span><span class="nv">$file</span><span class="p">);</span>
+
+  <span class="k">my</span> <span class="nv">$dist_name</span> <span class="o">=</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s">"%s-%s.tar.gz"</span><span class="p">,</span> <span class="nv">$dist</span><span class="p">,</span> <span class="nv">$version</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nv">$dist_name</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>We use File::Find::Rule to traverse the directory for perl module files
+(I had no luck with using glob(‘**/*.pm’)). If we find any, we use the
+first one; else, we look for content in the bin/ directory.</p>
+
+<p>Now we’ve made sure that all the files does exist, and we’ve created the
+dynamic tarball filename.</p>
+
+<p>We create the actual tarball using a system call, which I kinda not like,
+but I found no good module for it on the cpan.</p>
+
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="nb">system</span><span class="p">(</span><span class="s">'tar'</span><span class="p">,</span> <span class="s">'czf'</span><span class="p">,</span> <span class="nv">$tarball</span><span class="p">,</span> <span class="nv">@files_in_dist</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="vg">$?</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">printf</span><span class="p">(</span><span class="s">"- Distribution created: %s\n"</span><span class="p">,</span> <span class="nv">$tarball</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>What about those extra features I wanted, like auto-uploading to the cpan?
+<a href="https://github.com/trapd00r/makedist">makedist</a> can make use of a configuration file:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>makedist.conf:
+</code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">use</span> <span class="nn">File::</span><span class="nv">Copy</span> <span class="sx">qw(cp)</span><span class="p">;</span>
+
+<span class="k">my</span> <span class="nv">$cpan_dist_dir</span> <span class="o">=</span> <span class="s">"$ENV{HOME}/dev/_cpan_releases"</span><span class="p">;</span>
+
+
+<span class="k">our</span> <span class="nv">$command_on_success</span> <span class="o">=</span> <span class="k">sub </span><span class="p">{</span>
+  <span class="nb">printf</span><span class="p">(</span><span class="s">"'%s' -&gt; '%s'\n"</span><span class="p">,</span>
+    <span class="nv">ls_color</span><span class="p">(</span><span class="nv">$finished_product</span><span class="p">),</span> <span class="nv">$cpan_dist_dir</span><span class="p">)</span> <span class="k">if</span><span class="p">(</span><span class="nv">copy</span><span class="p">()</span>
+  <span class="p">);</span>
+  <span class="nv">scp</span><span class="p">();</span>
+  <span class="nv">upload</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="k">sub </span><span class="nf">scp</span> <span class="p">{</span> <span class="nb">system</span><span class="p">(</span><span class="s">'scp'</span><span class="p">,</span> <span class="nv">$finished_product</span><span class="p">,</span> <span class="sx">qw(pi@pi:)</span><span class="p">);</span> <span class="p">}</span>
+<span class="k">sub </span><span class="nf">copy</span> <span class="p">{</span>
+  <span class="nv">cp</span><span class="p">(</span><span class="nv">$finished_product</span><span class="p">,</span> <span class="nv">$cpan_dist_dir</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">die</span> <span class="s">"Copy failed: $!"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">sub </span><span class="nf">upload</span> <span class="p">{</span>
+  <span class="nb">system</span><span class="p">(</span><span class="s">'cpan-upload'</span><span class="p">,</span> <span class="s">'-u'</span><span class="p">,</span> <span class="nv">$pause_id</span><span class="p">,</span> <span class="nv">$finished_product</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The $command_on_success and $finished_product variables are available in the
+configuration file.</p>
+
+<ul>
+  <li>$finished_product</li>
+</ul>
+
+<p>The basename of the gzipped tarball, i.e. File-LsColor-0.192.tar.gz</p>
+
+<ul>
+  <li>$command_on_success</li>
+</ul>
+
+<p>A coderef that’s executed upon success; that is, if we created the tarball
+successfully.</p>
+
+<h3 id="uploading-distribution-to-cpan">Uploading distribution to cpan</h3>
+
+<p>The upload to cpan is handled by the example script cpan-upload that comes
+with the CPAN::Uploader distribution. We can use the distribution interface
+directly, but we would need to handle logic for supplying PAUSE credentials;
+cpan-upload already handles this nicely.</p>
+
+<p><img src="/assets/makedist_upload.png" alt="makedist upload" /></p>
+
+<p>makedist uploads itself to <a href="https://metacpan.org/pod/release/WOLDRICH/App-makedist-0.012/makedist">cpan</a> :).</p>
+
+  </div><a class="u-url" href="/2018/12/13/make-perl-distribution-making-automatic.html" hidden></a>
+</article>
+
+
+<!--      <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a> -->
+
+      </div>
+
+
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+<!--    <h2 class="footer-heading">http/japh.se</h2> -->
+    <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">http/japh.se</li><li><a class="u-email" href="mailto:m@japh.se">m@japh.se</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/trapd00r"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">trapd00r</span></a></li><li><a href="https://www.linkedin.com/in/japh"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">japh</span></a></li><li><a href="https://www.twitter.com/wantarray"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">wantarray</span></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg> <span>rss</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

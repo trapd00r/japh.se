@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>vidir - file management using the power of vim in vim | http/japh.se</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="vidir - file management using the power of vim in vim" />
+<meta name="author" content="Magnus Woldrich" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment." />
+<meta property="og:description" content="just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment." />
+<link rel="canonical" href="http://japh.se/dev/vidir/" />
+<meta property="og:url" content="http://japh.se/dev/vidir/" />
+<meta property="og:site_name" content="http/japh.se" />
+<script type="application/ld+json">
+{"description":"just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment.","headline":"vidir - file management using the power of vim in vim","@type":"WebPage","url":"http://japh.se/dev/vidir/","author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-11890504-2', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">http/japh.se </a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+
+        <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+        |
+        <a href="/dev">dev()</a>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <h1 id="name">NAME</h1>
+
+<p>vidir - edit directory</p>
+
+<h1 id="synopsis">SYNOPSIS</h1>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>vidir</strong> [–verbose] [directory</td>
+      <td>file</td>
+      <td>-] …</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="description">DESCRIPTION</h1>
+
+<p>vidir allows editing of the contents of a directory in a text editor. If no
+directory is specified, the current directory is edited.</p>
+
+<p>When editing a directory, each item in the directory will appear on its own
+numbered line. These numbers are how vidir keeps track of what items are
+changed. Delete lines to remove files from the directory, or
+edit filenames to rename files. You can also switch pairs of numbers to
+swap filenames.</p>
+
+<p>Note that if “-“ is specified as the directory to edit, it reads a list of
+filenames from stdin and displays those for editing. Alternatively, a list
+of files can be specified on the command line.</p>
+
+<h1 id="options">OPTIONS</h1>
+
+<ul>
+  <li>
+    <p>-v, –verbose</p>
+
+    <p>Verbosely display the actions taken by the program.</p>
+  </li>
+</ul>
+
+<h1 id="examples">EXAMPLES</h1>
+
+<ul>
+  <li>vidir</li>
+  <li>
+    <p>vidir *.jpeg</p>
+
+    <p>Typical uses.</p>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>find</td>
+          <td>vidir -</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Edit subdirectory contents too. To delete subdirectories,
+  delete all their contents and the subdirectory itself in the editor.</p>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>find -type f</td>
+          <td>vidir -</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Edit all files under the current directory and subdirectories.</p>
+  </li>
+</ul>
+
+<h1 id="environment-variables">ENVIRONMENT VARIABLES</h1>
+
+<ul>
+  <li>
+    <p>EDITOR</p>
+
+    <p>Editor to use.</p>
+  </li>
+  <li>
+    <p>VISUAL</p>
+
+    <p>Also supported to determine what editor to use.</p>
+  </li>
+  <li>
+    <p>VIDIR_EDITOR_ARGS</p>
+
+    <p>Optional args for editor</p>
+  </li>
+</ul>
+
+<h1 id="author">AUTHOR</h1>
+
+<p>Joey Hess <a href="mailto:joey@kitenet.net">joey@kitenet.net</a> 2006-2010</p>
+
+<p>Modifications by Magnus Woldrich  <a href="mailto:m@japh.se">m@japh.se</a> 2011</p>
+
+<h1 id="copyright">COPYRIGHT</h1>
+
+<p>Copyright 2006-2011 the <strong>vidir</strong> <a href="#author">“AUTHOR”</a>s as listed above.</p>
+
+<p>Licensed under the GNU GPL.</p>
+
+
+<!--      <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a> -->
+
+      </div>
+
+
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+<!--    <h2 class="footer-heading">http/japh.se</h2> -->
+    <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">http/japh.se</li><li><a class="u-email" href="mailto:m@japh.se">m@japh.se</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/trapd00r"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">trapd00r</span></a></li><li><a href="https://www.linkedin.com/in/japh"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">japh</span></a></li><li><a href="https://www.twitter.com/wantarray"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">wantarray</span></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg> <span>rss</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

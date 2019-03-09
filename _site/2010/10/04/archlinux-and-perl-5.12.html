@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>archlinux and perl 5.12 | http/japh.se</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="archlinux and perl 5.12" />
+<meta name="author" content="Magnus Woldrich" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The upgrade from Perl 5.10 to 5.12.1 in Arch have caused a lot of headache. I had to manually rebuild almost 600 modules and a lot of regular users are frustrated due to the suddenly changed perl-bin-path, from the sane /usr/bin/perlbin path to hiding them in /usr/lib. What the fuck…" />
+<meta property="og:description" content="The upgrade from Perl 5.10 to 5.12.1 in Arch have caused a lot of headache. I had to manually rebuild almost 600 modules and a lot of regular users are frustrated due to the suddenly changed perl-bin-path, from the sane /usr/bin/perlbin path to hiding them in /usr/lib. What the fuck…" />
+<link rel="canonical" href="http://japh.se/2010/10/04/archlinux-and-perl-5.12.html" />
+<meta property="og:url" content="http://japh.se/2010/10/04/archlinux-and-perl-5.12.html" />
+<meta property="og:site_name" content="http/japh.se" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2010-10-04T00:00:00+02:00" />
+<script type="application/ld+json">
+{"dateModified":"2010-10-04T00:00:00+02:00","description":"The upgrade from Perl 5.10 to 5.12.1 in Arch have caused a lot of headache. I had to manually rebuild almost 600 modules and a lot of regular users are frustrated due to the suddenly changed perl-bin-path, from the sane /usr/bin/perlbin path to hiding them in /usr/lib. What the fuck…","datePublished":"2010-10-04T00:00:00+02:00","headline":"archlinux and perl 5.12","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2010/10/04/archlinux-and-perl-5.12.html"},"@type":"BlogPosting","url":"http://japh.se/2010/10/04/archlinux-and-perl-5.12.html","author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-11890504-2', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">http/japh.se </a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+
+        <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+        |
+        <a href="/dev">dev()</a>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">archlinux and perl 5.12</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2010-10-04T00:00:00+02:00" itemprop="datePublished">Oct 4, 2010
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Magnus Woldrich</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>The upgrade from Perl 5.10 to 5.12.1 in Arch have caused a lot of
+headache. I had to manually rebuild almost 600 modules and a lot of
+regular users are frustrated due to the suddenly changed perl-bin-path,
+from the sane <em>/usr/bin/perlbin</em> path to hiding them in <em>/usr/lib</em>. What
+the fuck…</p>
+
+<p>I’ve searched, asked and questioned this decision for a couple of months
+now, to no avail. The path problem isn’t hard to fix, though.</p>
+
+<p>First, use <em>pacman</em> to see where it actually installed things:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>pacman <span class="nt">-Ql</span> colorcoke-git|grep bin
+colorcoke-git /usr/lib/perl5/vendor_perl/bin/
+colorcoke-git /usr/lib/perl5/vendor_perl/bin/colorcoke</code></pre></figure>
+
+<p>Right. Add that (and the other missing dirs as well) to your $PATH in
+.bashrc or similar.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/lib/perl5/vendor_perl/bin:/usr/lib/perl5/core_perl/bin:/usr/lib/perl5/site_perl/bin</code></pre></figure>
+
+<p>Use <em>hash -r</em> (bash) or <em>rehash</em> (zsh), and the PATH will be rehashed
+for executables.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>which colorcoke
+/usr/lib/perl5/site_perl/bin/colorcoke</code></pre></figure>
+
+<p><em>UPDATE</em></p>
+
+<p>I just talked to <a href="http://allanmcrae.com/">Allan McRae</a> on this issue.
+The reason why Perl executables are installed in <em>/usr/lib/…</em> is
+because subdirectories in <em>/usr/bin</em> are not allowed by the <a href="http://www.pathname.com/fhs/">Filesystem Hierarchy Standard</a>.</p>
+
+<p>The script that’s supposed to update the PATH only works if the
+directories does exist. The first time a user will install a package
+containing Perl executeables, those directories will be created, but the
+PATH wont be updated until the next time that file is sourced (probably
+the next time the user logs in).</p>
+
+<p>I suggested to skip those checks and just add the directories to the
+PATH anyway, but <a href="https://bugs.archlinux.org/task/17402">apparently</a> that will
+create other problems.</p>
+
+<p>Therefore I submitted a <a href="https://bugs.archlinux.org/task/22197">bug rapport</a> on the
+matter, and the solution is pretty simple:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Set path to perl scripts.</span>
+<span class="c"># Remove the perlbin dirs in the next release.</span>
+
+<span class="c"># Create directories and and them to the PATH.</span>
+
+<span class="nb">mkdir</span> <span class="nt">-p</span> /usr/lib/perl5/<span class="o">{</span>site,vendor,core<span class="o">}</span>_perl/bin <span class="o">&amp;&amp;</span>
+  <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/lib/perl5/site_perl/bin
+  <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/lib/perl5/vendor_perl/bin
+  <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/lib/perl5/core_perl/bin
+
+<span class="nb">export </span>PATH
+
+<span class="c"># If you have modules in non-standard directories you can add them here.</span>
+<span class="c">#export PERLLIB=dir1:dir2</span></code></pre></figure>
+
+<p>Hopefully, this will be solved pretty fast.</p>
+
+  </div><a class="u-url" href="/2010/10/04/archlinux-and-perl-5.12.html" hidden></a>
+</article>
+
+
+<!--      <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a> -->
+
+      </div>
+
+
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+<!--    <h2 class="footer-heading">http/japh.se</h2> -->
+    <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">http/japh.se</li><li><a class="u-email" href="mailto:m@japh.se">m@japh.se</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/trapd00r"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">trapd00r</span></a></li><li><a href="https://www.linkedin.com/in/japh"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">japh</span></a></li><li><a href="https://www.twitter.com/wantarray"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">wantarray</span></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg> <span>rss</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>just another perl hacker from sweden that writes about perl, linux, vim, colors, terminal emulators, shells and other things that make up a development environment.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
