@@ -17,14 +17,13 @@
 title: http/japh.se
 email: m@japh.se
 description: >- # this means to ignore newlines until "baseurl:"
-  just another perl hacker from sweden that writes about perl, linux,
-  vim, colors, terminal emulators, shells and other things that make up
-  a development environment.
+  just another perl hacker from sweden
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://japh.se" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: wantarray
 github_username:  trapd00r
 linkedin_username: japh
+#irc_username: japh
 rss: rss
 irc: japh
 
