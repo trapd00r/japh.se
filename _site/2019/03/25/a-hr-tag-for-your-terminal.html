@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>a &lt;hr&gt; tag for your terminal | http/japh.se</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="a &lt;hr&gt; tag for your terminal" />
+<meta name="author" content="Magnus Woldrich" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="At times when living my life in the terminal I run many commands in quick succession that might produce a lot of output. Differencing where the output actually comes from can be tiresome. Previously I’ve done simple things like" />
+<meta property="og:description" content="At times when living my life in the terminal I run many commands in quick succession that might produce a lot of output. Differencing where the output actually comes from can be tiresome. Previously I’ve done simple things like" />
+<link rel="canonical" href="http://japh.se/2019/03/25/a-hr-tag-for-your-terminal.html" />
+<meta property="og:url" content="http://japh.se/2019/03/25/a-hr-tag-for-your-terminal.html" />
+<meta property="og:site_name" content="http/japh.se" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-03-25T00:00:00+01:00" />
+<script type="application/ld+json">
+{"dateModified":"2019-03-25T00:00:00+01:00","description":"At times when living my life in the terminal I run many commands in quick succession that might produce a lot of output. Differencing where the output actually comes from can be tiresome. Previously I’ve done simple things like","datePublished":"2019-03-25T00:00:00+01:00","headline":"a &lt;hr&gt; tag for your terminal","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2019/03/25/a-hr-tag-for-your-terminal.html"},"@type":"BlogPosting","url":"http://japh.se/2019/03/25/a-hr-tag-for-your-terminal.html","author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-11890504-2', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">http/japh.se </a>
+    
+    <meta property="og:image" content="http://i.japh.se/social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="406">
+    <meta property="og:image:height" content="246"><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+
+        <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+
+        <a href="cv">cv</a>
+        |
+        <a href="/dev">code</a>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">a &lt;hr&gt; tag for your terminal</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2019-03-25T00:00:00+01:00" itemprop="datePublished">Mar 25, 2019
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Magnus Woldrich</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>At times when living my life in the terminal I run many commands in
+quick succession that might produce a lot of output. Differencing where
+the output actually comes from can be tiresome. Previously I’ve done
+simple things like</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">command1<span class="p">;</span> <span class="nb">echo</span> <span class="nt">--</span><span class="p">;</span> command2</code></pre></figure>
+
+<p>but it’s not exactly visually striking, is it?</p>
+
+<p>So I crafted a little tool that solves this problem in a better way, and
+it tries to be smart about it, too. By default, we try to determine the
+size of the terminal window to make sure the hr spans across nicely.
+The size of the bar can be configurable; maybe you don’t want the bar to span the entire terminal:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">hr <span class="nt">-s</span> 10</code></pre></figure>
+
+<p>or maybe you want it to span the entire window, but you’d like some padding:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">hr <span class="nt">--pre</span> 10</code></pre></figure>
+
+<p>wouldn’t it be nice to have padding on both sides, though?</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">hr <span class="nt">--pre</span> 10 <span class="nt">--post</span> 10</code></pre></figure>
+
+<p>We can add a bit of color to it as well, to make it stand out more from the rest of the data on screen:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">hr <span class="nt">--pre</span> 10 <span class="nt">--post</span> 10 <span class="nt">-fg</span> 196</code></pre></figure>
+
+<p>and of course the actual character that’s used to create the bar is configurable:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">hr <span class="nt">--pre</span> 10 <span class="nt">--post</span> 10 <span class="nt">-fg</span> 196 <span class="nt">-c</span> <span class="c">#</span></code></pre></figure>
+
+<p><a href="https://github.com/trapd00r/hr">hr</a> supports foreground and background colors, as well as all attributes available in <a href="https://metacpan.org/pod/Term::ExtendedColor">Term::ExtendedColor</a> (well, except blink…).</p>
+
+<p>Here’s a screenshot of what it can look like in a chain of commands (more screenshots in the examples section, below):</p>
+
+<p><img src="/assets/hr.png" alt="img" /></p>
+
+<h1 id="options">Options</h1>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-c,    --char       Character to use
+-s,    --size       Number of columns
+-pre,  --pre        Pad the left side with whitespace n
+-post, --post       Pad the right side with whitespace n
+-fg,   --fg         Foreground color to use, int 0-255
+-bg,   --bg         Background color to use, int 0-255
+-b,    --bold       Use bold
+-i,    --italic     Use italics
+-u,    --underline  Use underline
+-r,    --reverse    Use reverse video
+
+-h,    --help       Display this help and exit
+-m,    --man        Display the manual and exit
+-v,    --version    Display version info and exit
+</code></pre></div></div>
+
+<h1 id="examples">Examples</h1>
+
+<p>Due to the configurability of hr, differencing different hr invocations
+from each other is no problem.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">    <span class="c"># display a yellow underlined bar using the default '=' character</span>
+    hr <span class="nt">-fg</span> 220 <span class="nt">--underline</span></code></pre></figure>
+
+<p><img src="/assets/example01.png" alt="example01.png" /></p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">    <span class="c"># display a red solid bar padded by 10 columns from right and left</span>
+    hr <span class="nt">-fg</span> 160 <span class="nt">-c</span> ▀ <span class="nt">--pre</span> 10 <span class="nt">--post</span> 10</code></pre></figure>
+
+<p><img src="/assets/example02.png" alt="example02.png" /></p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">    <span class="c"># display a solid grey, thick bar using ascii character _ and the bold,</span>
+    <span class="c"># underline and reverse video attributes</span>
+
+    hr <span class="nt">-fg</span> 240 <span class="nt">-c_</span> <span class="nt">-bur</span></code></pre></figure>
+
+<p><img src="/assets/example03.png" alt="example03.png" /></p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">    <span class="c"># display a bar made of dots, with 5 column spacing one each size</span>
+    <span class="c"># and 20 columns wide.</span>
+
+    hr <span class="nt">-fg</span> 197 <span class="nt">-c</span>· <span class="nt">-pre</span> 5 <span class="nt">-post</span> 5 <span class="nt">-size</span> 20</code></pre></figure>
+
+<p><img src="/assets/example04.png" alt="example04.png" /></p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">    <span class="c"># use all options at once, because why not?</span>
+    hr <span class="nt">-c</span> <span class="o">!</span> <span class="nt">-fg</span> 52 <span class="nt">-bg</span> 196 <span class="nt">-biur</span> <span class="nt">-s</span> 70 <span class="nt">-pre</span> 5 <span class="nt">-post</span> 5</code></pre></figure>
+
+<p><img src="/assets/example05.png" alt="example05.png" /></p>
+
+<p><strong>Bonus</strong>: advanced example using arithmetics, because math is hard.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">    <span class="c"># use several characters to form a bar using arithmetics</span>
+    hr <span class="nt">-c</span> <span class="s2">"  japh  "</span> <span class="nt">-fg</span> 1 <span class="nt">-bg</span> 0 <span class="nt">-b</span> <span class="nt">-s</span> <span class="k">$((</span><span class="nv">$COLUMNS</span> <span class="o">/</span> <span class="m">8</span><span class="k">))</span></code></pre></figure>
+
+<p><img src="/assets/example06.png" alt="example06.png" /></p>
+
+<h1 id="links">LINKS</h1>
+
+<p>hr is available on <a href="https://github.com/trapd00r/hr">github</a> as well as
+on the <a href="https://metacpan.org/pod/App::term::hr">cpan</a>, of course.</p>
+
+
+  </div><a class="u-url" href="/2019/03/25/a-hr-tag-for-your-terminal.html" hidden></a>
+</article>
+
+
+<!--      <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a> -->
+
+      </div>
+
+
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+<!--    <h2 class="footer-heading">http/japh.se</h2> -->
+    <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">http/japh.se</li><li><a class="u-email" href="mailto:m@japh.se">m@japh.se</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/trapd00r"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">trapd00r</span></a></li><li><a href="https://www.linkedin.com/in/japh"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">japh</span></a></li><li><a href="https://www.twitter.com/wantarray"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">wantarray</span></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg> <span>rss</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>just another perl hacker from sweden</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

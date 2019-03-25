@@ -1,4 +1,104 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://japh.se/feed.xml" rel="self" type="application/atom+xml" /><link href="http://japh.se/" rel="alternate" type="text/html" /><updated>2019-03-24T13:37:29+01:00</updated><id>http://japh.se/feed.xml</id><title type="html">http/japh.se</title><subtitle>just another perl hacker from sweden</subtitle><entry><title type="html">rtorrent harddrive lockup with many torrents solution</title><link href="http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html" rel="alternate" type="text/html" title="rtorrent harddrive lockup with many torrents solution" /><published>2019-03-09T00:00:00+01:00</published><updated>2019-03-09T00:00:00+01:00</updated><id>http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents</id><content type="html" xml:base="http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html">&lt;p&gt;rtorrent is a great piece of software, and with patches from the &lt;a href=&quot;https://github.com/pyroscope/rtorrent-
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://japh.se/feed.xml" rel="self" type="application/atom+xml" /><link href="http://japh.se/" rel="alternate" type="text/html" /><updated>2019-03-25T10:52:29+01:00</updated><id>http://japh.se/feed.xml</id><title type="html">http/japh.se</title><subtitle>just another perl hacker from sweden</subtitle><entry><title type="html">a &amp;lt;hr&amp;gt; tag for your terminal</title><link href="http://japh.se/2019/03/25/a-hr-tag-for-your-terminal.html" rel="alternate" type="text/html" title="a &lt;hr&gt; tag for your terminal" /><published>2019-03-25T00:00:00+01:00</published><updated>2019-03-25T00:00:00+01:00</updated><id>http://japh.se/2019/03/25/a-hr-tag-for-your-terminal</id><content type="html" xml:base="http://japh.se/2019/03/25/a-hr-tag-for-your-terminal.html">&lt;p&gt;At times when living my life in the terminal I run many commands in
+quick succession that might produce a lot of output. Differencing where
+the output actually comes from can be tiresome. Previously I’ve done
+simple things like&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;command1&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; command2&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;but it’s not exactly visually striking, is it?&lt;/p&gt;
+
+&lt;p&gt;So I crafted a little tool that solves this problem in a better way, and
+it tries to be smart about it, too. By default, we try to determine the
+size of the terminal window to make sure the hr spans across nicely.
+The size of the bar can be configurable; maybe you don’t want the bar to span the entire terminal:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;hr &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; 10&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;or maybe you want it to span the entire window, but you’d like some padding:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;hr &lt;span class=&quot;nt&quot;&gt;--pre&lt;/span&gt; 10&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;wouldn’t it be nice to have padding on both sides, though?&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;hr &lt;span class=&quot;nt&quot;&gt;--pre&lt;/span&gt; 10 &lt;span class=&quot;nt&quot;&gt;--post&lt;/span&gt; 10&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;We can add a bit of color to it as well, to make it stand out more from the rest of the data on screen:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;hr &lt;span class=&quot;nt&quot;&gt;--pre&lt;/span&gt; 10 &lt;span class=&quot;nt&quot;&gt;--post&lt;/span&gt; 10 &lt;span class=&quot;nt&quot;&gt;-fg&lt;/span&gt; 196&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;and of course the actual character that’s used to create the bar is configurable:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;hr &lt;span class=&quot;nt&quot;&gt;--pre&lt;/span&gt; 10 &lt;span class=&quot;nt&quot;&gt;--post&lt;/span&gt; 10 &lt;span class=&quot;nt&quot;&gt;-fg&lt;/span&gt; 196 &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/trapd00r/hr&quot;&gt;hr&lt;/a&gt; supports foreground and background colors, as well as all attributes available in &lt;a href=&quot;https://metacpan.org/pod/Term::ExtendedColor&quot;&gt;Term::ExtendedColor&lt;/a&gt; (well, except blink…).&lt;/p&gt;
+
+&lt;p&gt;Here’s a screenshot of what it can look like in a chain of commands (more screenshots in the examples section, below):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/hr.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;options&quot;&gt;Options&lt;/h1&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-c,    --char       Character to use
+-s,    --size       Number of columns
+-pre,  --pre        Pad the left side with whitespace n
+-post, --post       Pad the right side with whitespace n
+-fg,   --fg         Foreground color to use, int 0-255
+-bg,   --bg         Background color to use, int 0-255
+-b,    --bold       Use bold
+-i,    --italic     Use italics
+-u,    --underline  Use underline
+-r,    --reverse    Use reverse video
+
+-h,    --help       Display this help and exit
+-m,    --man        Display the manual and exit
+-v,    --version    Display version info and exit
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;examples&quot;&gt;Examples&lt;/h1&gt;
+
+&lt;p&gt;Due to the configurability of hr, differencing different hr invocations
+from each other is no problem.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;c&quot;&gt;# display a yellow underlined bar using the default '=' character&lt;/span&gt;
+    hr &lt;span class=&quot;nt&quot;&gt;-fg&lt;/span&gt; 220 &lt;span class=&quot;nt&quot;&gt;--underline&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/example01.png&quot; alt=&quot;example01.png&quot; /&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;c&quot;&gt;# display a red solid bar padded by 10 columns from right and left&lt;/span&gt;
+    hr &lt;span class=&quot;nt&quot;&gt;-fg&lt;/span&gt; 160 &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; ▀ &lt;span class=&quot;nt&quot;&gt;--pre&lt;/span&gt; 10 &lt;span class=&quot;nt&quot;&gt;--post&lt;/span&gt; 10&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/example02.png&quot; alt=&quot;example02.png&quot; /&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;c&quot;&gt;# display a solid grey, thick bar using ascii character _ and the bold,&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# underline and reverse video attributes&lt;/span&gt;
+
+    hr &lt;span class=&quot;nt&quot;&gt;-fg&lt;/span&gt; 240 &lt;span class=&quot;nt&quot;&gt;-c_&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-bur&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/example03.png&quot; alt=&quot;example03.png&quot; /&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;c&quot;&gt;# display a bar made of dots, with 5 column spacing one each size&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# and 20 columns wide.&lt;/span&gt;
+
+    hr &lt;span class=&quot;nt&quot;&gt;-fg&lt;/span&gt; 197 &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt;· &lt;span class=&quot;nt&quot;&gt;-pre&lt;/span&gt; 5 &lt;span class=&quot;nt&quot;&gt;-post&lt;/span&gt; 5 &lt;span class=&quot;nt&quot;&gt;-size&lt;/span&gt; 20&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/example04.png&quot; alt=&quot;example04.png&quot; /&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;c&quot;&gt;# use all options at once, because why not?&lt;/span&gt;
+    hr &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-fg&lt;/span&gt; 52 &lt;span class=&quot;nt&quot;&gt;-bg&lt;/span&gt; 196 &lt;span class=&quot;nt&quot;&gt;-biur&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; 70 &lt;span class=&quot;nt&quot;&gt;-pre&lt;/span&gt; 5 &lt;span class=&quot;nt&quot;&gt;-post&lt;/span&gt; 5&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/example05.png&quot; alt=&quot;example05.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Bonus&lt;/strong&gt;: advanced example using arithmetics, because math is hard.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;c&quot;&gt;# use several characters to form a bar using arithmetics&lt;/span&gt;
+    hr &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;  japh  &quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-fg&lt;/span&gt; 1 &lt;span class=&quot;nt&quot;&gt;-bg&lt;/span&gt; 0 &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$((&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$COLUMNS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/example06.png&quot; alt=&quot;example06.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;links&quot;&gt;LINKS&lt;/h1&gt;
+
+&lt;p&gt;hr is available on &lt;a href=&quot;https://github.com/trapd00r/hr&quot;&gt;github&lt;/a&gt; as well as
+on the &lt;a href=&quot;https://metacpan.org/pod/App::term::hr&quot;&gt;cpan&lt;/a&gt;, of course.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="perl," /><category term="terminal" /><summary type="html">At times when living my life in the terminal I run many commands in quick succession that might produce a lot of output. Differencing where the output actually comes from can be tiresome. Previously I’ve done simple things like</summary></entry><entry><title type="html">rtorrent harddrive lockup with many torrents solution</title><link href="http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html" rel="alternate" type="text/html" title="rtorrent harddrive lockup with many torrents solution" /><published>2019-03-09T00:00:00+01:00</published><updated>2019-03-09T00:00:00+01:00</updated><id>http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents</id><content type="html" xml:base="http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html">&lt;p&gt;rtorrent is a great piece of software, and with patches from the &lt;a href=&quot;https://github.com/pyroscope/rtorrent-
 ps&quot;&gt;rtorrent-ps&lt;/a&gt; project it’s even better. Seeding many torrents, I started noticing
 harddrive lockups every now and then, where the program wouldn’t respond
 until I forcefully removed the usb cable to one of my drives.&lt;/p&gt;
@@ -523,155 +623,4 @@ cpan-upload already handles this nicely.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/makedist_upload.png&quot; alt=&quot;makedist upload&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;makedist uploads itself to &lt;a href=&quot;https://metacpan.org/pod/release/WOLDRICH/App-makedist-0.012/makedist&quot;&gt;cpan&lt;/a&gt; :).&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="perl," /><category term="cpan" /><summary type="html">Making a cpan distribution isn’t hard, but I’ve noticed that I sometimes hesitate;</summary></entry><entry><title type="html">how I use vim-bindings everywhere</title><link href="http://japh.se/2018/12/02/how-i-use-vimbindings-everywhere.html" rel="alternate" type="text/html" title="how I use vim-bindings everywhere" /><published>2018-12-02T00:00:00+01:00</published><updated>2018-12-02T00:00:00+01:00</updated><id>http://japh.se/2018/12/02/how-i-use-vimbindings-everywhere</id><content type="html" xml:base="http://japh.se/2018/12/02/how-i-use-vimbindings-everywhere.html">&lt;p&gt;I love vim. It’s quite possibly one of the best engineered pieces of
-software ever created. Let me describe how I use vi(m) keymaps in every
-single application that I use on a daily basis.&lt;/p&gt;
-
-&lt;h2 id=&quot;xorg&quot;&gt;Xorg&lt;/h2&gt;
-&lt;p&gt;I highly recommend mapping the useless Caps Lock key to ESC globaly in X
-using xmodmap. This will be very useful in every place where we use
-vimbindings, like readline in your shell.&lt;/p&gt;
-
-&lt;p&gt;Use xev to find out the keycode for your caps lock key. On my desktop
-it’s 0x42, on my laptop it’s 60.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;xmodmap &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'clear Lock'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'keycode 60'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Escape&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;the-virtual-console--tty&quot;&gt;The virtual console / TTY&lt;/h2&gt;
-
-&lt;p&gt;Having Caps Lock mapped to ESC outside of X is a tiny bit trickier. Make
-sure you’re in a TTY when you do this, or else you’ll get false results!&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Let's find out what keycodes map to the keys we want to remap&lt;/span&gt;
-dumpkeys &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-P&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'escape|caps'&lt;/span&gt;
-
-  Caps Lock       58
-  Escape           1&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Put our new definition in a file called &lt;em&gt;/usr/local/share/kbd/keymaps/caps_to_esc&lt;/em&gt;
-and use the loadkeys application to load our new values:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'keycode 58 = 1'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; /usr/local/share/kbd/caps_to_esc
-loadkeys &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; /usr/local/share/kbd/caps_to_esc&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;shell&quot;&gt;Shell&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;Bash and readline&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Bash uses readline which supports a vi keymap. In bash you can enable it
-by issuing:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; vi&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;You can activate it for other applications using readline (like for example &lt;a href=&quot;/dev/pimpd2/&quot;&gt;pimpd2&lt;/a&gt; by placing
-this in your $HOME/.inputrc:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;editing-mode vi
-&lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;keymap vi-insert&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;See readline(3) for a full list of options. You can also take a peek at &lt;a href=&quot;https://github.com/trapd00r/configs/blob/master/inputrc&quot;&gt;my inputrc&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Zsh&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Zsh doesn’t make use of readline since it got its own command line
-editor called zle. You can still put this in your shell resource
-file though:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; vi&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Additionally, you can use the very powerful zle function &lt;strong&gt;bindkey&lt;/strong&gt; to manipulate
-your keymaps. See&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;zle &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;for a full list of keymaps, or &lt;a href=&quot;https://github.com/trapd00r/configs/blob/master/zsh/03-
-bindkeys.zsh&quot;&gt;checkout mine&lt;/a&gt;. I use full vimbindings along with a subset of useful
-emacs bindings.&lt;/p&gt;
-
-&lt;h2 id=&quot;file-management&quot;&gt;File management&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;vidir&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;All my file management needs is handled in the shell or in &lt;a href=&quot;https://github.com/trapd00r/vidir&quot;&gt;vidir&lt;/a&gt;.
-vidir isn’t a file manager plugin for vim; all the file management is handled in vim itself. 
-A buffer is loaded with the content of a directory in a buffer. All
-operations that you perform on this buffer happens on the files themselves.
-You can use regular expressions, visual mode marks, &lt;a href=&quot;https://github.com/trapd00r/configs/blob/master/vim/nancy/00-
-0-functions.vim#L16&quot;&gt;custom
-functions&lt;/a&gt; and so on.&lt;/p&gt;
-
-&lt;p&gt;Simple example:&lt;/p&gt;
-
-&lt;p&gt;dd (delete linewise) will delete a line in the buffer, and when you :wq, that file will be deleted in the filesystem.&lt;/p&gt;
-
-&lt;h2 id=&quot;irc&quot;&gt;irc&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;irssi&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;For a very long time, irssi was the only place where I couldn’t get
-vimbindings working. I had to use cursor keys and other evilness.
-Then, all of a sudden, &lt;a href=&quot;https://github.com/shabble&quot;&gt;shabble&lt;/a&gt; came along
-and saved the day (and my fingers) with his wonderful &lt;a href=&quot;https://github.com/shabble/irssi-scripts/tree/master/vim-mode&quot;&gt;vim-mode&lt;/a&gt; plugin.&lt;/p&gt;
-
-&lt;p&gt;Make sure to check out his &lt;a href=&quot;https://github.com/shabble/irssi-
-scripts&quot;&gt;other scripts&lt;/a&gt; as well, there are some really nifty stuff in there.&lt;/p&gt;
-
-&lt;h2 id=&quot;browsers&quot;&gt;Browsers&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;Firefox&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Quite a sad story, really.&lt;/p&gt;
-
-&lt;p&gt;I used vimperator for many, many years. Along came pentadactyl which was
-supposed to be the successor, and I used it for a few years as well.
-Then, pentadactyl broke somehow and I went back to vimperator where
-development had started again.&lt;/p&gt;
-
-&lt;p&gt;Now, sadly, firefox changed their addon api in a way that renders all
-old addons obsolete and non-functional. Due to the complexity of
-vimperator, writing it again from scratch isn’t a task someone have been
-willing to take on.&lt;/p&gt;
-
-&lt;p&gt;There’s a few options today:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Use firefox =&amp;lt; 56 and vimperator.&lt;/li&gt;
-  &lt;li&gt;Use a recent firefox and &lt;a href=&quot;https://github.com/tridactyl/tridactyl&quot;&gt;tridactyl&lt;/a&gt;.&lt;/li&gt;
-  &lt;li&gt;Use Google chrome and Vimium.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I don’t like chrome so I use tridactyl which is ok.&lt;/p&gt;
-
-&lt;h2 id=&quot;music&quot;&gt;Music&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;pimpd2&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The most &lt;a href=&quot;https://github.com/trapd00r/pimpd2&quot;&gt;feature-full&lt;/a&gt; cli mpd client that I know of.
-I also happened to write it. :)&lt;/p&gt;
-
-&lt;p&gt;It’s a command line client that also sports an interactive shell. That
-shell used readline, and using readline we get the vi keymap, remember?&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;ncmpcpp&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://unkart.ovh.org/ncmpcpp&quot;&gt;ncmpcpp&lt;/a&gt; is a client built using c++ and
-ncurses. It features vim-like bindings fresh out of the box and is highly configurable.&lt;/p&gt;
-
-&lt;h2 id=&quot;video&quot;&gt;Video&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;mplayer&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;On linux, the obvious choice for video is mplayer. Along with the
-mplayer config, an additional file can be used that specifies your input
-configuration. &lt;a href=&quot;https://github.com/trapd00r/configs/tree/master/mplayer&quot;&gt;Here’s mine&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;git&quot;&gt;Git&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://git.wiki.kernel.org/index.php/Tig&quot;&gt;tig&lt;/a&gt; is a highly
-configurable ncurses git client with vim movement keys being the
-defaults.&lt;/p&gt;
-
-&lt;h2 id=&quot;pdf&quot;&gt;pdf&lt;/h2&gt;
-
-&lt;p&gt;For PDF viewing I use &lt;a href=&quot;https://github.com/naihe2010/apvlv&quot;&gt;apvlv&lt;/a&gt; which is the least
-annoying PDF viewer I know of and it ‘works just like Vim’.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="linux," /><category term="vim," /><category term="cli," /><category term="terminal" /><summary type="html">I love vim. It’s quite possibly one of the best engineered pieces of software ever created. Let me describe how I use vi(m) keymaps in every single application that I use on a daily basis.</summary></entry></feed>
+&lt;p&gt;makedist uploads itself to &lt;a href=&quot;https://metacpan.org/pod/release/WOLDRICH/App-makedist-0.012/makedist&quot;&gt;cpan&lt;/a&gt; :).&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="perl," /><category term="cpan" /><summary type="html">Making a cpan distribution isn’t hard, but I’ve noticed that I sometimes hesitate;</summary></entry></feed>
