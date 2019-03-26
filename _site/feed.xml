@@ -1,4 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://japh.se/feed.xml" rel="self" type="application/atom+xml" /><link href="http://japh.se/" rel="alternate" type="text/html" /><updated>2019-03-25T10:52:29+01:00</updated><id>http://japh.se/feed.xml</id><title type="html">http/japh.se</title><subtitle>just another perl hacker from sweden</subtitle><entry><title type="html">a &amp;lt;hr&amp;gt; tag for your terminal</title><link href="http://japh.se/2019/03/25/a-hr-tag-for-your-terminal.html" rel="alternate" type="text/html" title="a &lt;hr&gt; tag for your terminal" /><published>2019-03-25T00:00:00+01:00</published><updated>2019-03-25T00:00:00+01:00</updated><id>http://japh.se/2019/03/25/a-hr-tag-for-your-terminal</id><content type="html" xml:base="http://japh.se/2019/03/25/a-hr-tag-for-your-terminal.html">&lt;p&gt;At times when living my life in the terminal I run many commands in
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://japh.se/feed.xml" rel="self" type="application/atom+xml" /><link href="http://japh.se/" rel="alternate" type="text/html" /><updated>2019-03-26T09:40:27+01:00</updated><id>http://japh.se/feed.xml</id><title type="html">http/japh.se</title><subtitle>just another perl hacker from sweden</subtitle><entry><title type="html">adding LS_COLORS to ack3</title><link href="http://japh.se/2019/03/26/adding-LS_COLORS-to-ack3.html" rel="alternate" type="text/html" title="adding LS_COLORS to ack3" /><published>2019-03-26T00:00:00+01:00</published><updated>2019-03-26T00:00:00+01:00</updated><id>http://japh.se/2019/03/26/adding-LS_COLORS-to-ack3</id><content type="html" xml:base="http://japh.se/2019/03/26/adding-LS_COLORS-to-ack3.html">&lt;p&gt;A while back I made a quick hack in
+&lt;a href=&quot;https://github.com/trapd00r/ack2&quot;&gt;ack2&lt;/a&gt; to make it use
+&lt;a href=&quot;https://metacpan.org/pod/File::LsColor&quot;&gt;File::LsColor&lt;/a&gt; and
+&lt;a href=&quot;https://github.com/trapd00r/LS_COLORS&quot;&gt;LS_COLORS&lt;/a&gt; for colorizing the
+filenames instead of just Term::ANSIColor and the simple environment
+variable ACK_COLOR_FILENAME.&lt;/p&gt;
+
+&lt;p&gt;I figured it was pretty useful so I opened an issue over at
+&lt;a href=&quot;https://github.com/beyondgrep/ack3/issues/191&quot;&gt;ack3&lt;/a&gt; requesting
+comments for the idea. Was it something anyone else would find useful?&lt;/p&gt;
+
+&lt;p&gt;At first, Andy Lester wasn’t to keen on the idea, but the discussion has
+continued and it seems he has changed his mind. I don’t agree on the way
+he wants to colorize filenames based on ack’s internal types (a great
+feature of the program!), but he wants to support LS_COLORS as well so
+it’s all good.&lt;/p&gt;
+
+&lt;p&gt;Implementing a first working draft in ack3 wasn’t too hard, and you can
+see the difference between plain old Term::ANSIColor and File::LsColor
+output here:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/ack3_lscolor.png&quot; alt=&quot;ack&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It will be exciting to see what will happen with this, in the meantime
+the code can be found over at
+&lt;a href=&quot;https://github.com/trapd00r/ack3/tree/dircolors&quot;&gt;github&lt;/a&gt; in the
+dircolors branch.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="perl," /><category term="ack," /><category term="colors," /><category term="LS_COLORS" /><summary type="html">A while back I made a quick hack in ack2 to make it use File::LsColor and LS_COLORS for colorizing the filenames instead of just Term::ANSIColor and the simple environment variable ACK_COLOR_FILENAME.</summary></entry><entry><title type="html">a &amp;lt;hr&amp;gt; tag for your terminal</title><link href="http://japh.se/2019/03/25/a-hr-tag-for-your-terminal.html" rel="alternate" type="text/html" title="a &lt;hr&gt; tag for your terminal" /><published>2019-03-25T00:00:00+01:00</published><updated>2019-03-25T00:00:00+01:00</updated><id>http://japh.se/2019/03/25/a-hr-tag-for-your-terminal</id><content type="html" xml:base="http://japh.se/2019/03/25/a-hr-tag-for-your-terminal.html">&lt;p&gt;At times when living my life in the terminal I run many commands in
 quick succession that might produce a lot of output. Differencing where
 the output actually comes from can be tiresome. Previously I’ve done
 simple things like&lt;/p&gt;
@@ -429,198 +455,4 @@ distribution tarball.&lt;/p&gt;
 &lt;p&gt;It’s important to stringify your version number; if you represent it using a
 floating point number, version number comparison can fail in various ways.&lt;/p&gt;
 
-&lt;p&gt;Also make sure that the declaration is on a single line.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="perl," /><category term="cpan" /><summary type="html">While getting back to the wonderful world of perl I’ve been updating some of my old distributions on cpan, and also adding new content. Some things seem to have changed over the last few years, though, and I’ve had a number of issues getting my distributions to actually index.</summary></entry><entry><title type="html">make perl distribution making automatic</title><link href="http://japh.se/2018/12/13/make-perl-distribution-making-automatic.html" rel="alternate" type="text/html" title="make perl distribution making automatic" /><published>2018-12-13T00:00:00+01:00</published><updated>2018-12-13T00:00:00+01:00</updated><id>http://japh.se/2018/12/13/make-perl-distribution-making-automatic</id><content type="html" xml:base="http://japh.se/2018/12/13/make-perl-distribution-making-automatic.html">&lt;p&gt;Making a cpan distribution isn’t hard, but I’ve noticed that I sometimes
-hesitate;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;What files should go in the tarball and what files do I leave out?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;During development, it’s not unusual for a bunch of temp files to reside in the
-current working directory. Short temp scripts to test functionality, old build
-files and maybe a README that’s aimed for i.e github and not for distribution.
-Simply adding everything in cwd ain’t gonna cut it.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;What was the proper command to make said tarball again?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The command to untar a file is forever stuck in my brain, but the command for
-creating a gzipped tarball is not. Not to mention the fact that I feel the
-options and file argument order are messed up.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;What’s the proper way to name the finished tarball?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;If I’m about to upload a non-library distribution to cpan, should I add the
-App:: prefix or not? What did I do on the previous release? I can’t remember!&lt;/p&gt;
-
-&lt;p&gt;Was it an underscore, a hyphen or a dot between the distribution name and the
-version number? And it should be .tar.gz or was it just .tar? .gz?&lt;/p&gt;
-
-&lt;h2 id=&quot;makedist&quot;&gt;makedist&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/makedist.png&quot; alt=&quot;makedist&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Because of outlined reasons I decided to &lt;a href=&quot;https://github.com/trapd00r/makedist&quot;&gt;hack something&lt;/a&gt; together to aid
-me in this process. A few other things I wanted to implement:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;I want to copy the finished distribution to a local directory for archiving purposes.&lt;/li&gt;
-  &lt;li&gt;I want to copy the finished distribution to a remote directory for archiving purposes.&lt;/li&gt;
-  &lt;li&gt;I want to automatically upload the finished distribution to cpan.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;integrity-of-files&quot;&gt;Integrity of files&lt;/h3&gt;
-
-&lt;p&gt;There’s no point in doing anything if there’s missing files from the
-distribution. Therefore, we iterate the MANIFEST file and make sure that
-every file that’s supposed to go into the distribution tarball actually
-does exist.&lt;/p&gt;
-
-&lt;h3 id=&quot;building-the-distribution-filename&quot;&gt;Building the distribution filename&lt;/h3&gt;
-
-&lt;p&gt;A perl distribution tarball filename consists of two dynamic objects;
-the distribution name and the version number.&lt;/p&gt;
-
-&lt;p&gt;We can simply use a regex to extract the package name from a perl module like so:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'package Foo::Bar::Baz;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;m/^package\s+(.+);/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;The regular expression isn’t perfect, but it works in most cases.&lt;/p&gt;
-
-&lt;p&gt;However, what if what we’re trying to make a distribution out of isn’t a
-perl module, but an application? There might not exist any lib/
-directory, no perl module and no package declaration.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;k&quot;&gt;sub &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get_package_name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;shift&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-  &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$fh&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'&amp;lt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;die&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Can't open '$file': $!\n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$fh&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;chomp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# looks like a perl module&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;m/^package\s+(.+);/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;nv&quot;&gt;$package&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-      &lt;span class=&quot;c1&quot;&gt;# each two : replaced by a single hyphen for the filename&lt;/span&gt;
-      &lt;span class=&quot;nv&quot;&gt;$package&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;s/::/-/g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-      &lt;span class=&quot;c1&quot;&gt;# all good&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;last&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defined&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$package&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$package&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'App-'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;basename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;getcwd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()));&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;If it doesn’t look like a perl module we assume it’s an application,
-so we use the basename of the current working directory and add the
-App- prefix:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;App-makedist
-File-LsColor
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;extracting-the-version-number&quot;&gt;Extracting the version number&lt;/h4&gt;
-
-&lt;p&gt;brian d foy wrote a module way back in 1999 called &lt;a href=&quot;https://metacpan.org/pod/Module::Extract::VERSION&quot;&gt;Module::Extract::VERSION&lt;/a&gt;. It does
-exactly what it claims to do and works great. It can return a bunch of
-information, but we only need the version number so we call the method
-in scalar context and build the final filename:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;nv&quot;&gt;Use&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;File::Find::&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;Rule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;sub &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;build_filename&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$rule&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;File::Find::&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;Rule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-  &lt;span class=&quot;nv&quot;&gt;$rule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;$rule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;qr/[.]pm$/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-  &lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$rule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;getcwd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()))[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;glob&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'./bin/*'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;# Here we glue the actual filename together&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$dist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;get_package_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$version&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;scalar&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Module::Extract::&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;VERSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;parse_version_safely&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$dist_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s-%s.tar.gz&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$dist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$dist_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;We use File::Find::Rule to traverse the directory for perl module files
-(I had no luck with using glob(‘**/*.pm’)). If we find any, we use the
-first one; else, we look for content in the bin/ directory.&lt;/p&gt;
-
-&lt;p&gt;Now we’ve made sure that all the files does exist, and we’ve created the
-dynamic tarball filename.&lt;/p&gt;
-
-&lt;p&gt;We create the actual tarball using a system call, which I kinda not like,
-but I found no good module for it on the cpan.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'tar'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'czf'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$tarball&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;@files_in_dist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;vg&quot;&gt;$?&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;- Distribution created: %s\n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$tarball&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;What about those extra features I wanted, like auto-uploading to the cpan?
-&lt;a href=&quot;https://github.com/trapd00r/makedist&quot;&gt;makedist&lt;/a&gt; can make use of a configuration file:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;makedist.conf:
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;File::&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;Copy&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;qw(cp)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$cpan_dist_dir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;$ENV{HOME}/dev/_cpan_releases&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-
-&lt;span class=&quot;k&quot;&gt;our&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$command_on_success&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sub &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;'%s' -&amp;gt; '%s'\n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;nv&quot;&gt;ls_color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$finished_product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$cpan_dist_dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;scp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;upload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;sub &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;scp&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'scp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$finished_product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;qw(pi@pi:)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;sub &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;copy&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;cp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$finished_product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$cpan_dist_dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;die&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Copy failed: $!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;sub &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;upload&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'cpan-upload'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-u'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$pause_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$finished_product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;The $command_on_success and $finished_product variables are available in the
-configuration file.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;$finished_product&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The basename of the gzipped tarball, i.e. File-LsColor-0.192.tar.gz&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;$command_on_success&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;A coderef that’s executed upon success; that is, if we created the tarball
-successfully.&lt;/p&gt;
-
-&lt;h3 id=&quot;uploading-distribution-to-cpan&quot;&gt;Uploading distribution to cpan&lt;/h3&gt;
-
-&lt;p&gt;The upload to cpan is handled by the example script cpan-upload that comes
-with the CPAN::Uploader distribution. We can use the distribution interface
-directly, but we would need to handle logic for supplying PAUSE credentials;
-cpan-upload already handles this nicely.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/makedist_upload.png&quot; alt=&quot;makedist upload&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;makedist uploads itself to &lt;a href=&quot;https://metacpan.org/pod/release/WOLDRICH/App-makedist-0.012/makedist&quot;&gt;cpan&lt;/a&gt; :).&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="perl," /><category term="cpan" /><summary type="html">Making a cpan distribution isn’t hard, but I’ve noticed that I sometimes hesitate;</summary></entry></feed>
+&lt;p&gt;Also make sure that the declaration is on a single line.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="perl," /><category term="cpan" /><summary type="html">While getting back to the wonderful world of perl I’ve been updating some of my old distributions on cpan, and also adding new content. Some things seem to have changed over the last few years, though, and I’ve had a number of issues getting my distributions to actually index.</summary></entry></feed>
