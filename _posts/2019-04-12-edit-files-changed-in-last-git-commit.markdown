@@ -20,7 +20,7 @@ alias gdd='git diff --name-only HEAD~1..HEAD | ls_color'
 
 **edit them instead**:
 ```
-alias   vimlast='vim $(git diff --name-only HEAD~1..HEAD)'
+alias vimlast='vim $(git diff --name-only HEAD~1..HEAD)'
 ```
 
 Great way to quickly pick up where I left off yesterday!
