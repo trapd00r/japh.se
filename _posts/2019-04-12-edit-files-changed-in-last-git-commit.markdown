@@ -15,7 +15,7 @@ show modified files in the last commit:
 ```
 alias gdd='git diff --name-only HEAD~1..HEAD | ls_color'
 ```
-![img](/assets/vimlast)
+![img](/assets/vimlast.png)
 
 and edit them instead:
 ```
