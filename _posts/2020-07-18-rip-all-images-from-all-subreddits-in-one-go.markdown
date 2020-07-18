@@ -46,4 +46,4 @@ It's quite fast as well, and soon your directory structure will look like this:
 424M	./Offensive_Wallpapers
 ```
 
-That's 1714 high resolution wallpapers downloaded in a few minutes.
+That's **1714** high resolution wallpapers downloaded in a few minutes.
