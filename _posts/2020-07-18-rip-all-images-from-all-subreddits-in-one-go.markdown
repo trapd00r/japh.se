@@ -1,7 +1,7 @@
 ---
 layout: post
 title: rip all images from all subreddits in one go
-date: 2020-07-18 09:43:14
+date: 2020-07-18
 author: "Magnus Woldrich"
 tags: reddit, linux
 ---
