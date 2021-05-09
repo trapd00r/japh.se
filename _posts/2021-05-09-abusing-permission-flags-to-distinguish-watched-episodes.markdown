@@ -80,3 +80,5 @@ $ seen !$
 
 ![seen2](/assets/seen2.png)
 
+[LS_COLORS](https://github.com/trapd00r/LS_COLORS)
+
