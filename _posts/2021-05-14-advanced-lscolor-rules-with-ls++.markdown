@@ -6,15 +6,17 @@ author: "Magnus Woldrich"
 tags: linux, LS_COLORS, ls++
 ---
 
-![colors](/assets/color_directories_differently_with_patterns.png)
 
 It's possible to define a few rules outside of simple extension-based
 ones using [LS_COLORS](https://github.com/trapd00r/LS_COLORS). You can
 for example match literal filenames with no extension or simple globs:
 
 ```
+# matches README as well as *.README etc
 *README 38;5;220;1
-*rc     38;5;204  # matches rtorrent.rc as well as .zshrc
+
+# matches rtorrent.rc as well as .zshrc etc
+*rc     38;5;204
 ```
 
 ![lscolors_literal](/assets/lscolors_literal.png)
@@ -28,10 +30,10 @@ to keep both mp3 and flac versions of albums if possible.
 
 Turns out, simply matching ```*FLAC*``` in ```LS_COLORS```
 doesn't work. What you can't do in LS_COLORS, you can however do
-with [ls++](https://github.com/trapd00r/ls--).
+with [ls++](https://github.com/trapd00r/ls--):
 
 
-```ls++.conf```:
+ls++.conf:
 
 ```
 %ls_colors = (
@@ -45,15 +47,21 @@ index 204 for FLAC and index 137 for MP3, the same colors that I use to
 list files with these extensions:
 
 
-```$LS_COLORS```:
+$LS_COLORS:
 
 ```
 .flac 38;5;204
 .mp3  38;5;137
 ```
 
+And it looks like this:
+
+![colors](/assets/color_directories_differently_with_patterns.png)
+
 Though the patterns above are very simple, we can use the full power of
-perl regex to add attributes to whatever we want, or how about matching seasons premieres:
+perl regex to add attributes to whatever we want, or how about matching
+season premieres:
+
 
 ```
 %ls_colors = (
