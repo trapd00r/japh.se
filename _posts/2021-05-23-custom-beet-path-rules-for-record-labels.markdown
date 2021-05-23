@@ -40,3 +40,11 @@ $ beet move '8bitpeoples'
 
 Check ```beet fields``` for all the available fields you can use in a
 setup like this.
+
+You can also categorize things with custom tags:
+
+```
+beet modify 'green lantern' -a mixtape_host="DJ Green Lantern"
+
+mixtape_host: mixtapes/$mixtape_host/...
+```
