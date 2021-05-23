@@ -7,7 +7,9 @@
  * japh
 */
 
-@import "minima";
+// @import "minima";
+@import "minima/skins/{{ site.minima.skin | default: 'classic' }}";
+@import "minima/initialize";
 
 blockquote {
   color: #828282;
