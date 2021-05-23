@@ -41,8 +41,8 @@ theme: minima
 #theme: primer
 
 minima:
-#  skin: dark
-  skin: solarized-dark
+  skin: dark
+#  skin: solarized-dark
 
 plugins:
   - jekyll-feed
