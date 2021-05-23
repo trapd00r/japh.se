@@ -8,8 +8,8 @@ $brand-border-color:    #ff8700 !default;
 $site-title-color:      $brand-color-dark !default;
 
 $text-color:            #af875f !default;
-$background-color:      white !default;
 $code-background-color: #1c1c1c !default;
+$background-color:      $code-background-color !default;
 
 $link-base-color:       #0366d6 !default;
 $link-visited-color:    #0366d6 !default;
