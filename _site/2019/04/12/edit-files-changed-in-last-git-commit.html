@@ -3,20 +3,20 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Introducing File::LsColor | http/japh.se</title>
-<meta name="generator" content="Jekyll v3.8.4" />
-<meta property="og:title" content="Introducing File::LsColor" />
+<title>edit files changed in last git commit | http/japh.se</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="edit files changed in last git commit" />
 <meta name="author" content="Magnus Woldrich" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="just another perl hacker from sweden" />
-<meta property="og:description" content="just another perl hacker from sweden" />
-<link rel="canonical" href="http://japh.se/2019-02-23-introducing-file-lscolor.html" />
-<meta property="og:url" content="http://japh.se/2019-02-23-introducing-file-lscolor.html" />
+<meta name="description" content="Git is one of the tools where you can learn new things everyday." />
+<meta property="og:description" content="Git is one of the tools where you can learn new things everyday." />
+<link rel="canonical" href="http://japh.se/2019/04/12/edit-files-changed-in-last-git-commit.html" />
+<meta property="og:url" content="http://japh.se/2019/04/12/edit-files-changed-in-last-git-commit.html" />
 <meta property="og:site_name" content="http/japh.se" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2019-02-23T00:00:00+01:00" />
+<meta property="article:published_time" content="2019-04-12T00:00:00+02:00" />
 <script type="application/ld+json">
-{"dateModified":"2019-02-23T00:00:00+01:00","description":"just another perl hacker from sweden","datePublished":"2019-02-23T00:00:00+01:00","headline":"Introducing File::LsColor","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2019-02-23-introducing-file-lscolor.html"},"@type":"BlogPosting","url":"http://japh.se/2019-02-23-introducing-file-lscolor.html","author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
+{"description":"Git is one of the tools where you can learn new things everyday.","url":"http://japh.se/2019/04/12/edit-files-changed-in-last-git-commit.html","@type":"BlogPosting","headline":"edit files changed in last git commit","dateModified":"2019-04-12T00:00:00+02:00","datePublished":"2019-04-12T00:00:00+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2019/04/12/edit-files-changed-in-last-git-commit.html"},"author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script>
 if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
@@ -62,56 +62,33 @@ if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNo
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Introducing File::LsColor</h1>
+    <h1 class="post-title p-name" itemprop="name headline">edit files changed in last git commit</h1>
     <p class="post-meta">
-      <time class="dt-published" datetime="2019-02-23T00:00:00+01:00" itemprop="datePublished">Feb 23, 2019
+      <time class="dt-published" datetime="2019-04-12T00:00:00+02:00" itemprop="datePublished">Apr 12, 2019
       </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Magnus Woldrich</span></span></p>
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>Among command line utilities it’s no stretch to say that coreutils is
-one of the most used collection of tools, and it’s probably no stretch
-to say that <strong>ls</strong> is the most used program among them. ls utilizes the
-LS_COLORS environment variable for coloring filenames to make them
-easily recognizable. Given the amount of times you run ls a day, you’ll
-very soon get used to them colors.</p>
+    <p>Git is one of the tools where you can learn new things everyday.</p>
 
-<p>Therefore I figured it could be useful to make use of the LS_COLORS and
-dircolors functionality elsewhere as well. Chances are, whatever program
-you’re writing, at one point or another you’re going to print filenames
-to the screen and adding a tad bit of color can lighten up the whole
-experience.</p>
+<p>I’ve created two new aliases in my shellrc:</p>
 
-<p>Here’s a simple basename program that reads from stdin and can colorize
-the resulting filenames:</p>
+<p><strong>show modified files in the last commit</strong>:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alias gdd='git diff --name-only HEAD~1..HEAD | ls_color'
+</code></pre></div></div>
 
-<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">use</span> <span class="nv">strict</span><span class="p">;</span>
-<span class="k">use</span> <span class="nn">File::</span><span class="nv">Basename</span><span class="p">;</span>
-<span class="k">use</span> <span class="nn">File::</span><span class="nv">LsColor</span> <span class="sx">qw(ls_color)</span><span class="p">;</span>
+<p><img src="/assets/vimlast.png" alt="img" /></p>
 
-<span class="k">my</span> <span class="nv">$colored</span> <span class="o">=</span> <span class="nv">$ARGV</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=~</span> <span class="sr">m/--?c(?:olor)/</span><span class="p">;</span>
-<span class="nb">shift</span> <span class="nv">@ARGV</span> <span class="k">if</span> <span class="nv">$colored</span><span class="p">;</span>
+<p><strong>edit them instead</strong>:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alias vimlast='vim $(git diff --name-only HEAD~1..HEAD)'
+</code></pre></div></div>
 
-<span class="k">while</span><span class="p">(</span><span class="o">&lt;&gt;</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nb">chomp</span><span class="p">;</span>
-  <span class="k">my</span> <span class="nv">$file</span> <span class="o">=</span> <span class="nv">basename</span> <span class="nv">$_</span><span class="p">;</span>
-  <span class="nb">printf</span> <span class="s">"%s\n"</span><span class="p">,</span> <span class="nv">$colored</span> <span class="p">?</span> <span class="nv">ls_color</span><span class="p">(</span><span class="nv">$file</span><span class="p">)</span> <span class="p">:</span> <span class="nv">$file</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<p>Great way to quickly pick up where I left off yesterday!</p>
 
-<p><img src="/assets/ls_colors_mpd.png" alt="ls_colors_mpd" /></p>
+<p>(The <strong>ls_color</strong> tool is part of
+<a href="https://metacpan.org/pod/File::LsColor">File::LsColor</a>).</p>
 
-<p>Or a dirname equivalent; note that the base dirname are colored based on
-the content of the dir; flac, mp3 or… wma. Here I can easily see all
-the albums I have by Laleh, and also in what kind of quality.</p>
-
-<p><img src="/assets/ls_colors_laleh.svg" alt="ls_color" /></p>
-
-<p>I whipped up a <a href="https://github.com/trapd00r/ack2">quick</a> hack atop ack2,
-and it can look like this with colorized filenames:</p>
-
-<p><img src="/assets/ack2.png" alt="ack2" /></p>
-
-  </div><a class="u-url" href="/2019-02-23-introducing-file-lscolor.html" hidden></a>
+  </div><a class="u-url" href="/2019/04/12/edit-files-changed-in-last-git-commit.html" hidden></a>
 </article>
 
 

@@ -1,4 +1,65 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://japh.se/feed.xml" rel="self" type="application/atom+xml" /><link href="http://japh.se/" rel="alternate" type="text/html" /><updated>2019-03-26T09:40:27+01:00</updated><id>http://japh.se/feed.xml</id><title type="html">http/japh.se</title><subtitle>just another perl hacker from sweden</subtitle><entry><title type="html">adding LS_COLORS to ack3</title><link href="http://japh.se/2019/03/26/adding-LS_COLORS-to-ack3.html" rel="alternate" type="text/html" title="adding LS_COLORS to ack3" /><published>2019-03-26T00:00:00+01:00</published><updated>2019-03-26T00:00:00+01:00</updated><id>http://japh.se/2019/03/26/adding-LS_COLORS-to-ack3</id><content type="html" xml:base="http://japh.se/2019/03/26/adding-LS_COLORS-to-ack3.html">&lt;p&gt;A while back I made a quick hack in
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://japh.se/feed.xml" rel="self" type="application/atom+xml" /><link href="http://japh.se/" rel="alternate" type="text/html" /><updated>2020-07-19T09:45:13+02:00</updated><id>http://japh.se/feed.xml</id><title type="html">http/japh.se</title><subtitle>just another perl hacker from sweden</subtitle><entry><title type="html">rip all images from all subreddits in one go</title><link href="http://japh.se/2020/07/18/rip-all-images-from-all-subreddits-in-one-go.html" rel="alternate" type="text/html" title="rip all images from all subreddits in one go" /><published>2020-07-18T00:00:00+02:00</published><updated>2020-07-18T00:00:00+02:00</updated><id>http://japh.se/2020/07/18/rip-all-images-from-all-subreddits-in-one-go</id><content type="html" xml:base="http://japh.se/2020/07/18/rip-all-images-from-all-subreddits-in-one-go.html">&lt;p&gt;Have you ever wanted to download all the high resolution images in a
+particular subreddit, or perhaps from all the subreddits in a particular
+category? Turns out, it’s easier than one would imagine, using standard
+Linux tools.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Prerequisites&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A list of subreddits to download images (or other data) from.
+We can work with some wallpaper subreddits for this example:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;subreddits.txt:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wallpapers
+wallpaper
+Offensive_Wallpapers
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I’ve tried this approach on a category consisting of 350+ subreddits,
+and ran into zero issues.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;This &lt;a href=&quot;https://github.com/trapd00r/utils/blob/master/reddit-dl&quot;&gt;reddit-dl&lt;/a&gt; script by Nicola.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The command-line JSON processor jq.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A loop.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;for x in $(/bin/cat subreddits.txt); do mkdir -p ~/wallpapers/$x; cd ~/wallpapers/$x &amp;amp;&amp;amp; reddit-dl $x; done
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It’s quite fast as well, and soon your directory structure will look like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;3.7G	.
+2.1G	./wallpapers
+1.2G	./wallpaper
+424M	./Offensive_Wallpapers
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;That’s &lt;strong&gt;1714&lt;/strong&gt; high resolution wallpapers downloaded in a few minutes.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="reddit," /><category term="linux" /><summary type="html">Have you ever wanted to download all the high resolution images in a particular subreddit, or perhaps from all the subreddits in a particular category? Turns out, it’s easier than one would imagine, using standard Linux tools.</summary></entry><entry><title type="html">edit files changed in last git commit</title><link href="http://japh.se/2019/04/12/edit-files-changed-in-last-git-commit.html" rel="alternate" type="text/html" title="edit files changed in last git commit" /><published>2019-04-12T00:00:00+02:00</published><updated>2019-04-12T00:00:00+02:00</updated><id>http://japh.se/2019/04/12/edit-files-changed-in-last-git-commit</id><content type="html" xml:base="http://japh.se/2019/04/12/edit-files-changed-in-last-git-commit.html">&lt;p&gt;Git is one of the tools where you can learn new things everyday.&lt;/p&gt;
+
+&lt;p&gt;I’ve created two new aliases in my shellrc:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;show modified files in the last commit&lt;/strong&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;alias gdd='git diff --name-only HEAD~1..HEAD | ls_color'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/vimlast.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;edit them instead&lt;/strong&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;alias vimlast='vim $(git diff --name-only HEAD~1..HEAD)'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Great way to quickly pick up where I left off yesterday!&lt;/p&gt;
+
+&lt;p&gt;(The &lt;strong&gt;ls_color&lt;/strong&gt; tool is part of
+&lt;a href=&quot;https://metacpan.org/pod/File::LsColor&quot;&gt;File::LsColor&lt;/a&gt;).&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="git," /><category term="vim" /><summary type="html">Git is one of the tools where you can learn new things everyday.</summary></entry><entry><title type="html">adding LS_COLORS to ack3</title><link href="http://japh.se/2019/03/26/adding-LS_COLORS-to-ack3.html" rel="alternate" type="text/html" title="adding LS_COLORS to ack3" /><published>2019-03-26T00:00:00+01:00</published><updated>2019-03-26T00:00:00+01:00</updated><id>http://japh.se/2019/03/26/adding-LS_COLORS-to-ack3</id><content type="html" xml:base="http://japh.se/2019/03/26/adding-LS_COLORS-to-ack3.html">&lt;p&gt;A while back I made a quick hack in
 &lt;a href=&quot;https://github.com/trapd00r/ack2&quot;&gt;ack2&lt;/a&gt; to make it use
 &lt;a href=&quot;https://metacpan.org/pod/File::LsColor&quot;&gt;File::LsColor&lt;/a&gt; and
 &lt;a href=&quot;https://github.com/trapd00r/LS_COLORS&quot;&gt;LS_COLORS&lt;/a&gt; for colorizing the
@@ -352,107 +413,4 @@ URxvt.keysym.M-s:            perl:keyboard-select:search
 URxvt.matcher.rend.0:        Italic fg5
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;And as always, my ~/etc is &lt;a href=&quot;https://github.com/trapd00r/configs&quot;&gt;available on github&lt;/a&gt;&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="urxvt," /><category term="colors," /><category term="terminal" /><summary type="html">The url-select perl addon for urxvt is awesome for mouseless opening of urls.</summary></entry><entry><title type="html">automatically fetch lyrics with mpd</title><link href="http://japh.se/2019/01/16/automatically_fetch_lyrics_with_mpd.html" rel="alternate" type="text/html" title="automatically fetch lyrics with mpd" /><published>2019-01-16T00:00:00+01:00</published><updated>2019-01-16T00:00:00+01:00</updated><id>http://japh.se/2019/01/16/automatically_fetch_lyrics_with_mpd</id><content type="html" xml:base="http://japh.se/2019/01/16/automatically_fetch_lyrics_with_mpd.html">&lt;p&gt;I have a decently sized music collection and I use mpd and
-&lt;a href=&quot;https://github.com/trapd00r/pimpd2&quot;&gt;pimpd2&lt;/a&gt; to enjoy it. I rarely use ncmpcpp
-myself, but I’ve found a very good use for it.&lt;/p&gt;
-
-&lt;p&gt;Autostart it when you start your screen session and forget about it:&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;.screenrc&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;screen &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; nc ncmpcpp&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;strong&gt;$XDG_CONFIG_HOME/ncmpcpp/config&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;lyrics_directory                            &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ~/dev/lyrics/
-follow_now_playing_lyrics                   &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;yes
-&lt;/span&gt;store_lyrics_in_song_dir                    &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; no
-fetch_lyrics_for_current_song_in_background &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Now, whenever a song change occurs in mpd, the lyrics is automatically fetched
-in the background.&lt;/p&gt;
-
-&lt;p&gt;Now we want a way to store the ever-expanding collection of lyrics and always
-keep it up to date. It’s all textual data so obviously we use git.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;lyrics_update&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/dev/lyrics             &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
-  git add &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;                     &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
-  git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'update lyrics'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git push&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;and we stuff that in a crontab:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;0 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; sh /home/scp1/dev/utils/lyrics_update&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;The update script will run once every hour.&lt;/p&gt;
-
-&lt;p&gt;As of this writing, I’ve collected a total of &lt;strong&gt;510654&lt;/strong&gt; lines of lyrics and
-they can be digested &lt;a href=&quot;https://github.com/trapd00r/lyrics&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="lyrics," /><category term="mpd," /><category term="music," /><category term="ncmpcpp" /><summary type="html">I have a decently sized music collection and I use mpd and pimpd2 to enjoy it. I rarely use ncmpcpp myself, but I’ve found a very good use for it.</summary></entry><entry><title type="html">issues with cpan indexing</title><link href="http://japh.se/2018/12/17/issues-with-cpan-indexing.html" rel="alternate" type="text/html" title="issues with cpan indexing" /><published>2018-12-17T00:00:00+01:00</published><updated>2018-12-17T00:00:00+01:00</updated><id>http://japh.se/2018/12/17/issues-with-cpan-indexing</id><content type="html" xml:base="http://japh.se/2018/12/17/issues-with-cpan-indexing.html">&lt;p&gt;While getting back to the wonderful world of perl I’ve been updating some of my
-old distributions on cpan, and also adding new content. Some things seem to have
-changed over the last few years, though, and I’ve had a number of &lt;a href=&quot;https://github.com/metacpan/metacpan-web/issues/2136&quot;&gt;issues&lt;/a&gt; getting
-my distributions to actually index.&lt;/p&gt;
-
-&lt;h3 id=&quot;adding-an-app-distribution-on-cpan&quot;&gt;Adding an App:: distribution on cpan&lt;/h3&gt;
-
-&lt;p&gt;I discovered that a large number of App:: dists of mine were missing from the cpan, so
-I started investigating. Here’s what I’ve found:&lt;/p&gt;
-
-&lt;h4 id=&quot;metacpan-wont-index-a-distribution-that-doesnt-have-a-package-declaration&quot;&gt;(Meta)cpan won’t index a distribution that doesn’t have a package declaration.&lt;/h4&gt;
-
-&lt;p&gt;Solution: Create a stub pm file:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;lib/App/Foo.pm
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;nb&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;App::&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;our&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$VERSION&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'0.001'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin/foo
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;App::&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;strong&gt;OR&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Add a provides field to the META file by adding this to Makefile.PL:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;nv&quot;&gt;META_ADD&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;provides&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;'App::foo'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;nv&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'bin/foo'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;index-failed-decreasing-version-number&quot;&gt;Index failed: decreasing version number&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Make sure to NOT include any MYMETA.json or MYMETA.yml in your MANIFEST!&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;When you run&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  perl Makefile.PL
-  make
-  makedist
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;META.json and META.yml files are generated for you, and added to the
-distribution tarball.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Make sure to declare your $VERSION like this:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;our $VERSION = ‘0.020’;&lt;/p&gt;
-
-&lt;p&gt;It’s important to stringify your version number; if you represent it using a
-floating point number, version number comparison can fail in various ways.&lt;/p&gt;
-
-&lt;p&gt;Also make sure that the declaration is on a single line.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="perl," /><category term="cpan" /><summary type="html">While getting back to the wonderful world of perl I’ve been updating some of my old distributions on cpan, and also adding new content. Some things seem to have changed over the last few years, though, and I’ve had a number of issues getting my distributions to actually index.</summary></entry></feed>
+&lt;p&gt;And as always, my ~/etc is &lt;a href=&quot;https://github.com/trapd00r/configs&quot;&gt;available on github&lt;/a&gt;&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="urxvt," /><category term="colors," /><category term="terminal" /><summary type="html">The url-select perl addon for urxvt is awesome for mouseless opening of urls.</summary></entry></feed>

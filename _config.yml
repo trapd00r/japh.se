@@ -40,6 +40,9 @@ theme: minima
 #theme: jekyll-theme-so-simple
 #theme: primer
 
+minima:
+  skin: dark
+
 plugins:
   - jekyll-feed
 
