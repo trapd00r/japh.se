@@ -13,8 +13,9 @@ database and move them to to corresponding directory.
 
 Add this to config.yml:
 
-```
 
+{% highlight yaml %}
+{¤ raw %}
 plugins: ['fromfilename']
 
 extrafiles:
@@ -26,8 +27,9 @@ extrafiles:
 
 paths:
   singleton: %upper{%left{$artist,1}}/$artist/+tracks/$artist - $title
+{% endraw %}
+{% endhighlight %}
 
-```
 
 When we import single tracks to beets we don't use the autotagger, so
 it's important that the artist field is populated in the files, or else
