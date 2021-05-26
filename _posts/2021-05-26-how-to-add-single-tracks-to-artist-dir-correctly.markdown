@@ -15,7 +15,7 @@ Add this to config.yml:
 
 
 {% highlight yaml %}
-{¤ raw %}
+{% raw %}
 plugins: ['fromfilename']
 
 extrafiles:
