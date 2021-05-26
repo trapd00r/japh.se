@@ -14,6 +14,7 @@ database and move them to to corresponding directory.
 Add this to config.yml:
 
 ```
+
 plugins: ['fromfilename']
 
 extrafiles:
@@ -25,6 +26,7 @@ extrafiles:
 
 paths:
   singleton: %upper{%left{$artist,1}}/$artist/+tracks/$artist - $title
+
 ```
 
 When we import single tracks to beets we don't use the autotagger, so
@@ -39,7 +41,7 @@ I find it hard to remember all the commands so I saved it as `beet-import-tracks
 
 Use it like this:
 
-` beet-import-tracks *(.) # import every file in cwd`
+`beet-import-tracks *(.) # import every file in cwd`
 
 Now, since we made sure that the artist field was populated prior to
 running the import command, we can find the imported singletons at
