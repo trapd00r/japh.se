@@ -1,7 +1,7 @@
 ---
 layout: post
-title: how to add single tracks to artist dir correctly
-date: 2021-05-26 15:26:56
+title: how to add single tracks to artist directory correctly
+date: 2021-05-26
 author: "Magnus Woldrich"
 tags: linux, beets, music
 ---
@@ -46,3 +46,4 @@ running the import command, we can find the imported singletons at
 `A/Anna Ternheim/+tracks/`.
 
 My current beets configuration can be found [here](https://github.com/trapd00r/configs/blob/master/beets/config.yaml).
+
