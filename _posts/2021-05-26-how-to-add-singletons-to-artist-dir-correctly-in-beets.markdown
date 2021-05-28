@@ -38,6 +38,11 @@ field on a bunch of files, we can utilize [id3shit](https://github.com/trapd00r/
 
 `id3shit -w artist 'Anna Ternheim' *`
 
+*Edit 2021-05-28*:
+We can also use beets directly like this:
+
+`beet import --set artist=Anna\ Ternheim`
+
 The import command to beets for single tracks is `beet import -sA "$@"`.
 I find it hard to remember all the commands so I saved it as `beet-import-tracks`.
 
