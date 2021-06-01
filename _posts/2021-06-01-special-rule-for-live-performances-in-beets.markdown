@@ -7,9 +7,6 @@ tags: linux, beets, music
 ---
 
 
-Special rule for live performances in beets
-----
-
 I like to have the live performances by an artist somewhere else but
 directly in the artist root directory, yet still nearby. I create a
 label simply called `live` like this:
