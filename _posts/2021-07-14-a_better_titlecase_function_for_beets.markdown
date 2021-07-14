@@ -55,4 +55,8 @@ DJ TCP the Reckless │2021│ So Much Drama in the PhD [CDR, MP3]
 
 Much cleaner, eh?
 
+[The post that started it all](https://github.com/beetbox/beets/discussions/3998)
+
+[Announcement on beets/discussions](https://github.com/beetbox/beets/discussions/4007)
+
 [Here's](https://github.com/trapd00r/configs/blob/master/beets/config.yaml) my beets configuration.
