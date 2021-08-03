@@ -108,6 +108,6 @@ Well, look at that!
 
 Now, I guess I must say one shouldn't be doing this in production,
 yadda, yadda, but remember, the question shouldn't be _why_, but
-always _how_. If nothing else, this could enable faster proofs of concepts.
+always _how_. If nothing else, this could make for faster proofs of concepts.
 
 Here's a [link](https://github.com/trapd00r/perlinpython3) to the example code repository.
