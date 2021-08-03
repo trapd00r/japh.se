@@ -72,9 +72,12 @@ $ cpan pyperl
 ```python
 import perl as japh
 import sys
+```
+Let's grab some arguments from python:
 
-# let's grab some arguments from python
+```python
 filenames = sys.argv
+```
 
 # create a perl subroutine using perl.eval:
 # make sure to omit the return statement
