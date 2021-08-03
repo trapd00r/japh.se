@@ -68,34 +68,35 @@ regarding it not functioning with python3, but let's try it out.
 $ cpan pyperl
 ```
 
-**perl-sub-as-python-function.py**:
+Start by importing the perl module, here aptly named japh.
+Let's also grab some arguments from python:
 ```python
 import perl as japh
 import sys
-```
-Let's grab some arguments from python:
 
-```python
 filenames = sys.argv
 ```
 
-# create a perl subroutine using perl.eval:
-# make sure to omit the return statement
+Create a perl subroutine using **perl.eval()**. For a return to work
+properly, you need to omit the actual return.
+
+```python
 basename_and_colorize = japh.eval("""
   sub {
     use File::Basename;
-    use File::LsColor qw(ls_color); # https://github.com/trapd00r/File-LsColor
+    use File::LsColor qw(ls_color);
 
     my $file = shift;
     ls_color(basename($file));
-
   }
 """)
+```
 
-# use python to iterate over the given argments, and for each argument,
-# call the perl subroutine using perl.call(sub, args), and store it in a
-# python variable
+Use python to iterate over the given argments, and for each argument,
+call the perl subroutine using **perl.call()**, and store it in a
+python variable.
 
+```python
 for f in filenames:
   base = japh.call(basename_and_colorize, f)
   print(base)
