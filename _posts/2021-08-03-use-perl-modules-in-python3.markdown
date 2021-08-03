@@ -46,7 +46,6 @@ similar.
 
 Well. I could rewrite File::LsColor in python3 myself, but that's not
 what I wanted to spend time on **right now**.
-
 ### What if I could mix perl and python...
 
 Now, there's all kinds of
