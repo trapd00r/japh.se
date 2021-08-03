@@ -102,6 +102,8 @@ for f in filenames:
   print(base)
 ```
 
+Execute the script with a few arguments:
+
 ![perlinpython](/assets/perlinpython3.png)
 
 Well, look at that!
