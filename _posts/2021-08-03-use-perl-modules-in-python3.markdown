@@ -6,8 +6,6 @@ author: "Magnus Woldrich"
 tags: perl, python
 ---
 
-![perlinpython](/assets/perlinpython3.png)
-
 Imagine this:
 
 You're a seasoned perl veteran that for one reason or another needs to
@@ -44,13 +42,12 @@ project cloned in a variety of languages such as
 [rust](https://github.com/sharkdp/lscolors) and ruby, so I went over to [pypi](https://pypi.org/search/?q=ls+colors) for something
 similar.
 
-There's no such thing.
+**There's no such thing.**
 
 Well. I could rewrite File::LsColor in python3 myself, but that's not
 what I wanted to spend time on **right now**.
 
-*What if I could write perl code inside my python code...*
---------------------------------------------------------
+### What if I could mix perl and python...
 
 Now, there's all kinds of
 [Inline::](https://metacpan.org/search?size=20&q=inline%3A%3A) modules
@@ -67,10 +64,12 @@ However; there is a thing called [pyperl/perlmodule](https://github.com-
 by ActiveState in the early 2000's. There's loads of (mis)information
 regarding it not functioning with python3, but let's try it out.
 
+**Install the pyperl package:**
 ```bash
 $ cpan pyperl
 ```
 
+**perl-sub-as-python-function.py**:
 ```python
 import perl as japh
 import sys
@@ -100,20 +99,12 @@ for f in filenames:
   print(base)
 ```
 
-```bash
-$ python3 perl-sub-as-python-function.py  /home/scp1/t*(.)
-perl-sub-as-python-function.py
-test.png
-tgb.txt
-titlecase_proper.py
-twit.txt
-typescript
-```
+![perlinpython](/assets/perlinpython3.png)
 
 Well, look at that!
 
 Now, I guess I must say one shouldn't be doing this in production,
 yadda, yadda, but remember, the question shouldn't be _why_, but
-always _how_.
+always _how_. If nothing else, this could enable faster proofs of concepts.
 
 Here's a [link](https://github.com/trapd00r/perlinpython3) to the example code repository.
