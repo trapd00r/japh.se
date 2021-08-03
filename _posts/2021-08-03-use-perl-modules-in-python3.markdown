@@ -1,7 +1,7 @@
 ---
 layout: post
 title: use perl modules in python3
-date: 2021-08-03 08:12:30
+date: 2021-08-03
 author: "Magnus Woldrich"
 tags: perl, python
 ---
