@@ -2,9 +2,9 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>more colors with Term::ExtendedColor | http/japh.se</title>
-<meta name="generator" content="Jekyll v3.8.5" />
+<meta name="generator" content="Jekyll v3.8.7" />
 <meta property="og:title" content="more colors with Term::ExtendedColor" />
 <meta name="author" content="Magnus Woldrich" />
 <meta property="og:locale" content="en_US" />
@@ -15,21 +15,21 @@
 <meta property="og:site_name" content="http/japh.se" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2010-12-05T00:00:00+01:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="more colors with Term::ExtendedColor" />
 <script type="application/ld+json">
-{"description":"If you want to colorize screen output in your programs, chances are you’ve encountered the core Term::ANSIColor module.","url":"http://japh.se/2010/12/05/Term-ExtendedColor.html","@type":"BlogPosting","headline":"more colors with Term::ExtendedColor","dateModified":"2010-12-05T00:00:00+01:00","datePublished":"2010-12-05T00:00:00+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2010/12/05/Term-ExtendedColor.html"},"author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Magnus Woldrich"},"dateModified":"2010-12-05T00:00:00+01:00","datePublished":"2010-12-05T00:00:00+01:00","description":"If you want to colorize screen output in your programs, chances are you’ve encountered the core Term::ANSIColor module.","headline":"more colors with Term::ExtendedColor","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2010/12/05/Term-ExtendedColor.html"},"url":"http://japh.se/2010/12/05/Term-ExtendedColor.html"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script>
-if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-11890504-2"></script>
+<script>
+  window['ga-disable-UA-11890504-2'] = window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1";
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){window.dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-11890504-2', 'auto');
-  ga('send', 'pageview');
-}
+  gtag('config', 'UA-11890504-2');
 </script>
-  
+
 </head>
 <body><header class="site-header" role="banner">
 
@@ -49,8 +49,6 @@ if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNo
         </label>
 
         <div class="trigger"></div>
-
-        <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
 
         <a href="cv">cv</a>
         |
@@ -137,8 +135,8 @@ Every string you apply an attribute to also gets the 'reset' attribute attached 
 
 =cut</span>
 
-<span class="k">my</span> <span class="nv">$colored_text</span> <span class="o">=</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'blue2'</span><span class="p">,</span> <span class="s">'This is blue'</span><span class="p">);</span>
-<span class="nv">$colored_text</span> <span class="o">.=</span> <span class="s">" while this isn't."</span><span class="p">;</span>
+<span class="k">my</span> <span class="nv">$colored_text</span> <span class="o">=</span> <span class="nv">fg</span><span class="p">('</span><span class="s1">blue2</span><span class="p">',</span> <span class="p">'</span><span class="s1">This is blue</span><span class="p">');</span>
+<span class="nv">$colored_text</span> <span class="o">.=</span> <span class="p">"</span><span class="s2"> while this isn't.</span><span class="p">";</span>
 
 <span class="cm">=for autoreset(0)
 
@@ -148,47 +146,47 @@ There are times where you might want to disable autoreset.
 
 <span class="nn">Term::ExtendedColor::</span><span class="nv">autoreset</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-<span class="k">my</span> <span class="nv">$blue</span> <span class="o">=</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'blue4'</span><span class="p">,</span> <span class="s">'This is blue'</span><span class="p">);</span>
-<span class="k">print</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'bold'</span><span class="p">,</span> <span class="s">"This is bold and blue"</span><span class="p">),</span> <span class="s">"\n"</span><span class="p">;</span></code></pre></figure>
+<span class="k">my</span> <span class="nv">$blue</span> <span class="o">=</span> <span class="nv">fg</span><span class="p">('</span><span class="s1">blue4</span><span class="p">',</span> <span class="p">'</span><span class="s1">This is blue</span><span class="p">');</span>
+<span class="k">print</span> <span class="nv">fg</span><span class="p">('</span><span class="s1">bold</span><span class="p">',</span> <span class="p">"</span><span class="s2">This is bold and blue</span><span class="p">"),</span> <span class="p">"</span><span class="se">\n</span><span class="p">";</span></code></pre></figure>
 
 <p>Second, two separate functions are exported to deal with foreground and
 background attributes.</p>
 
-<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">my</span> <span class="nv">$green_fg</span> <span class="o">=</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'green3'</span><span class="p">,</span> <span class="s">'This is green foreground'</span><span class="p">);</span>
-<span class="k">my</span> <span class="nv">$grey_bg</span>  <span class="o">=</span> <span class="nv">bg</span><span class="p">(</span><span class="s">'grey10'</span><span class="p">,</span> <span class="s">'This is default foreground on grey background'</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">my</span> <span class="nv">$green_fg</span> <span class="o">=</span> <span class="nv">fg</span><span class="p">('</span><span class="s1">green3</span><span class="p">',</span> <span class="p">'</span><span class="s1">This is green foreground</span><span class="p">');</span>
+<span class="k">my</span> <span class="nv">$grey_bg</span>  <span class="o">=</span> <span class="nv">bg</span><span class="p">('</span><span class="s1">grey10</span><span class="p">',</span> <span class="p">'</span><span class="s1">This is default foreground on grey background</span><span class="p">');</span>
 
-<span class="k">my</span> <span class="nv">$blue_on_red</span> <span class="o">=</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'blue1'</span><span class="p">,</span> <span class="nv">bg</span><span class="p">(</span><span class="s">'red4'</span><span class="p">,</span> <span class="s">'Blue text on red background'</span><span class="p">));</span></code></pre></figure>
+<span class="k">my</span> <span class="nv">$blue_on_red</span> <span class="o">=</span> <span class="nv">fg</span><span class="p">('</span><span class="s1">blue1</span><span class="p">',</span> <span class="nv">bg</span><span class="p">('</span><span class="s1">red4</span><span class="p">',</span> <span class="p">'</span><span class="s1">Blue text on red background</span><span class="p">'));</span></code></pre></figure>
 
 <p>The <strong>colorstrip()</strong> function in Term::ANSIColor is called <strong>uncolor()</strong>.</p>
 
-<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">my</span> <span class="nv">$colored</span> <span class="o">=</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'red1'</span><span class="p">,</span> <span class="nv">fg</span><span class="p">(</span><span class="s">'bold'</span><span class="p">,</span> <span class="nv">bg</span><span class="p">(</span><span class="s">'blue2'</span><span class="p">,</span> <span class="s">'Lots of attributes'</span><span class="p">)));</span>
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">my</span> <span class="nv">$colored</span> <span class="o">=</span> <span class="nv">fg</span><span class="p">('</span><span class="s1">red1</span><span class="p">',</span> <span class="nv">fg</span><span class="p">('</span><span class="s1">bold</span><span class="p">',</span> <span class="nv">bg</span><span class="p">('</span><span class="s1">blue2</span><span class="p">',</span> <span class="p">'</span><span class="s1">Lots of attributes</span><span class="p">')));</span>
 <span class="k">print</span> <span class="nv">uncolored</span><span class="p">(</span><span class="nv">$colored</span><span class="p">);</span> <span class="c1"># Normal text</span></code></pre></figure>
 
 <p><strong>set_color()</strong> allows you to <em>change</em> mapped colors, ANSI as well as the extended ones.
 This is the same technique that’s used in <a href="https://github.com/trapd00r/colorcoke">colorcoke</a>.</p>
 
 <figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="c1"># Change the first ANSI color (usually black) to red</span>
-<span class="k">print</span> <span class="nv">set_color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">'ff0000'</span><span class="p">);</span>
+<span class="k">print</span> <span class="nv">set_color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">'</span><span class="s1">ff0000</span><span class="p">');</span>
 <span class="c1"># Change extended color 196 (#ff0000) to yellow</span>
-<span class="k">print</span> <span class="nv">set_color</span><span class="p">(</span><span class="mi">196</span><span class="p">,</span> <span class="s">'ffff00'</span><span class="p">);</span></code></pre></figure>
+<span class="k">print</span> <span class="nv">set_color</span><span class="p">(</span><span class="mi">196</span><span class="p">,</span> <span class="p">'</span><span class="s1">ffff00</span><span class="p">');</span></code></pre></figure>
 
 <p><strong>get_colors()</strong> returns a hash reference with all available colors:</p>
 
 <figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">my</span> <span class="nv">$colors</span> <span class="o">=</span> <span class="nv">get_colors</span><span class="p">();</span>
 
-<span class="k">for</span> <span class="k">my</span> <span class="nv">$c</span><span class="p">(</span><span class="nb">sort</span><span class="p">(</span><span class="nb">keys</span><span class="p">(</span><span class="o">%</span><span class="p">{</span><span class="nv">$colors</span><span class="p">})))</span> <span class="p">{</span>
-  <span class="k">print</span> <span class="s">"$c\n"</span><span class="p">;</span>
+<span class="k">for</span> <span class="k">my</span> <span class="nv">$c</span><span class="p">(</span><span class="nb">sort</span><span class="p">(</span><span class="nb">keys</span><span class="p">(</span><span class="nv">%</span><span class="p">{</span><span class="nv">$colors</span><span class="p">})))</span> <span class="p">{</span>
+  <span class="k">print</span> <span class="p">"</span><span class="si">$c</span><span class="se">\n</span><span class="p">";</span>
 
   <span class="c1"># Or, print them in their respective color</span>
-  <span class="k">print</span> <span class="nv">fg</span><span class="p">(</span><span class="nv">$c</span><span class="p">,</span> <span class="nv">$c</span><span class="p">),</span> <span class="s">"\n"</span><span class="p">;</span>
+  <span class="k">print</span> <span class="nv">fg</span><span class="p">(</span><span class="nv">$c</span><span class="p">,</span> <span class="nv">$c</span><span class="p">),</span> <span class="p">"</span><span class="se">\n</span><span class="p">";</span>
 <span class="p">}</span></code></pre></figure>
 
 <p><b>lookup()</b> allows you to lookup a color by their index.</p>
 
 <figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">for</span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">255</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">my</span> <span class="nv">$color_str</span> <span class="o">=</span> <span class="nv">lookup</span><span class="p">(</span><span class="nv">$_</span><span class="p">);</span>
+  <span class="k">my</span> <span class="nv">$color_str</span> <span class="o">=</span> <span class="nv">lookup</span><span class="p">(</span><span class="vg">$_</span><span class="p">);</span>
   <span class="k">if</span><span class="p">(</span><span class="nb">defined</span><span class="p">(</span><span class="nv">$color_str</span><span class="p">))</span> <span class="p">{</span>
-    <span class="nb">printf</span><span class="p">(</span><span class="s">"%25s =&gt; %s\n"</span><span class="p">,</span> <span class="nv">fg</span><span class="p">(</span><span class="nv">$color_str</span><span class="p">,</span> <span class="nv">$color_str</span><span class="p">),</span> <span class="nv">$_</span><span class="p">);</span>
+    <span class="nb">printf</span><span class="p">("</span><span class="s2">%25s =&gt; %s</span><span class="se">\n</span><span class="p">",</span> <span class="nv">fg</span><span class="p">(</span><span class="nv">$color_str</span><span class="p">,</span> <span class="nv">$color_str</span><span class="p">),</span> <span class="vg">$_</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
@@ -208,7 +206,6 @@ This is the same technique that’s used in <a href="https://github.com/trapd00r
   <div class="wrapper">
 
 <!--    <h2 class="footer-heading">http/japh.se</h2> -->
-    <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">

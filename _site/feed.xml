@@ -1,416 +1,535 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://japh.se/feed.xml" rel="self" type="application/atom+xml" /><link href="http://japh.se/" rel="alternate" type="text/html" /><updated>2020-07-19T09:45:13+02:00</updated><id>http://japh.se/feed.xml</id><title type="html">http/japh.se</title><subtitle>just another perl hacker from sweden</subtitle><entry><title type="html">rip all images from all subreddits in one go</title><link href="http://japh.se/2020/07/18/rip-all-images-from-all-subreddits-in-one-go.html" rel="alternate" type="text/html" title="rip all images from all subreddits in one go" /><published>2020-07-18T00:00:00+02:00</published><updated>2020-07-18T00:00:00+02:00</updated><id>http://japh.se/2020/07/18/rip-all-images-from-all-subreddits-in-one-go</id><content type="html" xml:base="http://japh.se/2020/07/18/rip-all-images-from-all-subreddits-in-one-go.html">&lt;p&gt;Have you ever wanted to download all the high resolution images in a
-particular subreddit, or perhaps from all the subreddits in a particular
-category? Turns out, it’s easier than one would imagine, using standard
-Linux tools.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Prerequisites&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;A list of subreddits to download images (or other data) from.
-We can work with some wallpaper subreddits for this example:&lt;/li&gt;
-&lt;/ul&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://japh.se/feed.xml" rel="self" type="application/atom+xml" /><link href="http://japh.se/" rel="alternate" type="text/html" /><updated>2025-05-11T10:20:40+02:00</updated><id>http://japh.se/feed.xml</id><title type="html">http/japh.se</title><subtitle>just another perl hacker from sweden</subtitle><entry><title type="html">jump to function definitions in vim</title><link href="http://japh.se/2022/05/21/jump_to_function_definition_in_vim.html" rel="alternate" type="text/html" title="jump to function definitions in vim" /><published>2022-05-21T00:00:00+02:00</published><updated>2022-05-21T00:00:00+02:00</updated><id>http://japh.se/2022/05/21/jump_to_function_definition_in_vim</id><content type="html" xml:base="http://japh.se/2022/05/21/jump_to_function_definition_in_vim.html"><![CDATA[<p>I’ve been looking for a solution to simply jump to where a function is defined
+for some time. There’s all sorts of ways that doesn’t work well for the gigantic
+perl codebase I’m working with.</p>
+
+<p>I’ve known about tags and ctags all this time, but I thought it would involve
+a ton of configuration and maintenance to get it functional.</p>
+
+<p>Turns out, I was wrong.</p>
+
+<p>This is all there is to get perl tags and vim working together.</p>
+
+<p>First, tell vim where to look for a tag file. This can be adjusted in an
+autocommand for a flexible tag setup depending on project location.</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">set</span> <span class="k">tags</span><span class="p">=.</span><span class="sr">/tags,tags,~/</span>dev<span class="sr">/tags,~/</span>dev<span class="sr">/askas/</span>utils<span class="p">-</span>askas<span class="sr">/vim/</span><span class="k">tags</span>
+</code></pre></div></div>
+
+<p>Next we need to generate the tags, and ctags is really fast:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2116 files, 1433894 lines (43984 kB) scanned in 0.7 seconds (64208 kB/s)
+36621 tags added to tag file
+36621 tags sorted in 0.00 seconds
+</code></pre></div></div>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
+ctags <span class="nt">-f</span> ~/dev/tags <span class="nt">--recurse</span> <span class="nt">--totals</span> <span class="se">\</span>
+  <span class="nt">--exclude</span><span class="o">=</span>blib <span class="nt">--exclude</span><span class="o">=</span>.svn  <span class="nt">--exclude</span><span class="o">=</span>CLEAN             <span class="se">\</span>
+  <span class="nt">--exclude</span><span class="o">=</span>.git <span class="nt">--exclude</span><span class="o">=</span><span class="s1">'*~'</span>                              <span class="se">\</span>
+  <span class="nt">--extras</span><span class="o">=</span>q                                                 <span class="se">\</span>
+  <span class="nt">--languages</span><span class="o">=</span>Perl,Vim                                       <span class="se">\</span>
+  <span class="nt">--langmap</span><span class="o">=</span>Perl:+.t                                         <span class="se">\</span>
+  ~/dev/
+</code></pre></div></div>
+
+<p>Since I’ll be doing this a lot, I’m mapping keys to go to tag definition and
+back to where I was prior to jumping like this:</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nnoremap <span class="p">&lt;</span><span class="nb">backspace</span><span class="p">&gt;</span> <span class="p">&lt;</span>C<span class="p">-]&gt;</span>
+nnoremap <span class="p">&lt;</span><span class="k">tab</span><span class="p">&gt;</span>       <span class="p">&lt;</span>C<span class="p">-</span>T<span class="p">&gt;</span>
+</code></pre></div></div>
 
-&lt;p&gt;subreddits.txt:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wallpapers
-wallpaper
-Offensive_Wallpapers
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+<p>Now, we can use tags for much more than this and I’ll be exploring this in the
+next couple of weeks.</p>]]></content><author><name>Magnus Woldrich</name></author><category term="perl," /><category term="vim," /><category term="tags" /><summary type="html"><![CDATA[I’ve been looking for a solution to simply jump to where a function is defined for some time. There’s all sorts of ways that doesn’t work well for the gigantic perl codebase I’m working with.]]></summary></entry><entry><title type="html">use perl modules in python3</title><link href="http://japh.se/2021/08/03/use-perl-modules-in-python3.html" rel="alternate" type="text/html" title="use perl modules in python3" /><published>2021-08-03T00:00:00+02:00</published><updated>2021-08-03T00:00:00+02:00</updated><id>http://japh.se/2021/08/03/use-perl-modules-in-python3</id><content type="html" xml:base="http://japh.se/2021/08/03/use-perl-modules-in-python3.html"><![CDATA[<p>Imagine this:</p>
+
+<p>You’re a seasoned perl veteran that for one reason or another needs to
+write some python. You’re not very good at it, though you’re enjoying it
+more than what you initially thought. Some things in python are easier,
+some things are harder, and many things are just different.</p>
 
-&lt;p&gt;I’ve tried this approach on a category consisting of 350+ subreddits,
-and ran into zero issues.&lt;/p&gt;
+<p>You’ve done a fair amount of work on your perl modules over at <a href="https://metacpan.org/author/WOLDRICH">metacpan</a>,
+and you <strong>use</strong> functionality imported from them in many new projects.</p>
+
+<p>While learning the language by writing <a href="https://github.com/trapd00r/beets-tcp">plugins</a> for
+<a href="https://github.com/beetbox/beets/">beets</a>, you stumble upon a whole
+bunch of open issues on that project regarding <a href="https://github.com/beetbox/beets/issues/1593">UI
+overhaul</a>.</p>
 
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;This &lt;a href=&quot;https://github.com/trapd00r/utils/blob/master/reddit-dl&quot;&gt;reddit-dl&lt;/a&gt; script by Nicola.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The command-line JSON processor jq.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;A loop.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
+<p>During long music import sessions there’s so much info spewed out in the
+terminal; it would really help with a sprinkle of color and
+reformatting.</p>
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;for x in $(/bin/cat subreddits.txt); do mkdir -p ~/wallpapers/$x; cd ~/wallpapers/$x &amp;amp;&amp;amp; reddit-dl $x; done
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+<p>I’ve written <a href="https://metacpan.org/pod/Term::ExtendedColor">quite</a> a
+<a href="https://metacpan.org/pod/Term::ExtendedColor::Xresources">few</a> perl
+modules <a href="https://metacpan.org/pod/File::LsColor">dealing with colors</a> in
+different ways and I know all there is to know about escape sequences,
+terminal emulators and various quirks.</p>
 
-&lt;p&gt;It’s quite fast as well, and soon your directory structure will look like this:&lt;/p&gt;
+<p>A first step to add some color to the beets import process could be to
+color the imported filenames according to the users
+<a href="https://github.com/trapd00r/LS_COLORS">LS_COLORS</a> environment variable.
+That would add familiarity and remove the need to watch out for file
+extensions in the long outputs beets produces.</p>
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;3.7G	.
-2.1G	./wallpapers
-1.2G	./wallpaper
-424M	./Offensive_Wallpapers
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+<p>I’ve seen my <a href="https://metacpan.org/pod/File::LsColor">File::LsColor</a>
+project cloned in a variety of languages such as
+<a href="https://github.com/sharkdp/lscolors">rust</a> and ruby, so I went over to <a href="https://pypi.org/search/?q=ls+colors">pypi</a> for something
+similar.</p>
 
-&lt;p&gt;That’s &lt;strong&gt;1714&lt;/strong&gt; high resolution wallpapers downloaded in a few minutes.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="reddit," /><category term="linux" /><summary type="html">Have you ever wanted to download all the high resolution images in a particular subreddit, or perhaps from all the subreddits in a particular category? Turns out, it’s easier than one would imagine, using standard Linux tools.</summary></entry><entry><title type="html">edit files changed in last git commit</title><link href="http://japh.se/2019/04/12/edit-files-changed-in-last-git-commit.html" rel="alternate" type="text/html" title="edit files changed in last git commit" /><published>2019-04-12T00:00:00+02:00</published><updated>2019-04-12T00:00:00+02:00</updated><id>http://japh.se/2019/04/12/edit-files-changed-in-last-git-commit</id><content type="html" xml:base="http://japh.se/2019/04/12/edit-files-changed-in-last-git-commit.html">&lt;p&gt;Git is one of the tools where you can learn new things everyday.&lt;/p&gt;
+<p><strong>There’s no such thing.</strong></p>
 
-&lt;p&gt;I’ve created two new aliases in my shellrc:&lt;/p&gt;
+<p>Well. I could rewrite File::LsColor in python3 myself, but that’s not
+what I wanted to spend time on <strong>right now</strong>.</p>
+<h3 id="what-if-i-could-mix-perl-and-python">What if I could mix perl and python…</h3>
 
-&lt;p&gt;&lt;strong&gt;show modified files in the last commit&lt;/strong&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;alias gdd='git diff --name-only HEAD~1..HEAD | ls_color'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+<p>Now, there’s all kinds of
+<a href="https://metacpan.org/search?size=20&amp;q=inline%3A%3A">Inline::</a> modules
+on cpan that gives the ability to write perl subroutines in
+another language, such as <a href="https://metacpan.org/dist/Inline-C/view/lib/Inline/C.pod">C</a> or <a href="https://metacpan.org/dist/Inline-Python/view/Python.pod">python</a>.
+But what about writing <strong>python functions in perl</strong>?</p>
 
-&lt;p&gt;&lt;img src=&quot;/assets/vimlast.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+<p>There’s a <a href="https://metacpan.org/dist/Inline-Python/view/Python.pod#Using-
+Perl-inside-Python-(inside-Perl)">note</a> in Inline::Python but to me, it’s not
+very clear whether this actually works…</p>
 
-&lt;p&gt;&lt;strong&gt;edit them instead&lt;/strong&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;alias vimlast='vim $(git diff --name-only HEAD~1..HEAD)'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+<p>However; there is a thing called <a href="https://github.com-
+/shlomif/pyperl/blob/master/perlmodule.pod">pyperl/perlmodule</a> that was originally created
+by ActiveState in the early 2000’s. There’s loads of (mis)information
+regarding it not functioning with python3, but let’s try it out.</p>
 
-&lt;p&gt;Great way to quickly pick up where I left off yesterday!&lt;/p&gt;
+<p><strong>Install the pyperl package:</strong></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>cpan pyperl
+</code></pre></div></div>
 
-&lt;p&gt;(The &lt;strong&gt;ls_color&lt;/strong&gt; tool is part of
-&lt;a href=&quot;https://metacpan.org/pod/File::LsColor&quot;&gt;File::LsColor&lt;/a&gt;).&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="git," /><category term="vim" /><summary type="html">Git is one of the tools where you can learn new things everyday.</summary></entry><entry><title type="html">adding LS_COLORS to ack3</title><link href="http://japh.se/2019/03/26/adding-LS_COLORS-to-ack3.html" rel="alternate" type="text/html" title="adding LS_COLORS to ack3" /><published>2019-03-26T00:00:00+01:00</published><updated>2019-03-26T00:00:00+01:00</updated><id>http://japh.se/2019/03/26/adding-LS_COLORS-to-ack3</id><content type="html" xml:base="http://japh.se/2019/03/26/adding-LS_COLORS-to-ack3.html">&lt;p&gt;A while back I made a quick hack in
-&lt;a href=&quot;https://github.com/trapd00r/ack2&quot;&gt;ack2&lt;/a&gt; to make it use
-&lt;a href=&quot;https://metacpan.org/pod/File::LsColor&quot;&gt;File::LsColor&lt;/a&gt; and
-&lt;a href=&quot;https://github.com/trapd00r/LS_COLORS&quot;&gt;LS_COLORS&lt;/a&gt; for colorizing the
-filenames instead of just Term::ANSIColor and the simple environment
-variable ACK_COLOR_FILENAME.&lt;/p&gt;
+<p>Start by importing the perl module, here aptly named japh.
+Let’s also grab some arguments from python:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">perl</span> <span class="k">as</span> <span class="n">japh</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
-&lt;p&gt;I figured it was pretty useful so I opened an issue over at
-&lt;a href=&quot;https://github.com/beyondgrep/ack3/issues/191&quot;&gt;ack3&lt;/a&gt; requesting
-comments for the idea. Was it something anyone else would find useful?&lt;/p&gt;
+<span class="n">filenames</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span>
+</code></pre></div></div>
 
-&lt;p&gt;At first, Andy Lester wasn’t to keen on the idea, but the discussion has
-continued and it seems he has changed his mind. I don’t agree on the way
-he wants to colorize filenames based on ack’s internal types (a great
-feature of the program!), but he wants to support LS_COLORS as well so
-it’s all good.&lt;/p&gt;
+<p>Create a perl subroutine using <strong>perl.eval()</strong>. For a return to work
+properly, you need to omit the actual return.</p>
 
-&lt;p&gt;Implementing a first working draft in ack3 wasn’t too hard, and you can
-see the difference between plain old Term::ANSIColor and File::LsColor
-output here:&lt;/p&gt;
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">basename_and_colorize</span> <span class="o">=</span> <span class="n">japh</span><span class="p">.</span><span class="nb">eval</span><span class="p">(</span><span class="s">"""
+  sub {
+    use File::Basename;
+    use File::LsColor qw(ls_color);
 
-&lt;p&gt;&lt;img src=&quot;/assets/ack3_lscolor.png&quot; alt=&quot;ack&quot; /&gt;&lt;/p&gt;
+    my $file = shift;
+    ls_color(basename($file));
+  }
+"""</span><span class="p">)</span>
+</code></pre></div></div>
 
-&lt;p&gt;It will be exciting to see what will happen with this, in the meantime
-the code can be found over at
-&lt;a href=&quot;https://github.com/trapd00r/ack3/tree/dircolors&quot;&gt;github&lt;/a&gt; in the
-dircolors branch.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="perl," /><category term="ack," /><category term="colors," /><category term="LS_COLORS" /><summary type="html">A while back I made a quick hack in ack2 to make it use File::LsColor and LS_COLORS for colorizing the filenames instead of just Term::ANSIColor and the simple environment variable ACK_COLOR_FILENAME.</summary></entry><entry><title type="html">a &amp;lt;hr&amp;gt; tag for your terminal</title><link href="http://japh.se/2019/03/25/a-hr-tag-for-your-terminal.html" rel="alternate" type="text/html" title="a &lt;hr&gt; tag for your terminal" /><published>2019-03-25T00:00:00+01:00</published><updated>2019-03-25T00:00:00+01:00</updated><id>http://japh.se/2019/03/25/a-hr-tag-for-your-terminal</id><content type="html" xml:base="http://japh.se/2019/03/25/a-hr-tag-for-your-terminal.html">&lt;p&gt;At times when living my life in the terminal I run many commands in
-quick succession that might produce a lot of output. Differencing where
-the output actually comes from can be tiresome. Previously I’ve done
-simple things like&lt;/p&gt;
+<p>Use python to iterate over the given argments, and for each argument,
+call the perl subroutine using <strong>perl.call()</strong>, and store it in a
+python variable.</p>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;command1&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; command2&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+  <span class="n">base</span> <span class="o">=</span> <span class="n">japh</span><span class="p">.</span><span class="n">call</span><span class="p">(</span><span class="n">basename_and_colorize</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+</code></pre></div></div>
 
-&lt;p&gt;but it’s not exactly visually striking, is it?&lt;/p&gt;
+<p>Execute the script with a few arguments:</p>
 
-&lt;p&gt;So I crafted a little tool that solves this problem in a better way, and
-it tries to be smart about it, too. By default, we try to determine the
-size of the terminal window to make sure the hr spans across nicely.
-The size of the bar can be configurable; maybe you don’t want the bar to span the entire terminal:&lt;/p&gt;
+<p><img src="/assets/perlinpython3.png" alt="perlinpython" /></p>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;hr &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; 10&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+<p>Well, look at that!</p>
 
-&lt;p&gt;or maybe you want it to span the entire window, but you’d like some padding:&lt;/p&gt;
+<p>Now, I guess I must say one shouldn’t be doing this in production,
+yadda, yadda, but remember, the question shouldn’t be <em>why</em>, but
+always <em>how</em>. If nothing else, this could make for faster proofs of concepts.</p>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;hr &lt;span class=&quot;nt&quot;&gt;--pre&lt;/span&gt; 10&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+<p>Here’s a <a href="https://github.com/trapd00r/perlinpython3">link</a> to the example code repository.</p>]]></content><author><name>Magnus Woldrich</name></author><category term="perl," /><category term="python" /><summary type="html"><![CDATA[Imagine this:]]></summary></entry><entry><title type="html">a better titlecase function for beets</title><link href="http://japh.se/2021/07/14/a_better_titlecase_function_for_beets.html" rel="alternate" type="text/html" title="a better titlecase function for beets" /><published>2021-07-14T08:48:08+02:00</published><updated>2021-07-14T08:48:08+02:00</updated><id>http://japh.se/2021/07/14/a_better_titlecase_function_for_beets</id><content type="html" xml:base="http://japh.se/2021/07/14/a_better_titlecase_function_for_beets.html"><![CDATA[<p>The builtin template function <code class="highlighter-rouge">%title{}</code> in beets has a number of
+issues. It tries to titlecase whatever the first character in the given
+string is, rendering results like this:</p>
 
-&lt;p&gt;wouldn’t it be nice to have padding on both sides, though?&lt;/p&gt;
+<p><code class="highlighter-rouge">
+It's Raining Men (instrumental Version).flac
+</code></p>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;hr &lt;span class=&quot;nt&quot;&gt;--pre&lt;/span&gt; 10 &lt;span class=&quot;nt&quot;&gt;--post&lt;/span&gt; 10&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+<p>It’s using <code class="highlighter-rouge">str.capwords</code> under the hood:</p>
 
-&lt;p&gt;We can add a bit of color to it as well, to make it stand out more from the rest of the data on screen:&lt;/p&gt;
+<blockquote>
+  <p>string.capwords(s, sep=None)
+Split the argument into words using str.split(), capitalize each word
+using str.capitalize(), and join the capitalized words using str.join().</p>
+</blockquote>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;hr &lt;span class=&quot;nt&quot;&gt;--pre&lt;/span&gt; 10 &lt;span class=&quot;nt&quot;&gt;--post&lt;/span&gt; 10 &lt;span class=&quot;nt&quot;&gt;-fg&lt;/span&gt; 196&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+<p>Let’s try to use <code class="highlighter-rouge">str.title</code> instead:</p>
 
-&lt;p&gt;and of course the actual character that’s used to create the bar is configurable:&lt;/p&gt;
+<p><code class="highlighter-rouge">
+It'S Raining Men (Instrumental Version).flac
+</code></p>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;hr &lt;span class=&quot;nt&quot;&gt;--pre&lt;/span&gt; 10 &lt;span class=&quot;nt&quot;&gt;--post&lt;/span&gt; 10 &lt;span class=&quot;nt&quot;&gt;-fg&lt;/span&gt; 196 &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+<p>That’s even worse.</p>
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/trapd00r/hr&quot;&gt;hr&lt;/a&gt; supports foreground and background colors, as well as all attributes available in &lt;a href=&quot;https://metacpan.org/pod/Term::ExtendedColor&quot;&gt;Term::ExtendedColor&lt;/a&gt; (well, except blink…).&lt;/p&gt;
+<p>I found the <a href="https://pypi.org/project/titlecase/">titlecase</a> python
+package that’s a conversion of the excellent perl script
+<a href="https://gist.github.com/gruber/9f9e8650d68b13ce4d78">TitleCase.pl</a>.</p>
 
-&lt;p&gt;Here’s a screenshot of what it can look like in a chain of commands (more screenshots in the examples section, below):&lt;/p&gt;
+<p>Not only does it solve the issues mentioned above, it’s also clever
+about various corner cases, it does <strong>not</strong> titlecase small words like
+‘a’, ‘and’, ‘for’ and so on as outlined in <em>The New York Times Manual of Style</em>.</p>
 
-&lt;p&gt;&lt;img src=&quot;/assets/hr.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+<p>I packaged this up in a simple beets plugin: <a href="https://github.com/trapd00r/beets-
+titlecase_proper">beets-titlecase_proper</a>.</p>
 
-&lt;h1 id=&quot;options&quot;&gt;Options&lt;/h1&gt;
+<p>But there’s more!</p>
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-c,    --char       Character to use
--s,    --size       Number of columns
--pre,  --pre        Pad the left side with whitespace n
--post, --post       Pad the right side with whitespace n
--fg,   --fg         Foreground color to use, int 0-255
--bg,   --bg         Background color to use, int 0-255
--b,    --bold       Use bold
--i,    --italic     Use italics
--u,    --underline  Use underline
--r,    --reverse    Use reverse video
+<p>Sometimes there are acronyms that we do <em>not</em> want titlecased for one
+reason or another. You can add those words to <strong>~/beets.titlecase</strong> and
+they will always be returned as-is. Check this out:</p>
 
--h,    --help       Display this help and exit
--m,    --man        Display the manual and exit
--v,    --version    Display version info and exit
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> <span class="s2">"Dj Tcp the Reckless │2021│ So Much Drama in the Phd [CDR, MP3]"</span>
+<span class="nv">$ </span><span class="k">for </span>w <span class="k">in </span>TCP DJ PhD<span class="p">;</span> <span class="k">do </span><span class="nb">echo</span> <span class="nv">$w</span><span class="p">;</span> <span class="k">done</span> <span class="o">&gt;&gt;</span> ~/.beets_titlecase
+<span class="nv">$ </span>beet import <span class="nb">.</span>
+<span class="nv">$ </span>beet <span class="nb">ls</span> <span class="nt">-a</span> <span class="s1">'so much drama'</span> <span class="nt">-f</span> <span class="se">\$</span>path
+DJ TCP the Reckless │2021│ So Much Drama <span class="k">in </span>the PhD <span class="o">[</span>CDR, MP3]
+</code></pre></div></div>
 
-&lt;h1 id=&quot;examples&quot;&gt;Examples&lt;/h1&gt;
+<p>Much cleaner, eh?</p>
 
-&lt;p&gt;Due to the configurability of hr, differencing different hr invocations
-from each other is no problem.&lt;/p&gt;
+<p><a href="https://github.com/beetbox/beets/discussions/3998">The post that started it all</a></p>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;c&quot;&gt;# display a yellow underlined bar using the default '=' character&lt;/span&gt;
-    hr &lt;span class=&quot;nt&quot;&gt;-fg&lt;/span&gt; 220 &lt;span class=&quot;nt&quot;&gt;--underline&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+<p><a href="https://github.com/beetbox/beets/discussions/4007">Announcement on beets/discussions</a></p>
 
-&lt;p&gt;&lt;img src=&quot;/assets/example01.png&quot; alt=&quot;example01.png&quot; /&gt;&lt;/p&gt;
+<p><a href="https://github.com/trapd00r/configs/blob/master/beets/config.yaml">Here’s</a> my beets configuration.</p>]]></content><author><name>Magnus Woldrich</name></author><category term="linux," /><category term="beets," /><category term="music" /><summary type="html"><![CDATA[The builtin template function %title{} in beets has a number of issues. It tries to titlecase whatever the first character in the given string is, rendering results like this:]]></summary></entry><entry><title type="html">capture primary artist as a separate field in beets</title><link href="http://japh.se/2021/06/01/capture-primary-artist-as-a-separate-field-in-beets.html" rel="alternate" type="text/html" title="capture primary artist as a separate field in beets" /><published>2021-06-01T00:00:00+02:00</published><updated>2021-06-01T00:00:00+02:00</updated><id>http://japh.se/2021/06/01/capture-primary-artist-as-a-separate-field-in-beets</id><content type="html" xml:base="http://japh.se/2021/06/01/capture-primary-artist-as-a-separate-field-in-beets.html"><![CDATA[<p>Ever since I started using beets I’ve struggled with the fact that it
+creates directories based on the entire artist/albumartist tag when
+there’s more than one artist specified. This means my filesystem looked
+like this:</p>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;c&quot;&gt;# display a red solid bar padded by 10 columns from right and left&lt;/span&gt;
-    hr &lt;span class=&quot;nt&quot;&gt;-fg&lt;/span&gt; 160 &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; ▀ &lt;span class=&quot;nt&quot;&gt;--pre&lt;/span&gt; 10 &lt;span class=&quot;nt&quot;&gt;--post&lt;/span&gt; 10&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+<p><img src="/assets/britney.png" alt="britney" /></p>
 
-&lt;p&gt;&lt;img src=&quot;/assets/example02.png&quot; alt=&quot;example02.png&quot; /&gt;&lt;/p&gt;
+<p>Not desirable. I thought the <a href="https://beets.readthedocs.io/e-
+n/stable/plugins/ftintitle.html">ftintitle</a> plugin would help me sort this out, but
+it only does what I expect for single tracks.</p>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;c&quot;&gt;# display a solid grey, thick bar using ascii character _ and the bold,&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;# underline and reverse video attributes&lt;/span&gt;
+<p>I tried a solution as outlined in <a href="https://github.com/beetbox/beets/issues/3176#issuecomment-
+632227610">this</a> github issue, but it only catches the cases where the
+different artists is separated by a comma:</p>
 
-    hr &lt;span class=&quot;nt&quot;&gt;-fg&lt;/span&gt; 240 &lt;span class=&quot;nt&quot;&gt;-c_&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-bur&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">item_fields</span><span class="pi">:</span>
+  <span class="na">first_artist</span><span class="pi">:</span> <span class="s">albumartist.split(', ',1)[0:1][0]</span></code></pre></figure>
 
-&lt;p&gt;&lt;img src=&quot;/assets/example03.png&quot; alt=&quot;example03.png&quot; /&gt;&lt;/p&gt;
+<p>So, time to learn some python! Turns out there’s a very handy
+<code class="highlighter-rouge">re.split()</code> method available, so here’s what I came up with:</p>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;c&quot;&gt;# display a bar made of dots, with 5 column spacing one each size&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;# and 20 columns wide.&lt;/span&gt;
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">item_fields</span><span class="pi">:</span>
+  <span class="na">first_artist</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="s">import re</span>
+    <span class="s">return re.split(',|\s+(feat(.?|uring)|&amp;|(Vs|Ft).)', albumartist, 1, flags=re.IGNORECASE)[0]</span></code></pre></figure>
 
-    hr &lt;span class=&quot;nt&quot;&gt;-fg&lt;/span&gt; 197 &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt;· &lt;span class=&quot;nt&quot;&gt;-pre&lt;/span&gt; 5 &lt;span class=&quot;nt&quot;&gt;-post&lt;/span&gt; 5 &lt;span class=&quot;nt&quot;&gt;-size&lt;/span&gt; 20&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+<p>This can handle not only comma delimiters, but also:</p>
 
-&lt;p&gt;&lt;img src=&quot;/assets/example04.png&quot; alt=&quot;example04.png&quot; /&gt;&lt;/p&gt;
+<ul>
+  <li>Artist,</li>
+  <li>Artist &amp;</li>
+  <li>Artist feat</li>
+  <li>Artist feat.</li>
+  <li>Artist featuring</li>
+  <li>Artist ft.</li>
+  <li>Artist vs</li>
+  <li>Artist vs.</li>
+  <li>Artist &amp;</li>
+</ul>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;c&quot;&gt;# use all options at once, because why not?&lt;/span&gt;
-    hr &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-fg&lt;/span&gt; 52 &lt;span class=&quot;nt&quot;&gt;-bg&lt;/span&gt; 196 &lt;span class=&quot;nt&quot;&gt;-biur&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; 70 &lt;span class=&quot;nt&quot;&gt;-pre&lt;/span&gt; 5 &lt;span class=&quot;nt&quot;&gt;-post&lt;/span&gt; 5&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+<p>It <strong>will</strong> screw up things like Earth, Wind &amp; Fire, but that’s not a
+major issue.</p>
 
-&lt;p&gt;&lt;img src=&quot;/assets/example05.png&quot; alt=&quot;example05.png&quot; /&gt;&lt;/p&gt;
+<p>The idea is to use <code class="highlighter-rouge">$first_artist</code> in the beginning of the path
+format like so:</p>
 
-&lt;p&gt;&lt;strong&gt;Bonus&lt;/strong&gt;: advanced example using arithmetics, because math is hard.&lt;/p&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%title{$first_artist}/%title{$albumartist}
+</code></pre></div></div>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;c&quot;&gt;# use several characters to form a bar using arithmetics&lt;/span&gt;
-    hr &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;  japh  &quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-fg&lt;/span&gt; 1 &lt;span class=&quot;nt&quot;&gt;-bg&lt;/span&gt; 0 &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$((&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$COLUMNS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+<p>which will put <code class="highlighter-rouge">Jennifer Lopez feat. Pitbull</code> inside the main Jennifer
+Lopez directory, but still keep the feat. part in the directory name
+inside it. If you don’t want that, use <code class="highlighter-rouge">$first_artist</code> everywhere.</p>
 
-&lt;p&gt;&lt;img src=&quot;/assets/example06.png&quot; alt=&quot;example06.png&quot; /&gt;&lt;/p&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ beet move artist:feat jennifer\ lopez
 
-&lt;h1 id=&quot;links&quot;&gt;LINKS&lt;/h1&gt;
+J/Jennifer Lopez Feat. Pitbull/Jennifer Lopez Feat. Pitbull │2012│ Dance Again [Single, WEB, MP3]/01 Dance Again.mp3
+-&gt; J/Jennifer Lopez/Jennifer Lopez Feat. Pitbull │2012│ Dance Again [Single, WEB, MP3]/01 Dance Again.mp3
+</code></pre></div></div>
 
-&lt;p&gt;hr is available on &lt;a href=&quot;https://github.com/trapd00r/hr&quot;&gt;github&lt;/a&gt; as well as
-on the &lt;a href=&quot;https://metacpan.org/pod/App::term::hr&quot;&gt;cpan&lt;/a&gt;, of course.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="perl," /><category term="terminal" /><summary type="html">At times when living my life in the terminal I run many commands in quick succession that might produce a lot of output. Differencing where the output actually comes from can be tiresome. Previously I’ve done simple things like</summary></entry><entry><title type="html">rtorrent harddrive lockup with many torrents solution</title><link href="http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html" rel="alternate" type="text/html" title="rtorrent harddrive lockup with many torrents solution" /><published>2019-03-09T00:00:00+01:00</published><updated>2019-03-09T00:00:00+01:00</updated><id>http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents</id><content type="html" xml:base="http://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html">&lt;p&gt;rtorrent is a great piece of software, and with patches from the &lt;a href=&quot;https://github.com/pyroscope/rtorrent-
-ps&quot;&gt;rtorrent-ps&lt;/a&gt; project it’s even better. Seeding many torrents, I started noticing
-harddrive lockups every now and then, where the program wouldn’t respond
-until I forcefully removed the usb cable to one of my drives.&lt;/p&gt;
+<p>If I were to use <code class="highlighter-rouge">$first_artist</code> instead of <code class="highlighter-rouge">$albumartist</code> all the way, I would end up with</p>
 
-&lt;p&gt;Figuring it could be that the drive itself was running bad, I just lived
-with the issue for a while. Upon accident, I stumbled upon an &lt;a href=&quot;https://github.com/rakshasa/rtorrent/issues/180&quot;&gt;issue&lt;/a&gt; that looked relevant.&lt;/p&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>J/Jennifer Lopez Feat. Pitbull/Jennifer Lopez Feat. Pitbull │2012│ Dance Again [Single, WEB, MP3]/01 Dance Again.mp3
+-&gt; J/Jennifer Lopez/Jennifer Lopez │2012│ Dance Again [Single, WEB, MP3]/01 Dance Again.mp3
+</code></pre></div></div>
 
-&lt;p&gt;Although some people think it could be an dns issue, some people also
-reports that:&lt;/p&gt;
+<p>I haven’t decided yet which one I prefer, but I know that I’m very happy
+not clobbering my directories with a ton of ‘X feat Y’ entries.</p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;It seems to happen when the session directory is being updated.&lt;/p&gt;
-&lt;/blockquote&gt;
+<p>This is how I use it:</p>
 
-&lt;p&gt;Turns out that rtorrent saves all the sessions every 20 minutes by
-default. With a large amount of torrents this can be a disk
-performance hog.&lt;/p&gt;
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="err">%</span><span class="s">upper{%left{$albumartist,1}}/%title{$first_artist}/%title{$albumartist}%if{$hasyear, │${year}│} %title{$album} [$alb_type$media_type$format]/${padded_tracknr} %title{$title}</span></code></pre></figure>
 
-&lt;p&gt;I tried to increase the interval to 12 hours instead:&lt;/p&gt;
+<p><a href="https://github.com/trapd00r/configs/blob/master/beets/config.yaml">Here’s</a> my beets configuration.</p>]]></content><author><name>Magnus Woldrich</name></author><category term="linux," /><category term="beets," /><category term="music" /><summary type="html"><![CDATA[Ever since I started using beets I’ve struggled with the fact that it creates directories based on the entire artist/albumartist tag when there’s more than one artist specified. This means my filesystem looked like this:]]></summary></entry><entry><title type="html">special rule for live performances in beets</title><link href="http://japh.se/2021/06/01/special-rule-for-live-performances-in-beets.html" rel="alternate" type="text/html" title="special rule for live performances in beets" /><published>2021-06-01T00:00:00+02:00</published><updated>2021-06-01T00:00:00+02:00</updated><id>http://japh.se/2021/06/01/special-rule-for-live-performances-in-beets</id><content type="html" xml:base="http://japh.se/2021/06/01/special-rule-for-live-performances-in-beets.html"><![CDATA[<p>I like to have the live performances by an artist somewhere else but
+directly in the artist root directory, yet still nearby. I create a
+label simply called <code class="highlighter-rouge">live</code> like this:</p>
 
-&lt;p&gt;&lt;strong&gt;~/.rtorrent.rc&lt;/strong&gt;&lt;/p&gt;
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">paths</span><span class="pi">:</span>
+      <span class="s">label:live: %upper{%left{$albumartist,1}}/%title{$first_artist}/+live/%title{$albumartist}%if{$hasyear, │${year}│} %title{$album} [$alb_type$media_type$format]/${padded_tracknr} %title{$title}</span>
+      <span class="s">default</span><span class="err">:</span>    <span class="err">%</span><span class="s">upper{%left{$albumartist,1}}/%title{$first_artist}/%title{$albumartist}%if{$hasyear, │${year}│} %title{$album} [$alb_type$media_type$format]/${padded_tracknr} %title{$title}</span></code></pre></figure>
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-schedule2 = session_save, 1200, 43200, ((session.save))
-&lt;/code&gt;&lt;/p&gt;
+<p>Now, whenever I specify the <code class="highlighter-rouge">live</code> label, the imported albums is moved
+to +live/ in the artist root directory:</p>
 
-&lt;p&gt;and I’ve had zero lockups or crashes since then.&lt;/p&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% tree -d
+.
+├── +live
+│   ├── Melanie C │1999│ Live In Madrid 1999 [MP3]
+│   ├── Melanie C │2000│ Live In Stockholm, Sweden 20-10-2000 Fm Broadcast [MP3]
+│   ├── Melanie C │2006│ Live Hits [MP3]
+│   ├── Melanie C │2007│ Live At The Mint 06-12-2007 [MP3]
+│   └── Melanie C │2008│ Live At The Manhattan Center Ballroom, Nyc 09-02-2008 [MP3]
+├── Melanie C │1999│ Northern Star [Single, CD, MP3]
+├── Melanie C │2000│ I Turn To You [Single, CD, FLAC]
+├── Melanie C │2000│ Never Be The Same Again [Single, CD, MP3]
+├── Melanie C │2000│ Northern Star [CD, FLAC]
+├── Melanie C │2000│ Northern Star [CD, MP3]
+├── Melanie C │2003│ Reason [CD, MP3]
+├── Melanie C │2005│ Beautiful Intentions [CD, FLAC]
+├── Melanie C │2006│ Beautiful Intentions (new Version) [MP3]
+├── Melanie C │2007│ This Time [CD, FLAC]
+├── Melanie C │2011│ The Sea [CD, MP3]
+└── Melanie C │2016│ Version Of Me [WEB, FLAC]
+</code></pre></div></div>
 
-&lt;p&gt;Current situation looks like this:&lt;/p&gt;
+<p>I import like this:</p>
 
-&lt;p&gt;&lt;img src=&quot;/assets/rtorrent.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>beet import --set label=live .
+</code></pre></div></div>
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
-1.5 GiB +   1.8 MiB =   1.5 GiB    rtorrent main
-&lt;/code&gt;&lt;/p&gt;
+<p><a href="https://github.com/trapd00r/configs/blob/master/beets/config.yaml">Here’s</a> my beets configuration.</p>]]></content><author><name>Magnus Woldrich</name></author><category term="linux," /><category term="beets," /><category term="music" /><summary type="html"><![CDATA[I like to have the live performances by an artist somewhere else but directly in the artist root directory, yet still nearby. I create a label simply called live like this:]]></summary></entry><entry><title type="html">how to add singletons to artist directory correctly in beets</title><link href="http://japh.se/2021/05/26/how-to-add-singletons-to-artist-dir-correctly-in-beets.html" rel="alternate" type="text/html" title="how to add singletons to artist directory correctly in beets" /><published>2021-05-26T00:00:00+02:00</published><updated>2021-05-26T00:00:00+02:00</updated><id>http://japh.se/2021/05/26/how-to-add-singletons-to-artist-dir-correctly-in-beets</id><content type="html" xml:base="http://japh.se/2021/05/26/how-to-add-singletons-to-artist-dir-correctly-in-beets.html"><![CDATA[<p>Here’s how to properly add singletons to the correct artist dir using
+the quick import functionality in beets. We don’t care for tagging or
+musicbrainz lookups for these, we just want to add them to the beets
+database and move them to to corresponding directory.</p>
 
-&lt;p&gt;which is pretty darn good I must say.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="rtorrent," /><category term="linux" /><summary type="html">rtorrent is a great piece of software, and with patches from the rtorrent-ps project it’s even better. Seeding many torrents, I started noticing harddrive lockups every now and then, where the program wouldn’t respond until I forcefully removed the usb cable to one of my drives.</summary></entry><entry><title type="html">ignore blob of text on irssi channel join</title><link href="http://japh.se/2019/02/20/ignore-blob-of-text-on-irssi-channel-join.html" rel="alternate" type="text/html" title="ignore blob of text on irssi channel join" /><published>2019-02-20T00:00:00+01:00</published><updated>2019-02-20T00:00:00+01:00</updated><id>http://japh.se/2019/02/20/ignore-blob-of-text-on-irssi-channel-join</id><content type="html" xml:base="http://japh.se/2019/02/20/ignore-blob-of-text-on-irssi-channel-join.html">&lt;p&gt;Lately I’ve been having some connectivity issues on my wifi-connected
-raspberry pi. I run irssi among other things on it, and when I re-attach to the screen session running on it I’ll be greated by blobs of text like this one:&lt;/p&gt;
+<p>Add this to config.yml:</p>
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; Topic set by Zathrus ~tom@redhat/Zathrus [Fri Nov 16 18:15:40 2018]
-&amp;gt; Home page for #vim: http://vi-improved.org
-&amp;gt; Channel #vim created Sun Nov 26 07:42:44 2006
-&amp;gt; Irssi: Join to #vim was synced in 74 secs
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">plugins</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">fromfilename'</span><span class="pi">]</span>
 
-&lt;p&gt;This blob of text is re-printed everytime you (re)join a channel, and
-with a not so stable wifi connection it’ll very quickly fill up the
-entire scrollback.&lt;/p&gt;
+<span class="na">extrafiles</span><span class="pi">:</span>
+  <span class="na">patterns</span><span class="pi">:</span>
+    <span class="na">single_tracks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">+tracks/'</span>
+  <span class="na">paths</span><span class="pi">:</span>
+    <span class="na">single_tracks</span><span class="pi">:</span> <span class="s">$artist/+tracks</span>
 
-&lt;p&gt;Since I’m never interested in any of these info texts, I tried to just
-/ignore it all together, but that doesn’t work even with a mask like this:&lt;/p&gt;
+<span class="na">paths</span><span class="pi">:</span>
+  <span class="na">singleton</span><span class="pi">:</span> <span class="err">%</span><span class="s">upper{%left{$artist,1}}/$artist/+tracks/$artist - $title</span></code></pre></figure>
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;\*: CRAP CTCPS JOINS PARTS QUITS MODES TOPICS WALLOPS INVITES NICKS DCC DCCMSGS CLIENTNOTICES CLIENTCRAP CLIENTERRORS
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+<p>When we import single tracks to beets we don’t use the autotagger, so
+it’s important that the artist field is populated in the files, or else
+beets doesn’t know where to put the files. To quickly add the artist
+field on a bunch of files, we can utilize <a href="https://github.com/trapd00r/id3shit">id3shit</a>:</p>
 
-&lt;p&gt;It was suggested to me to examine the lines with &lt;a href=&quot;https://scripts.irssi.org/scripts/linebuffer.pl&quot;&gt;linebuffer.pl&lt;/a&gt;, so I did:&lt;/p&gt;
+<p><code class="highlighter-rouge">id3shit -w artist 'Anna Ternheim' *</code></p>
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; Topic set by %bgrknight%_ ~grknight@gentoo/developer/grknight %K[%b%_Fri Jan  4 20:55:24 2019%K]   [CRAP]
-&amp;gt; Home page for %R#gentoo%n: http://www.gentoo.org [CRAP]
-&amp;gt; Channel %R#gentoo%n created Sat Sep 15 05:15:36 2001   [CRAP]
-&amp;gt; %WIrssi:%_ Join to %_#gentoo%_ was synced in 2%_ secs     [NO_ACT CLIENTNOTICES]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+<p><em>Edit 2021-05-28</em>:
+We can also use beets directly like this:</p>
 
-&lt;p&gt;To me it seems that the ignore mask SHOULD work, and this is indeed a &lt;a href=&quot;https://github.com/irssi/irssi/issues/992&quot;&gt;bug&lt;/a&gt; in irssi.&lt;/p&gt;
+<p><code class="highlighter-rouge">beet import --set artist=Anna\ Ternheim</code></p>
 
-&lt;p&gt;I went ahead and just &lt;a href=&quot;https://github.com/trapd00r/irssi/commit/87f38a20beda81e409a72efd323f5db45d824927&quot;&gt;removed&lt;/a&gt; the formats defined in module-
-formats.c.
-It works, but kind of annoying having to recompile (remember, this is a pi and it takes forever).&lt;/p&gt;
+<p>The import command to beets for single tracks is <code class="highlighter-rouge">beet import -sA "$@"</code>.
+I find it hard to remember all the commands so I saved it as <code class="highlighter-rouge">beet-import-tracks</code>.</p>
 
-&lt;p&gt;A better solution was to whip up a simple &lt;a href=&quot;https://github.com/irssi/scripts.irssi.org/blob/master/scripts/ignore_join_blob.pl&quot;&gt;script&lt;/a&gt; that stops the text to be printed to the terminal:&lt;/p&gt;
+<p>Use it like this:</p>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-perl&quot; data-lang=&quot;perl&quot;&gt;&lt;span class=&quot;k&quot;&gt;sub &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sig_print_text&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$dest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$stripped&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;@_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+<p><code class="highlighter-rouge">beet-import-tracks *(.) # import every file in cwd</code></p>
 
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$dest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;level&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;MSGLEVEL_CRAP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$stripped&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;m/Topic (for|set)|Channel [#]\S+ created|Home page for [#]\S+/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;nn&quot;&gt;Irssi::&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;signal_stop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+<p>Now, since we made sure that the artist field was populated prior to
+running the import command, we can find the imported singletons at
+<code class="highlighter-rouge">A/Anna Ternheim/+tracks/</code>.</p>
 
-&lt;span class=&quot;nn&quot;&gt;Irssi::&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;signal_add_first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'print text'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&amp;amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sig_print_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+<p>My current beets configuration can be found <a href="https://github.com/trapd00r/configs/blob/master/beets/config.yaml">here</a>.</p>]]></content><author><name>Magnus Woldrich</name></author><category term="linux," /><category term="beets," /><category term="music" /><summary type="html"><![CDATA[Here’s how to properly add singletons to the correct artist dir using the quick import functionality in beets. We don’t care for tagging or musicbrainz lookups for these, we just want to add them to the beets database and move them to to corresponding directory.]]></summary></entry><entry><title type="html">custom beet path rules for record labels</title><link href="http://japh.se/2021/05/23/custom-beet-path-rules-for-record-labels.html" rel="alternate" type="text/html" title="custom beet path rules for record labels" /><published>2021-05-23T00:00:00+02:00</published><updated>2021-05-23T00:00:00+02:00</updated><id>http://japh.se/2021/05/23/custom-beet-path-rules-for-record-labels</id><content type="html" xml:base="http://japh.se/2021/05/23/custom-beet-path-rules-for-record-labels.html"><![CDATA[<p>I’ve been experimenting with
+<a href="https://beets.readthedocs.io/en/latest/index.html">beets</a> for the past
+two weeks and it’s awesome.</p>
 
-&lt;p&gt;Works great and now I’m able to follow up on conversations without
-having to scroll like crazy whenever I reattach my screen session.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="irssi," /><category term="perl" /><summary type="html">Lately I’ve been having some connectivity issues on my wifi-connected raspberry pi. I run irssi among other things on it, and when I re-attach to the screen session running on it I’ll be greated by blobs of text like this one:</summary></entry><entry><title type="html">clone all github repos and gists in one go</title><link href="http://japh.se/2019/02/04/clone_all_github_repos_and_gists_in_one_go.html" rel="alternate" type="text/html" title="clone all github repos and gists in one go" /><published>2019-02-04T00:00:00+01:00</published><updated>2019-02-04T00:00:00+01:00</updated><id>http://japh.se/2019/02/04/clone_all_github_repos_and_gists_in_one_go</id><content type="html" xml:base="http://japh.se/2019/02/04/clone_all_github_repos_and_gists_in_one_go.html">&lt;p&gt;At times I find myself wanting to clone every repository I have on
-github. Additionally, today I wanted to check out all the forgotten
-gists I’ve made over the years.&lt;/p&gt;
+<p>When importing music, I started to notice that sometimes I don’t want
+albums grouped by the usual <code class="highlighter-rouge">[a-z]/artist/artist - album</code> structure.
+There’s 148 different artists in the <a href="https://musicbrainz.-
+org/search?query=8bitpeoples&amp;type=release&amp;limit=25&amp;method=indexed">8bitpeoples</a>
+collective and I thought it would be neater if I could group all of them
+releases under a main directory, <code class="highlighter-rouge">8/8bitpeoples</code>.</p>
 
-&lt;p&gt;I whipped up these two scripts:&lt;/p&gt;
+<p>Turns out it’s way easier than I thought, because we can use custom path
+setups like so:</p>
 
-&lt;p&gt;&lt;strong&gt;clone_all_repos&lt;/strong&gt;:&lt;/p&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>paths:
+  label:8bitpeoples: 8/8bitpeoples/%title{$albumartist} %if{$hasyear,│${year}│} %title{$album} [$alb_type$media_type$format]/${padded_tracknr} %title{$title}
+</code></pre></div></div>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# abstract: clone all github repos from GITHUB_USER&lt;/span&gt;
+<p>Which puts all releases from the 8bitpeoples record label inside the
+main 8bitpeoples directory, while still keeping the individual
+artist names.</p>
 
-&lt;span class=&quot;nv&quot;&gt;CNTX&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'users'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GITHUB_USER&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# a maximum of 100 repos per page&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;END_PAGE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;3
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ beet move '8bitpeoples'
 
-&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;PAGE &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;1..&lt;span class=&quot;nv&quot;&gt;$END_PAGE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do
-  &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://api.github.com/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CNTX&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$NAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/repos?page=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PAGE&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;amp;per_page=100&quot;&lt;/span&gt; |
-    &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'git_url*'&lt;/span&gt; |
-    &lt;span class=&quot;nb&quot;&gt;cut&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; 4     |
-    xargs &lt;span class=&quot;nt&quot;&gt;-L1&lt;/span&gt; git clone
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+/mnt/music8/+TAGGED/Y/Yuppster/Yuppster │1999│ The Okinawa Campaign 1 [WEB, MP3]/10 Boomstick.mp3
+  -&gt; /mnt/music8/+TAGGED/8/8bitpeoples/Yuppster │1999│ The Okinawa Campaign 1 [WEB, MP3]/10 Boomstick.mp3
 
-&lt;p&gt;&lt;strong&gt;clone_all_gists&lt;/strong&gt;:&lt;/p&gt;
+</code></pre></div></div>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# abstract: clone all gists from GITHUB_USER&lt;/span&gt;
+<p>Check <code class="highlighter-rouge">beet fields</code> for all the available fields you can use in a
+setup like this.</p>
 
-&lt;span class=&quot;nv&quot;&gt;NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GITHUB_USER&lt;/span&gt;
+<p>You can also categorize things with custom tags:</p>
 
-&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;gist &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  curl &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; https://api.github.com/users/&lt;span class=&quot;nv&quot;&gt;$NAME&lt;/span&gt;/gists &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    | &lt;span class=&quot;nb&quot;&gt;grep &lt;/span&gt;git_pull_url &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Po&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'https:.+[.]git'&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do
-  &lt;/span&gt;git clone &lt;span class=&quot;nv&quot;&gt;$gist&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>beet modify 'green lantern' -a mixtape_host="DJ Green Lantern"
 
-&lt;p&gt;Remember to set your GITHUB_USER environment variable, and adjust the
-END_PAGE variable in the clone_all_repos script if necessary.&lt;/p&gt;
+mixtape_host: mixtapes/$mixtape_host/...
+</code></pre></div></div>]]></content><author><name>Magnus Woldrich</name></author><category term="linux," /><category term="beets," /><category term="music" /><summary type="html"><![CDATA[I’ve been experimenting with beets for the past two weeks and it’s awesome.]]></summary></entry><entry><title type="html">advanced LS_COLORS rules with ls++</title><link href="http://japh.se/2021/05/14/advanced-lscolor-rules-with-ls++.html" rel="alternate" type="text/html" title="advanced LS_COLORS rules with ls++" /><published>2021-05-14T00:00:00+02:00</published><updated>2021-05-14T00:00:00+02:00</updated><id>http://japh.se/2021/05/14/advanced-lscolor-rules-with-ls++</id><content type="html" xml:base="http://japh.se/2021/05/14/advanced-lscolor-rules-with-ls++.html"><![CDATA[<p>It’s possible to define a few rules outside of simple extension-based
+ones using <a href="https://github.com/trapd00r/LS_COLORS">LS_COLORS</a>. You can
+for example match literal filenames with no extension or simple globs:</p>
 
-&lt;p&gt;They are both available &lt;a href=&quot;https://github.com/trapd00r/github-clone-all&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="github," /><category term="cli," /><category term="git" /><summary type="html">At times I find myself wanting to clone every repository I have on github. Additionally, today I wanted to check out all the forgotten gists I’ve made over the years.</summary></entry><entry><title type="html">use a custom sound file for terminal bell</title><link href="http://japh.se/2019/02/02/use-a-custom-sound-file-for-terminal-bell.html" rel="alternate" type="text/html" title="use a custom sound file for terminal bell" /><published>2019-02-02T00:00:00+01:00</published><updated>2019-02-02T00:00:00+01:00</updated><id>http://japh.se/2019/02/02/use-a-custom-sound-file-for-terminal-bell</id><content type="html" xml:base="http://japh.se/2019/02/02/use-a-custom-sound-file-for-terminal-bell.html">&lt;p&gt;I wanted to enable my internal pc speaker; you know that annoying
-beeping thing. Normally the pcspkr module is blacklisted by default
-(since it’s so annoying), so I re-enabled it.&lt;/p&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># matches README as well as *.README etc
+*README 38;5;220;1
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;modprobe pcspkr
-&lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;a&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+# matches rtorrent.rc as well as .zshrc etc
+*rc     38;5;204
+</code></pre></div></div>
 
-&lt;p&gt;No beep.&lt;/p&gt;
+<p><img src="/assets/lscolors_literal.png" alt="lscolors_literal" /></p>
 
-&lt;p&gt;Upon closer inspection of my computer, turns out there’s no actual
-speaker inside my computer. Well isn’t that a shame.
-I did however discover that you can simulate one by using X resources:&lt;/p&gt;
+<p>A few days ago I started using
+<a href="https://beets.readthedocs.io/en/latest/index.html">beets</a> to once and
+for all organize my music collection. It’s great. While organizing, I
+wanted to get a quick sense of what my mp3:flac ratio looks like. I like
+to keep both mp3 and flac versions of albums if possible.</p>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;URxvt&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;bell-command: play ~/awp.wav&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+<p>Turns out, simply matching <code class="highlighter-rouge">*FLAC*</code> in <code class="highlighter-rouge">LS_COLORS</code>
+doesn’t work. What you can’t do in LS_COLORS, you can however do
+with <a href="https://github.com/trapd00r/ls--">ls++</a>:</p>
 
-&lt;p&gt;The actual sound will obviously go through your normal speakers or
-headphones, but that’s okay. Now I can do things like:&lt;/p&gt;
+<p>ls++.conf:</p>
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;unrar x big_movie.rar &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cp &lt;/span&gt;Big_movie.mkv /mnt/NAS/movies &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;a&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%ls_colors = (
+  '(?i)\(FLAC\)' =&gt; '204',
+  '(?i)\(MP3\)'  =&gt; '137',
+);
+</code></pre></div></div>
 
-&lt;p&gt;and walk away from the computer. I will still hear the sound of the &lt;a href=&quot;https://github.com/trapd00r/configs/blob/master/awp.wav?raw=true&quot;&gt;CS 1.6 AWP&lt;/a&gt;
-firing off at me when the operation is done.&lt;/p&gt;
+<p>The (?i) tells ls++ to match case insensitive. Here, I’ve chosen color
+index 204 for FLAC and index 137 for MP3, the same colors that I use to
+list files with these extensions:</p>
 
-&lt;p&gt;The bell-command can be anything, and the play command is part of the
-ALSA packages.&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="linux," /><category term="terminal" /><summary type="html">I wanted to enable my internal pc speaker; you know that annoying beeping thing. Normally the pcspkr module is blacklisted by default (since it’s so annoying), so I re-enabled it.</summary></entry><entry><title type="html">use mhddfs to mount several physical disks as one</title><link href="http://japh.se/2019/01/27/use-mhddfs-to-mount-several-physical-disks-as-one.html" rel="alternate" type="text/html" title="use mhddfs to mount several physical disks as one" /><published>2019-01-27T00:00:00+01:00</published><updated>2019-01-27T00:00:00+01:00</updated><id>http://japh.se/2019/01/27/use-mhddfs-to-mount-several-physical-disks-as-one</id><content type="html" xml:base="http://japh.se/2019/01/27/use-mhddfs-to-mount-several-physical-disks-as-one.html">&lt;p&gt;I’m guilty as charged with obsessive compulsion disorder when it comes to
-my files. Nothing more so than my music collection. I’ve spent more time
-sorting it through the years than I’d like to think about.&lt;/p&gt;
+<p>$LS_COLORS:</p>
 
-&lt;p&gt;An annoying thing with this behavior is that I have to move files from
-time to time across physical disks and partitions. This can be quite
-tiresome and time consuming.&lt;/p&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.flac 38;5;204
+.mp3  38;5;137
+</code></pre></div></div>
 
-&lt;p&gt;Let me present &lt;a href=&quot;https://romanrm.net/mhddfs&quot;&gt;mhddfs&lt;/a&gt;. It’s a filesystem
-in userspace that allows you to mount several physical drives into one
-fixed mount point. Doesn’t have to be physical drives either, can be
-partitions or plain directories as well.&lt;/p&gt;
+<p>And it looks like this:</p>
 
-&lt;p&gt;&lt;strong&gt;df -h /mnt/music*&lt;/strong&gt;:&lt;/p&gt;
+<p><img src="/assets/color_directories_differently_with_patterns.png" alt="colors" /></p>
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Filesystem                          Size  Used Avail Use% Mounted on
-/dev/sdc1                           916G  840G   30G  97% /mnt/music
-/dev/sdb1                           916G  788G   82G  91% /mnt/music2
-/dev/sdd1                           1.8T  126G  1.6T   8% /mnt/music3
-/mnt/music;/mnt/music2;/mnt/music3  3.6T  1.8T  1.7T  51% /mnt/music4
-total                               7.2T  3.5T  3.4T  51% -
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+<p>Though the patterns above are very simple, we can use the full power of
+perl regex to add attributes to whatever we want, or how about matching
+season premieres:</p>
 
-&lt;p&gt;As you can see, the first three drives are mounted in /mnt/music4.
-Everything on sdb1, sdc1 and sdd1 can be found at that mount point.
-If I decide to stop using mhddfs, I can do so at any time without any
-form of data loss. Files are written to the disk with enough free space.&lt;/p&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%ls_colors = (
+  '(?i)(s[0-9]{2}-s[0-9]{2}|s([0-9]{1,2})[eEx]01)|([Ss]?([0-9]{1,2}))[Eex]01' =&gt; 'bold reverse italic 196',
+);
+</code></pre></div></div>
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mhddfs#/mnt/music,/mnt/music2,/mnt/music3   /mnt/music4 fuse defaults,user,allow_other 0 0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Magnus Woldrich</name></author><category term="filesystem," /><category term="linux" /><summary type="html">I’m guilty as charged with obsessive compulsion disorder when it comes to my files. Nothing more so than my music collection. I’ve spent more time sorting it through the years than I’d like to think about.</summary></entry><entry><title type="html">color urls in urxvt without abusing underline property</title><link href="http://japh.se/2019/01/23/color-urls-in-urxvt-without-abusing-underline-property.html" rel="alternate" type="text/html" title="color urls in urxvt without abusing underline property" /><published>2019-01-23T00:00:00+01:00</published><updated>2019-01-23T00:00:00+01:00</updated><id>http://japh.se/2019/01/23/color-urls-in-urxvt-without-abusing-underline-property</id><content type="html" xml:base="http://japh.se/2019/01/23/color-urls-in-urxvt-without-abusing-underline-property.html">&lt;p&gt;The url-select perl addon for urxvt is awesome for mouseless opening of urls.&lt;/p&gt;
+<p><img src="/assets/season_premiere.png" alt="premiere" /></p>]]></content><author><name>Magnus Woldrich</name></author><category term="linux," /><category term="LS_COLORS," /><category term="ls++" /><summary type="html"><![CDATA[It’s possible to define a few rules outside of simple extension-based ones using LS_COLORS. You can for example match literal filenames with no extension or simple globs:]]></summary></entry><entry><title type="html">abusing permission flags to distinguish watched episodes</title><link href="http://japh.se/2021/05/09/abusing-permission-flags-to-distinguish-watched-episodes.html" rel="alternate" type="text/html" title="abusing permission flags to distinguish watched episodes" /><published>2021-05-09T00:00:00+02:00</published><updated>2021-05-09T00:00:00+02:00</updated><id>http://japh.se/2021/05/09/abusing-permission-flags-to-distinguish-watched-episodes</id><content type="html" xml:base="http://japh.se/2021/05/09/abusing-permission-flags-to-distinguish-watched-episodes.html"><![CDATA[<p><img src="/assets/seen.png" alt="seen" /></p>
 
-&lt;p&gt;Without it, you have to select the url with your mouse, and remember which
-clipboard buffer it ends up in prior to pasting it in your browser (unless you
-&lt;a href=&quot;https://github.com/trapd00r/clipboard_to_primary&quot;&gt;use something that’ll sync your buffers&lt;/a&gt;).
-If you’re anything like me, nine times out of ten you’ll end up pasting
-from the wrong buffer.&lt;/p&gt;
+<p>I do 95% of my file management straight in the terminal using standard coreutils.
+The remaining 5%, I use <a href="https://github.com/trapd00r/vidir">vidir</a>.</p>
 
-&lt;p&gt;It would be nice if we could have the urls stand out a bit from the rest of the
-text on the screen, and here’s how to do it properly.&lt;/p&gt;
+<p>I also use things like mplayer and mpd to watch episodes and listen to
+music and podcasts, ergo; no builtin way of marking episodes as watched,
+as can be found in various gui applications. How, then, would one keep
+track of what’s watched and what’s not?</p>
 
-&lt;p&gt;One way to color URLs in urxvt is to set the properties:&lt;/p&gt;
+<p>The standard LS_COLORS project have a few interesting ways of adding
+attributes to files and directories with special permission bits set.
+The most interesting ones are:</p>
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;url-select.underline: true
-colorUL: #ff0000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SETGID
+STICKY
+STICKY_OTHER_WRITABLE
+</code></pre></div></div>
 
-&lt;p&gt;A couple of downsides to this method:
- &lt;img src=&quot;/assets/urxvt_underline_red.png&quot; align=&quot;right&quot; /&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;You have to underline the urls, which can look ugly&lt;/li&gt;
-  &lt;li&gt;You effectively change the properties for &lt;strong&gt;all&lt;/strong&gt; underlined text.
-This is most probably not what you want.&lt;/li&gt;
-&lt;/ul&gt;
+<p>All of these can be colored individually, and with the exception of the
+last one, setting the corresponding bits in the filesystem shouldn’t
+have any security implications or limitations, assuming a local
+filesystem where you are the only user.</p>
 
-&lt;p&gt;Instead, make sure to set properties for only the matched data, like so:&lt;/p&gt;
+<p>If a file has the <code class="highlighter-rouge">SETGID</code> bit set, when executed, instead of running
+with the privileges of the group of the user who started it, runs with
+those of the group which owns the file. In the situation described
+above, these should be the same in most cases.</p>
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;matcher.rend.0: Bold fg5
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+<p>If a directory has the <code class="highlighter-rouge">STICKY BIT</code> set, all the files in said directory
+will be modifiable only by their owners. Again, in the situation
+described above, this isn’t a bad thing.</p>
 
-&lt;p&gt;&lt;img src=&quot;/assets/urxvt_urls.png&quot; alt=&quot;urls&quot; /&gt;&lt;/p&gt;
+<p>So, how can we (ab)use this?</p>
 
-&lt;p&gt;The relevant bits from my Xresources:&lt;/p&gt;
+<p>Here’s a script called <code class="highlighter-rouge">seen</code> that sets the <code class="highlighter-rouge">SETGID</code> bit on a file and
+<code class="highlighter-rouge">STICKY</code> on a directory.</p>
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;URxvt.perl-lib:              /home/scp1/dev/urxvt-extensions
-URxvt.perl-ext-common:       default,clipboard,url-select,keyboard-select,bell-command,matcher
-URxvt.keysym.C-u:            perl:url-select:select_next
-URxvt.perl-ext:              selection,mark-yank-urls
-URxvt.url-select.launcher:   /usr/lib/firefox/firefox
-URxvt.urlLauncher:           /usr/lib/firefox/firefox
-URxvt.url-select.underline:  false
-URxvt.keysym.C-Up:           perl:keyboard-select:activate
-URxvt.keysym.M-s:            perl:keyboard-select:search
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/perl</span>
+<span class="c1"># vim:ft=perl:</span>
+<span class="c1"># abstract: abuse sticky bits etc to mark a movie or show as seen</span>
+<span class="k">use</span> <span class="nv">strict</span><span class="p">;</span>
+<span class="k">use</span> <span class="nv">warnings</span> <span class="s">FATAL</span> <span class="o">=&gt;</span> <span class="p">'</span><span class="s1">all</span><span class="p">';</span>
 
-URxvt.matcher.rend.0:        Italic fg5
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nv">@ARGV</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">use</span> <span class="nv">Cwd</span> <span class="p">();</span>
+  <span class="nb">push</span> <span class="nv">@ARGV</span><span class="p">,</span> <span class="nn">Cwd::</span><span class="nv">abs_path</span>
+<span class="p">}</span>
 
-&lt;p&gt;And as always, my ~/etc is &lt;a href=&quot;https://github.com/trapd00r/configs&quot;&gt;available on github&lt;/a&gt;&lt;/p&gt;</content><author><name>Magnus Woldrich</name></author><category term="urxvt," /><category term="colors," /><category term="terminal" /><summary type="html">The url-select perl addon for urxvt is awesome for mouseless opening of urls.</summary></entry></feed>
+<span class="k">for</span> <span class="k">my</span> <span class="nv">$f</span><span class="p">(</span><span class="nv">@ARGV</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">-</span><span class="nv">f</span> <span class="nv">$f</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">chmod</span><span class="p">(</span><span class="mo">02740</span><span class="p">,</span> <span class="nv">$f</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">warn</span> <span class="p">"</span><span class="s2">chmod: $!</span><span class="se">\n</span><span class="p">";</span>
+  <span class="p">}</span>
+  <span class="k">elsif</span><span class="p">(</span><span class="o">-</span><span class="nv">d</span> <span class="nv">$f</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">chmod</span><span class="p">(</span><span class="mo">01700</span><span class="p">,</span> <span class="nv">$f</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">warn</span> <span class="p">"</span><span class="s2">chmod: $!</span><span class="se">\n</span><span class="p">";</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="nb">warn</span> <span class="p">"</span><span class="s2">E: </span><span class="si">$_</span><span class="s2"> is neither a file or a directory</span><span class="se">\n</span><span class="p">";</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Use it like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mplayer Laleh.S01E01-FOO/Laleh.S01E01-FOO.mkv
+$ seen !$
+</code></pre></div></div>
+
+<p><img src="/assets/seen2.png" alt="seen2" /></p>
+
+<p><a href="https://github.com/trapd00r/LS_COLORS">LS_COLORS</a></p>]]></content><author><name>Magnus Woldrich</name></author><category term="linux" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">ratpoison, urxvt and borders</title><link href="http://japh.se/2021/03/21/ratpoison-urxvt-and-borders.html" rel="alternate" type="text/html" title="ratpoison, urxvt and borders" /><published>2021-03-21T00:00:00+01:00</published><updated>2021-03-21T00:00:00+01:00</updated><id>http://japh.se/2021/03/21/ratpoison-urxvt-and-borders</id><content type="html" xml:base="http://japh.se/2021/03/21/ratpoison-urxvt-and-borders.html"><![CDATA[<p>The ratpoison window manager seems to have some kind of weird issues
+with urxvt and borders, or the other way around. The right and bottom
+border of a window gets 1px thicker than the rest and I can’t seem to
+figure out why. I’ve recompiled a clean urxvt and tried different fonts,
+grepped the ratpoison source and investigated window manager hints, not
+to much avail.</p>
+
+<p>Since the borders are merely for aesthetics I found another solution:</p>
+
+<p>By using the gap feature introduced by <a href="https://github.com/jcs/ratpoison">jcs</a>:</p>
+
+<p>.ratpoisonrc:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> set gap 1
+</code></pre></div></div>
+<p>together with <strong>no</strong> border in Xresources, we can see 1px of the
+background inbetween the windows. Since the background is black (by
+default), just change it to your desired border color like so:</p>
+
+<p>.xinitrc:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xsetroot -solid '#ff5400'
+</code></pre></div></div>
+
+<p>and we get perfect borders as a result:</p>
+
+<p><img src="/assets/rp-urxvt-borders.png" alt="rp-borders" /></p>]]></content><author><name>Magnus Woldrich</name></author><category term="linux," /><category term="ratpoison," /><category term="urxvt" /><summary type="html"><![CDATA[The ratpoison window manager seems to have some kind of weird issues with urxvt and borders, or the other way around. The right and bottom border of a window gets 1px thicker than the rest and I can’t seem to figure out why. I’ve recompiled a clean urxvt and tried different fonts, grepped the ratpoison source and investigated window manager hints, not to much avail.]]></summary></entry></feed>

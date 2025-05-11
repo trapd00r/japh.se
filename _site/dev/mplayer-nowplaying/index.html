@@ -2,9 +2,9 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Query a running mplayer process for now-playing metadata | http/japh.se</title>
-<meta name="generator" content="Jekyll v3.8.5" />
+<meta name="generator" content="Jekyll v3.8.7" />
 <meta property="og:title" content="Query a running mplayer process for now-playing metadata" />
 <meta name="author" content="Magnus Woldrich" />
 <meta property="og:locale" content="en_US" />
@@ -13,21 +13,22 @@
 <link rel="canonical" href="http://japh.se/dev/mplayer-nowplaying/" />
 <meta property="og:url" content="http://japh.se/dev/mplayer-nowplaying/" />
 <meta property="og:site_name" content="http/japh.se" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Query a running mplayer process for now-playing metadata" />
 <script type="application/ld+json">
-{"description":"just another perl hacker from sweden","url":"http://japh.se/dev/mplayer-nowplaying/","@type":"WebPage","headline":"Query a running mplayer process for now-playing metadata","author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Magnus Woldrich"},"description":"just another perl hacker from sweden","headline":"Query a running mplayer process for now-playing metadata","url":"http://japh.se/dev/mplayer-nowplaying/"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script>
-if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-11890504-2"></script>
+<script>
+  window['ga-disable-UA-11890504-2'] = window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1";
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){window.dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-11890504-2', 'auto');
-  ga('send', 'pageview');
-}
+  gtag('config', 'UA-11890504-2');
 </script>
-  
+
 </head>
 <body><header class="site-header" role="banner">
 
@@ -48,8 +49,6 @@ if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNo
 
         <div class="trigger"></div>
 
-        <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
-
         <a href="cv">cv</a>
         |
         <a href="/dev">code</a>
@@ -65,12 +64,12 @@ if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNo
 
 <figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">use</span> <span class="nn">Mplayer::</span><span class="nv">NowPlaying</span><span class="p">;</span>
 
-<span class="k">my</span> <span class="nv">$log</span> <span class="o">=</span> <span class="s">"$ENV{HOME}/.mplayer/mplayer.log"</span><span class="p">;</span> <span class="c1"># or elsewhere</span>
+<span class="k">my</span> <span class="nv">$log</span> <span class="o">=</span> <span class="p">"</span><span class="si">$ENV</span><span class="s2">{HOME}/.mplayer/mplayer.log</span><span class="p">";</span> <span class="c1"># or elsewhere</span>
 
-<span class="k">my</span> <span class="nv">$current</span> <span class="o">=</span> <span class="nv">now_playing</span><span class="p">(</span><span class="nv">$log</span><span class="p">,</span> <span class="s">'identify'</span><span class="p">);</span>
+<span class="k">my</span> <span class="nv">$current</span> <span class="o">=</span> <span class="nv">now_playing</span><span class="p">(</span><span class="nv">$log</span><span class="p">,</span> <span class="p">'</span><span class="s1">identify</span><span class="p">');</span>
 
 <span class="k">if</span><span class="p">(</span><span class="nb">exists</span><span class="p">(</span><span class="nv">$current</span><span class="o">-&gt;</span><span class="p">{</span><span class="nv">artist</span><span class="p">}))</span> <span class="p">{</span>
-  <span class="k">print</span> <span class="s">"Current artist is $current-&gt;{artist}\n"</span><span class="p">;</span>
+  <span class="k">print</span> <span class="p">"</span><span class="s2">Current artist is </span><span class="si">$current</span><span class="s2">-&gt;{artist}</span><span class="se">\n</span><span class="p">";</span>
 <span class="p">}</span></code></pre></figure>
 
 <h1 id="description">DESCRIPTION</h1>
@@ -267,7 +266,6 @@ the same terms as Perl itself.</p>
   <div class="wrapper">
 
 <!--    <h2 class="footer-heading">http/japh.se</h2> -->
-    <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">

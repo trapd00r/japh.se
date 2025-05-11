@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>capture primary artist as a separate field in beets | http/japh.se</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="capture primary artist as a separate field in beets" />
+<meta name="author" content="Magnus Woldrich" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Ever since I started using beets I’ve struggled with the fact that it creates directories based on the entire artist/albumartist tag when there’s more than one artist specified. This means my filesystem looked like this:" />
+<meta property="og:description" content="Ever since I started using beets I’ve struggled with the fact that it creates directories based on the entire artist/albumartist tag when there’s more than one artist specified. This means my filesystem looked like this:" />
+<link rel="canonical" href="http://japh.se/2021/06/01/capture-primary-artist-as-a-separate-field-in-beets.html" />
+<meta property="og:url" content="http://japh.se/2021/06/01/capture-primary-artist-as-a-separate-field-in-beets.html" />
+<meta property="og:site_name" content="http/japh.se" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-06-01T00:00:00+02:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="capture primary artist as a separate field in beets" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Magnus Woldrich"},"dateModified":"2021-06-01T00:00:00+02:00","datePublished":"2021-06-01T00:00:00+02:00","description":"Ever since I started using beets I’ve struggled with the fact that it creates directories based on the entire artist/albumartist tag when there’s more than one artist specified. This means my filesystem looked like this:","headline":"capture primary artist as a separate field in beets","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2021/06/01/capture-primary-artist-as-a-separate-field-in-beets.html"},"url":"http://japh.se/2021/06/01/capture-primary-artist-as-a-separate-field-in-beets.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-11890504-2"></script>
+<script>
+  window['ga-disable-UA-11890504-2'] = window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1";
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){window.dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-11890504-2');
+</script>
+
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">http/japh.se </a>
+    
+    <meta property="og:image" content="http://i.japh.se/social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="406">
+    <meta property="og:image:height" content="246"><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+
+        <a href="cv">cv</a>
+        |
+        <a href="/dev">code</a>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">capture primary artist as a separate field in beets</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2021-06-01T00:00:00+02:00" itemprop="datePublished">Jun 1, 2021
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Magnus Woldrich</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Ever since I started using beets I’ve struggled with the fact that it
+creates directories based on the entire artist/albumartist tag when
+there’s more than one artist specified. This means my filesystem looked
+like this:</p>
+
+<p><img src="/assets/britney.png" alt="britney" /></p>
+
+<p>Not desirable. I thought the <a href="https://beets.readthedocs.io/e-
+n/stable/plugins/ftintitle.html">ftintitle</a> plugin would help me sort this out, but
+it only does what I expect for single tracks.</p>
+
+<p>I tried a solution as outlined in <a href="https://github.com/beetbox/beets/issues/3176#issuecomment-
+632227610">this</a> github issue, but it only catches the cases where the
+different artists is separated by a comma:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">item_fields</span><span class="pi">:</span>
+  <span class="na">first_artist</span><span class="pi">:</span> <span class="s">albumartist.split(', ',1)[0:1][0]</span></code></pre></figure>
+
+<p>So, time to learn some python! Turns out there’s a very handy
+<code class="highlighter-rouge">re.split()</code> method available, so here’s what I came up with:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">item_fields</span><span class="pi">:</span>
+  <span class="na">first_artist</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="s">import re</span>
+    <span class="s">return re.split(',|\s+(feat(.?|uring)|&amp;|(Vs|Ft).)', albumartist, 1, flags=re.IGNORECASE)[0]</span></code></pre></figure>
+
+<p>This can handle not only comma delimiters, but also:</p>
+
+<ul>
+  <li>Artist,</li>
+  <li>Artist &amp;</li>
+  <li>Artist feat</li>
+  <li>Artist feat.</li>
+  <li>Artist featuring</li>
+  <li>Artist ft.</li>
+  <li>Artist vs</li>
+  <li>Artist vs.</li>
+  <li>Artist &amp;</li>
+</ul>
+
+<p>It <strong>will</strong> screw up things like Earth, Wind &amp; Fire, but that’s not a
+major issue.</p>
+
+<p>The idea is to use <code class="highlighter-rouge">$first_artist</code> in the beginning of the path
+format like so:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%title{$first_artist}/%title{$albumartist}
+</code></pre></div></div>
+
+<p>which will put <code class="highlighter-rouge">Jennifer Lopez feat. Pitbull</code> inside the main Jennifer
+Lopez directory, but still keep the feat. part in the directory name
+inside it. If you don’t want that, use <code class="highlighter-rouge">$first_artist</code> everywhere.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ beet move artist:feat jennifer\ lopez
+
+J/Jennifer Lopez Feat. Pitbull/Jennifer Lopez Feat. Pitbull │2012│ Dance Again [Single, WEB, MP3]/01 Dance Again.mp3
+-&gt; J/Jennifer Lopez/Jennifer Lopez Feat. Pitbull │2012│ Dance Again [Single, WEB, MP3]/01 Dance Again.mp3
+</code></pre></div></div>
+
+<p>If I were to use <code class="highlighter-rouge">$first_artist</code> instead of <code class="highlighter-rouge">$albumartist</code> all the way, I would end up with</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>J/Jennifer Lopez Feat. Pitbull/Jennifer Lopez Feat. Pitbull │2012│ Dance Again [Single, WEB, MP3]/01 Dance Again.mp3
+-&gt; J/Jennifer Lopez/Jennifer Lopez │2012│ Dance Again [Single, WEB, MP3]/01 Dance Again.mp3
+</code></pre></div></div>
+
+<p>I haven’t decided yet which one I prefer, but I know that I’m very happy
+not clobbering my directories with a ton of ‘X feat Y’ entries.</p>
+
+<p>This is how I use it:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="err">%</span><span class="s">upper{%left{$albumartist,1}}/%title{$first_artist}/%title{$albumartist}%if{$hasyear, │${year}│} %title{$album} [$alb_type$media_type$format]/${padded_tracknr} %title{$title}</span></code></pre></figure>
+
+<p><a href="https://github.com/trapd00r/configs/blob/master/beets/config.yaml">Here’s</a> my beets configuration.</p>
+
+  </div><a class="u-url" href="/2021/06/01/capture-primary-artist-as-a-separate-field-in-beets.html" hidden></a>
+</article>
+
+
+<!--      <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a> -->
+
+      </div>
+
+
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+<!--    <h2 class="footer-heading">http/japh.se</h2> -->
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">http/japh.se</li><li><a class="u-email" href="mailto:m@japh.se">m@japh.se</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/trapd00r"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">trapd00r</span></a></li><li><a href="https://www.linkedin.com/in/japh"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">japh</span></a></li><li><a href="https://www.twitter.com/wantarray"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">wantarray</span></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg> <span>rss</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>just another perl hacker from sweden</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

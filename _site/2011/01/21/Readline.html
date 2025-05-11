@@ -2,9 +2,9 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>readline | http/japh.se</title>
-<meta name="generator" content="Jekyll v3.8.5" />
+<meta name="generator" content="Jekyll v3.8.7" />
 <meta property="og:title" content="readline" />
 <meta name="author" content="Magnus Woldrich" />
 <meta property="og:locale" content="en_US" />
@@ -15,21 +15,21 @@
 <meta property="og:site_name" content="http/japh.se" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2011-01-21T13:04:02+01:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="readline" />
 <script type="application/ld+json">
-{"description":"I’ve experimented a bit with various readline implementations in Perl. There’s quite a few on the CPAN, like you’d expect.","url":"http://japh.se/2011/01/21/Readline.html","@type":"BlogPosting","headline":"readline","dateModified":"2011-01-21T13:04:02+01:00","datePublished":"2011-01-21T13:04:02+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2011/01/21/Readline.html"},"author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Magnus Woldrich"},"dateModified":"2011-01-21T13:04:02+01:00","datePublished":"2011-01-21T13:04:02+01:00","description":"I’ve experimented a bit with various readline implementations in Perl. There’s quite a few on the CPAN, like you’d expect.","headline":"readline","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2011/01/21/Readline.html"},"url":"http://japh.se/2011/01/21/Readline.html"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script>
-if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-11890504-2"></script>
+<script>
+  window['ga-disable-UA-11890504-2'] = window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1";
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){window.dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-11890504-2', 'auto');
-  ga('send', 'pageview');
-}
+  gtag('config', 'UA-11890504-2');
 </script>
-  
+
 </head>
 <body><header class="site-header" role="banner">
 
@@ -49,8 +49,6 @@ if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNo
         </label>
 
         <div class="trigger"></div>
-
-        <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
 
         <a href="cv">cv</a>
         |
@@ -88,12 +86,12 @@ So I had a snippet like this:</p>
 
 <span class="p">{</span>
   <span class="nb">package</span> <span class="nn">Data::</span><span class="nv">Dumper</span><span class="p">;</span>
-  <span class="nb">no</span> <span class="nv">strict</span> <span class="s">'vars'</span><span class="p">;</span>
+  <span class="nb">no</span> <span class="nv">strict</span> <span class="p">'</span><span class="s1">vars</span><span class="p">';</span>
   <span class="nv">$Terse</span> <span class="o">=</span> <span class="nv">$Indent</span> <span class="o">=</span> <span class="nv">$Useqq</span> <span class="o">=</span> <span class="nv">$Deparse</span> <span class="o">=</span> <span class="nv">$Sortkeys</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
   <span class="nv">$Quotekeys</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">my</span> <span class="nv">$term</span> <span class="o">=</span> <span class="nn">Term::</span><span class="nv">ReadLine</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">(</span><span class="s">'re.pl'</span><span class="p">);</span>
+<span class="k">my</span> <span class="nv">$term</span> <span class="o">=</span> <span class="nn">Term::</span><span class="nv">ReadLine</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">('</span><span class="s1">re.pl</span><span class="p">');</span>
 <span class="k">my</span> <span class="nv">$attr</span> <span class="o">=</span> <span class="nv">$term</span><span class="o">-&gt;</span><span class="nv">Attribs</span><span class="p">;</span>
 
 <span class="nv">$attr</span><span class="o">-&gt;</span><span class="p">{</span><span class="nv">completion_function</span><span class="p">}</span> <span class="o">=</span> <span class="k">sub </span><span class="p">{</span>
@@ -107,14 +105,14 @@ So I had a snippet like this:</p>
 <span class="k">my</span> <span class="nv">$eval</span> <span class="o">=</span> <span class="nn">Eval::</span><span class="nv">WithLexicals</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">;</span>
 
 <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">my</span> <span class="nv">$line</span> <span class="o">=</span> <span class="nv">$term</span><span class="o">-&gt;</span><span class="nb">readline</span><span class="p">(</span><span class="s">'&gt; '</span><span class="p">);</span>
+  <span class="k">my</span> <span class="nv">$line</span> <span class="o">=</span> <span class="nv">$term</span><span class="o">-&gt;</span><span class="nb">readline</span><span class="p">('</span><span class="s1">&gt; </span><span class="p">');</span>
   <span class="k">my</span> <span class="nv">@ret</span><span class="p">;</span>
 
   <span class="nb">eval</span> <span class="p">{</span>
-    <span class="nb">local</span> <span class="nv">$SIG</span><span class="p">{</span><span class="nv">INT</span><span class="p">}</span> <span class="o">=</span> <span class="k">sub </span><span class="p">{</span> <span class="nb">die</span> <span class="s">"Caught SIGINT"</span><span class="p">;</span> <span class="p">};</span>
+    <span class="nb">local</span> <span class="nv">$SIG</span><span class="p">{</span><span class="nv">INT</span><span class="p">}</span> <span class="o">=</span> <span class="k">sub </span><span class="p">{</span> <span class="nb">die</span> <span class="p">"</span><span class="s2">Caught SIGINT</span><span class="p">";</span> <span class="p">};</span>
     <span class="nv">@ret</span> <span class="o">=</span> <span class="nv">$eval</span><span class="o">-&gt;</span><span class="nb">eval</span><span class="p">(</span><span class="nv">$line</span><span class="p">);</span>
     <span class="mi">1</span><span class="p">;</span>
-  <span class="p">}</span> <span class="ow">or</span> <span class="nv">@ret</span> <span class="o">=</span> <span class="p">(</span><span class="s">"Error!"</span><span class="p">,</span> <span class="vg">$@</span><span class="p">);</span>
+  <span class="p">}</span> <span class="ow">or</span> <span class="nv">@ret</span> <span class="o">=</span> <span class="p">("</span><span class="s2">Error!</span><span class="p">",</span> <span class="vg">$@</span><span class="p">);</span>
   <span class="k">print</span> <span class="nv">Dumper</span> <span class="nv">@ret</span><span class="p">;</span>
 <span class="p">}</span></code></pre></figure>
 
@@ -128,29 +126,29 @@ Then I noticed that using f, F, t, or T in normal mode didn’t work quite so we
 
 <figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="o">&gt;</span> <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="c1"># pressing &lt;ESC&gt;, F, ( results in...</span>
 
-<span class="nv">Unmatched</span> <span class="p">(</span> <span class="nv">in</span> <span class="nv">regex</span><span class="p">;</span> <span class="sr">marked by &lt;-- HERE in m/.*((?:( &lt;-- HERE / at ViCommand</span><span class="o">.</span><span class="nv">pm</span> <span class="nv">line</span> <span class="mi">544</span></code></pre></figure>
+<span class="nv">Unmatched</span> <span class="p">(</span> <span class="nv">in</span> <span class="nv">regex</span><span class="p">;</span> <span class="nv">marked</span> <span class="nv">by</span> <span class="o">&lt;--</span> <span class="nv">HERE</span> <span class="nv">in</span> <span class="sr">m/.*((?:( &lt;-- HERE /</span> <span class="nv">at</span> <span class="nv">ViCommand</span><span class="o">.</span><span class="nv">pm</span> <span class="nv">line</span> <span class="mi">544</span></code></pre></figure>
 
 <p>Alright. Obvious what happens here; the ‘(‘ is being treated as a pattern metacharacter by the regex compiler.
 Should be an easy fix.</p>
 
 <figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="o">---</span> <span class="nv">ViCommand</span><span class="o">.</span><span class="nv">pm</span><span class="o">.</span><span class="nv">orig</span> <span class="mi">2004</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">22</span> <span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mf">23.000000000</span> <span class="o">+</span><span class="mo">0100</span>
 <span class="o">+++</span> <span class="nv">ViCommand</span><span class="o">.</span><span class="nv">pm</span><span class="o">.</span><span class="nv">fix</span>  <span class="mi">2011</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">20</span> <span class="mi">17</span><span class="p">:</span><span class="mi">57</span><span class="p">:</span><span class="mf">11.283335132</span> <span class="o">+</span><span class="mo">0100</span>
-<span class="nv">@@</span> <span class="err">-</span><span class="nv">537</span><span class="p">,</span><span class="mi">12</span> <span class="o">+</span><span class="mi">537</span><span class="p">,</span><span class="mi">14</span> <span class="nv">@@</span>
-  <span class="nv">my</span> <span class="p">(</span><span class="nv">$l</span><span class="p">,</span> <span class="nv">$x</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span> <span class="nv">$$self</span><span class="p">{</span><span class="nv">lines</span><span class="p">}[</span> <span class="nv">$$self</span><span class="p">{</span><span class="nb">pos</span><span class="p">}[</span><span class="mi">1</span><span class="p">]</span> <span class="p">],</span> <span class="nv">$$self</span><span class="p">{</span><span class="nb">pos</span><span class="p">}[</span><span class="mi">0</span><span class="p">]</span> <span class="p">);</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nv">$key</span> <span class="ow">eq</span> <span class="s">'T'</span> <span class="ow">or</span> <span class="nv">$key</span> <span class="ow">eq</span> <span class="s">'F'</span><span class="p">)</span> <span class="p">{</span>
+<span class="err">@@</span> <span class="o">-</span><span class="mi">537</span><span class="p">,</span><span class="mi">12</span> <span class="o">+</span><span class="mi">537</span><span class="p">,</span><span class="mi">14</span> <span class="err">@@</span>
+  <span class="k">my</span> <span class="p">(</span><span class="nv">$l</span><span class="p">,</span> <span class="nv">$x</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span> <span class="nv">$$self</span><span class="p">{</span><span class="nv">lines</span><span class="p">}[</span> <span class="nv">$$self</span><span class="p">{</span><span class="nb">pos</span><span class="p">}[</span><span class="mi">1</span><span class="p">]</span> <span class="p">],</span> <span class="nv">$$self</span><span class="p">{</span><span class="nb">pos</span><span class="p">}[</span><span class="mi">0</span><span class="p">]</span> <span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nv">$key</span> <span class="ow">eq</span> <span class="p">'</span><span class="s1">T</span><span class="p">'</span> <span class="ow">or</span> <span class="nv">$key</span> <span class="ow">eq</span> <span class="p">'</span><span class="s1">F</span><span class="p">')</span> <span class="p">{</span>
     <span class="nv">$l</span> <span class="o">=</span> <span class="nb">substr</span><span class="p">(</span><span class="nv">$l</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">$x</span><span class="p">);</span>
 <span class="o">-</span>   <span class="k">return</span> <span class="nv">$self</span><span class="o">-&gt;</span><span class="nv">bell</span> <span class="k">unless</span> <span class="nv">$l</span> <span class="o">=~</span> <span class="sr">/.*((?:$chr.*){$cnt})$/</span><span class="p">;</span>
 <span class="o">+</span>   <span class="c1"># We do not want $chr to be interpreted as pattern metacharacters</span>
 <span class="o">+</span>   <span class="c1"># Avoid 'unmatched "(" in regex'</span>
 <span class="o">+</span>   <span class="k">return</span> <span class="nv">$self</span><span class="o">-&gt;</span><span class="nv">bell</span> <span class="k">unless</span> <span class="nv">$l</span> <span class="o">=~</span> <span class="sr">/.*((?:\Q$chr\E.*){$cnt})$/</span><span class="p">;</span>
-    <span class="nv">$$self</span><span class="p">{</span><span class="nb">pos</span><span class="p">}[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="nb">length</span><span class="p">(</span><span class="nv">$1</span><span class="p">)</span> <span class="o">-</span> <span class="p">((</span><span class="nv">$key</span> <span class="ow">eq</span> <span class="s">'T'</span><span class="p">)</span> <span class="p">?</span> <span class="mi">1</span> <span class="p">:</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nb">length</span><span class="p">(</span><span class="nv">$1</span><span class="p">);</span>
+    <span class="nv">$$self</span><span class="p">{</span><span class="nb">pos</span><span class="p">}[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="nb">length</span><span class="p">(</span><span class="err">$</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="p">((</span><span class="nv">$key</span> <span class="ow">eq</span> <span class="p">'</span><span class="s1">T</span><span class="p">')</span> <span class="p">?</span> <span class="mi">1</span> <span class="p">:</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">length</span><span class="p">(</span><span class="err">$</span><span class="mi">1</span><span class="p">);</span>
   <span class="p">}</span>
   <span class="k">else</span> <span class="p">{</span> <span class="c1"># ($key eq 't' || $key eq 'f')</span>
 <span class="o">-</span>   <span class="k">return</span> <span class="nv">$self</span><span class="o">-&gt;</span><span class="nv">bell</span> <span class="k">unless</span> <span class="nv">$l</span> <span class="o">=~</span> <span class="sr">/^..{$x}((?:.*?$chr){$cnt})/</span><span class="p">;</span>
 <span class="o">+</span>   <span class="k">return</span> <span class="nv">$self</span><span class="o">-&gt;</span><span class="nv">bell</span> <span class="k">unless</span> <span class="nv">$l</span> <span class="o">=~</span> <span class="sr">/^..{$x}((?:.*?\Q$chr\E){$cnt})/</span><span class="p">;</span>
-    <span class="nv">$$self</span><span class="p">{</span><span class="nb">pos</span><span class="p">}[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">length</span><span class="p">(</span><span class="nv">$1</span><span class="p">)</span> <span class="o">-</span> <span class="p">((</span><span class="nv">$key</span> <span class="ow">eq</span> <span class="s">'t'</span><span class="p">)</span> <span class="p">?</span> <span class="mi">1</span> <span class="p">:</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nb">length</span><span class="p">(</span><span class="nv">$1</span><span class="p">);</span>
+    <span class="nv">$$self</span><span class="p">{</span><span class="nb">pos</span><span class="p">}[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">length</span><span class="p">(</span><span class="err">$</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="p">((</span><span class="nv">$key</span> <span class="ow">eq</span> <span class="p">'</span><span class="s1">t</span><span class="p">')</span> <span class="p">?</span> <span class="mi">1</span> <span class="p">:</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">length</span><span class="p">(</span><span class="err">$</span><span class="mi">1</span><span class="p">);</span>
   <span class="p">}</span></code></pre></figure>
 
 <p>I’ve sent the patch upstream; the module hasn’t been updated since 2004 though, so just in case a fork can be found <a href="https://github.com/trapd00r/Term-ReadLine-Zoid">here</a>, and the diff <a href="https://github.com/trapd00r/Term-ReadLine-Zoid/commit/b014f24da4722fe95d4217e9ef621833fc3ccda4">here</a>.
@@ -204,10 +202,10 @@ this includes a vi-command mode with a save-buffer (for copy-pasting) and an und
 <span class="k">print</span> <span class="nv">Dumper</span> <span class="nv">$term</span><span class="o">-&gt;</span><span class="nv">get_keymap</span><span class="p">();</span>
 
 <span class="c1"># bless( do{\(my $o = "-1220973856")}, 'Keymap' )</span>
-<span class="k">print</span> <span class="nv">Dumper</span> <span class="nv">$term</span><span class="o">-&gt;</span><span class="nv">get_keymap_by_name</span><span class="p">(</span><span class="s">'vi'</span><span class="p">);</span>
+<span class="k">print</span> <span class="nv">Dumper</span> <span class="nv">$term</span><span class="o">-&gt;</span><span class="nv">get_keymap_by_name</span><span class="p">('</span><span class="s1">vi</span><span class="p">');</span>
 
 <span class="c1"># Whoah.</span>
-<span class="nv">$term</span><span class="o">-&gt;</span><span class="nv">set_keymap</span><span class="p">(</span><span class="s">'vi'</span><span class="p">);</span></code></pre></figure>
+<span class="nv">$term</span><span class="o">-&gt;</span><span class="nv">set_keymap</span><span class="p">('</span><span class="s1">vi</span><span class="p">');</span></code></pre></figure>
 
 <p>And there we have it; a nice, working tabcompletion and a sane keymap. Time to write a sane REPL, using the module I first started out with 2 hours ago…</p>
 
@@ -226,7 +224,6 @@ this includes a vi-command mode with a save-buffer (for copy-pasting) and an und
   <div class="wrapper">
 
 <!--    <h2 class="footer-heading">http/japh.se</h2> -->
-    <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">

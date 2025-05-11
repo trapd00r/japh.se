@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>how to add singletons to artist directory correctly in beets | http/japh.se</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="how to add singletons to artist directory correctly in beets" />
+<meta name="author" content="Magnus Woldrich" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Here’s how to properly add singletons to the correct artist dir using the quick import functionality in beets. We don’t care for tagging or musicbrainz lookups for these, we just want to add them to the beets database and move them to to corresponding directory." />
+<meta property="og:description" content="Here’s how to properly add singletons to the correct artist dir using the quick import functionality in beets. We don’t care for tagging or musicbrainz lookups for these, we just want to add them to the beets database and move them to to corresponding directory." />
+<link rel="canonical" href="http://japh.se/2021/05/26/how-to-add-singletons-to-artist-dir-correctly-in-beets.html" />
+<meta property="og:url" content="http://japh.se/2021/05/26/how-to-add-singletons-to-artist-dir-correctly-in-beets.html" />
+<meta property="og:site_name" content="http/japh.se" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-05-26T00:00:00+02:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="how to add singletons to artist directory correctly in beets" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Magnus Woldrich"},"dateModified":"2021-05-26T00:00:00+02:00","datePublished":"2021-05-26T00:00:00+02:00","description":"Here’s how to properly add singletons to the correct artist dir using the quick import functionality in beets. We don’t care for tagging or musicbrainz lookups for these, we just want to add them to the beets database and move them to to corresponding directory.","headline":"how to add singletons to artist directory correctly in beets","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2021/05/26/how-to-add-singletons-to-artist-dir-correctly-in-beets.html"},"url":"http://japh.se/2021/05/26/how-to-add-singletons-to-artist-dir-correctly-in-beets.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-11890504-2"></script>
+<script>
+  window['ga-disable-UA-11890504-2'] = window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1";
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){window.dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-11890504-2');
+</script>
+
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">http/japh.se </a>
+    
+    <meta property="og:image" content="http://i.japh.se/social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="406">
+    <meta property="og:image:height" content="246"><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+
+        <a href="cv">cv</a>
+        |
+        <a href="/dev">code</a>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">how to add singletons to artist directory correctly in beets</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2021-05-26T00:00:00+02:00" itemprop="datePublished">May 26, 2021
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Magnus Woldrich</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Here’s how to properly add singletons to the correct artist dir using
+the quick import functionality in beets. We don’t care for tagging or
+musicbrainz lookups for these, we just want to add them to the beets
+database and move them to to corresponding directory.</p>
+
+<p>Add this to config.yml:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">plugins</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">fromfilename'</span><span class="pi">]</span>
+
+<span class="na">extrafiles</span><span class="pi">:</span>
+  <span class="na">patterns</span><span class="pi">:</span>
+    <span class="na">single_tracks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">+tracks/'</span>
+  <span class="na">paths</span><span class="pi">:</span>
+    <span class="na">single_tracks</span><span class="pi">:</span> <span class="s">$artist/+tracks</span>
+
+<span class="na">paths</span><span class="pi">:</span>
+  <span class="na">singleton</span><span class="pi">:</span> <span class="err">%</span><span class="s">upper{%left{$artist,1}}/$artist/+tracks/$artist - $title</span></code></pre></figure>
+
+<p>When we import single tracks to beets we don’t use the autotagger, so
+it’s important that the artist field is populated in the files, or else
+beets doesn’t know where to put the files. To quickly add the artist
+field on a bunch of files, we can utilize <a href="https://github.com/trapd00r/id3shit">id3shit</a>:</p>
+
+<p><code class="highlighter-rouge">id3shit -w artist 'Anna Ternheim' *</code></p>
+
+<p><em>Edit 2021-05-28</em>:
+We can also use beets directly like this:</p>
+
+<p><code class="highlighter-rouge">beet import --set artist=Anna\ Ternheim</code></p>
+
+<p>The import command to beets for single tracks is <code class="highlighter-rouge">beet import -sA "$@"</code>.
+I find it hard to remember all the commands so I saved it as <code class="highlighter-rouge">beet-import-tracks</code>.</p>
+
+<p>Use it like this:</p>
+
+<p><code class="highlighter-rouge">beet-import-tracks *(.) # import every file in cwd</code></p>
+
+<p>Now, since we made sure that the artist field was populated prior to
+running the import command, we can find the imported singletons at
+<code class="highlighter-rouge">A/Anna Ternheim/+tracks/</code>.</p>
+
+<p>My current beets configuration can be found <a href="https://github.com/trapd00r/configs/blob/master/beets/config.yaml">here</a>.</p>
+
+
+  </div><a class="u-url" href="/2021/05/26/how-to-add-singletons-to-artist-dir-correctly-in-beets.html" hidden></a>
+</article>
+
+
+<!--      <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a> -->
+
+      </div>
+
+
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+<!--    <h2 class="footer-heading">http/japh.se</h2> -->
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">http/japh.se</li><li><a class="u-email" href="mailto:m@japh.se">m@japh.se</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/trapd00r"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">trapd00r</span></a></li><li><a href="https://www.linkedin.com/in/japh"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">japh</span></a></li><li><a href="https://www.twitter.com/wantarray"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">wantarray</span></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg> <span>rss</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>just another perl hacker from sweden</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

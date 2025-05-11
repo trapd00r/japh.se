@@ -2,9 +2,9 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>clone all github repos and gists in one go | http/japh.se</title>
-<meta name="generator" content="Jekyll v3.8.5" />
+<meta name="generator" content="Jekyll v3.8.7" />
 <meta property="og:title" content="clone all github repos and gists in one go" />
 <meta name="author" content="Magnus Woldrich" />
 <meta property="og:locale" content="en_US" />
@@ -15,21 +15,21 @@
 <meta property="og:site_name" content="http/japh.se" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-02-04T00:00:00+01:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="clone all github repos and gists in one go" />
 <script type="application/ld+json">
-{"description":"At times I find myself wanting to clone every repository I have on github. Additionally, today I wanted to check out all the forgotten gists I’ve made over the years.","url":"http://japh.se/2019/02/04/clone_all_github_repos_and_gists_in_one_go.html","@type":"BlogPosting","headline":"clone all github repos and gists in one go","dateModified":"2019-02-04T00:00:00+01:00","datePublished":"2019-02-04T00:00:00+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2019/02/04/clone_all_github_repos_and_gists_in_one_go.html"},"author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Magnus Woldrich"},"dateModified":"2019-02-04T00:00:00+01:00","datePublished":"2019-02-04T00:00:00+01:00","description":"At times I find myself wanting to clone every repository I have on github. Additionally, today I wanted to check out all the forgotten gists I’ve made over the years.","headline":"clone all github repos and gists in one go","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2019/02/04/clone_all_github_repos_and_gists_in_one_go.html"},"url":"http://japh.se/2019/02/04/clone_all_github_repos_and_gists_in_one_go.html"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script>
-if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-11890504-2"></script>
+<script>
+  window['ga-disable-UA-11890504-2'] = window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1";
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){window.dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-11890504-2', 'auto');
-  ga('send', 'pageview');
-}
+  gtag('config', 'UA-11890504-2');
 </script>
-  
+
 </head>
 <body><header class="site-header" role="banner">
 
@@ -49,8 +49,6 @@ if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNo
         </label>
 
         <div class="trigger"></div>
-
-        <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
 
         <a href="cv">cv</a>
         |
@@ -99,11 +97,11 @@ gists I’ve made over the years.</p>
 
 <span class="nv">NAME</span><span class="o">=</span><span class="nv">$GITHUB_USER</span>
 
-<span class="k">for </span>gist <span class="k">in</span> <span class="k">$(</span> <span class="se">\</span>
+<span class="k">for </span>gist <span class="k">in</span> <span class="si">$(</span> <span class="se">\</span>
   curl <span class="nt">-s</span> https://api.github.com/users/<span class="nv">$NAME</span>/gists <span class="se">\</span>
     | <span class="nb">grep </span>git_pull_url <span class="se">\</span>
     | <span class="nb">grep</span> <span class="nt">-Po</span> <span class="s1">'https:.+[.]git'</span>
-<span class="k">)</span><span class="p">;</span> <span class="k">do
+<span class="si">)</span><span class="p">;</span> <span class="k">do
   </span>git clone <span class="nv">$gist</span>
 <span class="k">done</span></code></pre></figure>
 
@@ -127,7 +125,6 @@ END_PAGE variable in the clone_all_repos script if necessary.</p>
   <div class="wrapper">
 
 <!--    <h2 class="footer-heading">http/japh.se</h2> -->
-    <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">

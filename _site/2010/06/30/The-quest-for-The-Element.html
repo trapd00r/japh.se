@@ -2,9 +2,9 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>the quest for the element | http/japh.se</title>
-<meta name="generator" content="Jekyll v3.8.5" />
+<meta name="generator" content="Jekyll v3.8.7" />
 <meta property="og:title" content="the quest for the element" />
 <meta name="author" content="Magnus Woldrich" />
 <meta property="og:locale" content="en_US" />
@@ -15,21 +15,21 @@
 <meta property="og:site_name" content="http/japh.se" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2010-06-30T00:00:00+02:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="the quest for the element" />
 <script type="application/ld+json">
-{"description":"Scenario: You have this data structure X, and need to know if string Y might be hiding in there somewhere.","url":"http://japh.se/2010/06/30/The-quest-for-The-Element.html","@type":"BlogPosting","headline":"the quest for the element","dateModified":"2010-06-30T00:00:00+02:00","datePublished":"2010-06-30T00:00:00+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2010/06/30/The-quest-for-The-Element.html"},"author":{"@type":"Person","name":"Magnus Woldrich"},"@context":"http://schema.org"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Magnus Woldrich"},"dateModified":"2010-06-30T00:00:00+02:00","datePublished":"2010-06-30T00:00:00+02:00","description":"Scenario: You have this data structure X, and need to know if string Y might be hiding in there somewhere.","headline":"the quest for the element","mainEntityOfPage":{"@type":"WebPage","@id":"http://japh.se/2010/06/30/The-quest-for-The-Element.html"},"url":"http://japh.se/2010/06/30/The-quest-for-The-Element.html"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script>
-if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://japh.se/feed.xml" title="http/japh.se" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-11890504-2"></script>
+<script>
+  window['ga-disable-UA-11890504-2'] = window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1";
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){window.dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-11890504-2', 'auto');
-  ga('send', 'pageview');
-}
+  gtag('config', 'UA-11890504-2');
 </script>
-  
+
 </head>
 <body><header class="site-header" role="banner">
 
@@ -49,8 +49,6 @@ if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNo
         </label>
 
         <div class="trigger"></div>
-
-        <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
 
         <a href="cv">cv</a>
         |
@@ -83,25 +81,25 @@ and over again, for different purposes.</p>
 operator introduced in Perl 5.10:</p>
 
 <figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">my</span> <span class="nv">@array</span> <span class="o">=</span> <span class="sx">qw(foo bar baz)</span><span class="p">;</span>
-<span class="k">print</span> <span class="mi">1</span> <span class="k">if</span> <span class="s">'bar'</span> <span class="o">~~</span> <span class="nv">@c</span><span class="p">;</span></code></pre></figure>
+<span class="k">print</span> <span class="mi">1</span> <span class="k">if</span> <span class="p">'</span><span class="s1">bar</span><span class="p">'</span> <span class="o">~~</span> <span class="nv">@c</span><span class="p">;</span></code></pre></figure>
 
 <p>If you need to grab the first element that matches evaluated pattern, you can
 use the ‘first’ function from the core List::Util module:</p>
 
-<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">use</span> <span class="nn">List::</span><span class="nv">Util</span> <span class="s">'first'</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">use</span> <span class="nn">List::</span><span class="nv">Util</span> <span class="p">'</span><span class="s1">first</span><span class="p">';</span>
 <span class="k">my</span> <span class="nv">@array</span> <span class="o">=</span> <span class="sx">qw(foo bar baz)</span><span class="p">;</span>
 <span class="k">print</span> <span class="nv">first</span><span class="p">{</span><span class="sr">m/ba./</span><span class="p">}</span> <span class="nv">@array</span><span class="p">;</span> <span class="c1"># will print 'bar'</span></code></pre></figure>
 
 <p>You are not limited to regular expressions, either:</p>
 
 <figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">use</span> <span class="nn">Data::</span><span class="nv">Dumper</span><span class="p">;</span>
-<span class="k">use</span> <span class="nn">List::</span><span class="nv">Util</span> <span class="s">'first'</span><span class="p">;</span>
-<span class="k">my</span> <span class="nv">@array</span> <span class="o">=</span> <span class="p">(</span><span class="nb">undef</span><span class="p">,</span> <span class="s">'foo'</span><span class="p">,</span> <span class="nb">undef</span><span class="p">,</span> <span class="s">'bar'</span><span class="p">);</span>
-<span class="k">print</span> <span class="nv">Dumper</span> <span class="nv">first</span><span class="p">{</span><span class="o">!</span><span class="nb">defined</span><span class="p">(</span><span class="nv">$_</span><span class="p">)};</span> <span class="c1"># $VAR1 = undef;</span>
-<span class="k">print</span> <span class="nv">Dumper</span> <span class="nv">first</span><span class="p">{</span><span class="nb">defined</span><span class="p">(</span><span class="nv">$_</span><span class="p">)};</span>  <span class="c1"># $VAR1 = 'foo';</span>
+<span class="k">use</span> <span class="nn">List::</span><span class="nv">Util</span> <span class="p">'</span><span class="s1">first</span><span class="p">';</span>
+<span class="k">my</span> <span class="nv">@array</span> <span class="o">=</span> <span class="p">(</span><span class="nb">undef</span><span class="p">,</span> <span class="p">'</span><span class="s1">foo</span><span class="p">',</span> <span class="nb">undef</span><span class="p">,</span> <span class="p">'</span><span class="s1">bar</span><span class="p">');</span>
+<span class="k">print</span> <span class="nv">Dumper</span> <span class="nv">first</span><span class="p">{</span><span class="o">!</span><span class="nb">defined</span><span class="p">(</span><span class="vg">$_</span><span class="p">)};</span> <span class="c1"># $VAR1 = undef;</span>
+<span class="k">print</span> <span class="nv">Dumper</span> <span class="nv">first</span><span class="p">{</span><span class="nb">defined</span><span class="p">(</span><span class="vg">$_</span><span class="p">)};</span>  <span class="c1"># $VAR1 = 'foo';</span>
 
 <span class="k">my</span> <span class="nv">@ints</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">15</span><span class="p">);</span>
-<span class="k">print</span> <span class="nv">first</span><span class="p">{</span><span class="nv">$_</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">}</span> <span class="nv">@ints</span><span class="p">;</span> <span class="c1"># 11</span></code></pre></figure>
+<span class="k">print</span> <span class="nv">first</span><span class="p">{</span><span class="vg">$_</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">}</span> <span class="nv">@ints</span><span class="p">;</span> <span class="c1"># 11</span></code></pre></figure>
 
 <p>The first function works on hashes as well, and maybe it’s <em>first</em> here were we’ll
 see how useful it can be.</p>
@@ -109,16 +107,16 @@ see how useful it can be.</p>
 <p>Instead of manually looping through the hash if you’re interested in the key for
 a specific value, you can do it like this:</p>
 
-<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">use</span> <span class="nn">List::</span><span class="nv">Util</span> <span class="s">'first'</span><span class="p">;</span>
-<span class="k">my</span> <span class="o">%</span><span class="nv">hash</span> <span class="o">=</span> <span class="p">(</span>
-  <span class="nv">foo</span>  <span class="o">=&gt;</span> <span class="s">'bar'</span><span class="p">,</span>
-  <span class="nv">perl</span> <span class="o">=&gt;</span> <span class="s">'awesome'</span><span class="p">,</span>
+<figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">use</span> <span class="nn">List::</span><span class="nv">Util</span> <span class="p">'</span><span class="s1">first</span><span class="p">';</span>
+<span class="k">my</span> <span class="nv">%hash</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="s">foo</span>  <span class="o">=&gt;</span> <span class="p">'</span><span class="s1">bar</span><span class="p">',</span>
+  <span class="s">perl</span> <span class="o">=&gt;</span> <span class="p">'</span><span class="s1">awesome</span><span class="p">',</span>
 <span class="p">);</span>
 
 <span class="c1"># print the first key that responds to the value of 'awesome'</span>
-<span class="k">print</span> <span class="nv">first</span><span class="p">{</span><span class="nv">$hash</span><span class="p">{</span><span class="nv">$_</span><span class="p">}</span> <span class="ow">eq</span> <span class="s">'awesome'</span><span class="p">}</span> <span class="nv">@hash</span><span class="p">;</span> <span class="c1"># prints 'perl'</span>
+<span class="k">print</span> <span class="nv">first</span><span class="p">{</span><span class="nv">$hash</span><span class="p">{</span><span class="vg">$_</span><span class="p">}</span> <span class="ow">eq</span> <span class="p">'</span><span class="s1">awesome</span><span class="p">'}</span> <span class="nv">@hash</span><span class="p">;</span> <span class="c1"># prints 'perl'</span>
 <span class="c1"># print the first key which length is more or equal to four</span>
-<span class="k">print</span> <span class="nv">first</span><span class="p">{</span><span class="nb">length</span><span class="p">(</span><span class="nv">$hash</span><span class="p">{</span><span class="nv">$_</span><span class="p">})</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">}</span> <span class="o">%</span><span class="nv">hash</span><span class="p">;</span> <span class="c1"># prints 'perl'</span></code></pre></figure>
+<span class="k">print</span> <span class="nv">first</span><span class="p">{</span><span class="nb">length</span><span class="p">(</span><span class="nv">$hash</span><span class="p">{</span><span class="vg">$_</span><span class="p">})</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">}</span> <span class="nv">%hash</span><span class="p">;</span> <span class="c1"># prints 'perl'</span></code></pre></figure>
 
 <p>So the <strong>first</strong> function is pretty useful, but it wont do any good if we’re
 interested in several values. Here is where <strong>grep</strong> comes in to play.</p>
@@ -129,11 +127,11 @@ environments  are probably using it everyday, and for good reason.</p>
 <p><strong>grep()</strong> in Perl is not the same, but similar in spirit. Let’s take a look:</p>
 
 <figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">my</span> <span class="nv">@numbers</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">15</span><span class="p">);</span>
-<span class="k">print</span> <span class="s">"$_\n"</span> <span class="k">for</span><span class="p">(</span><span class="nb">grep</span><span class="p">(</span><span class="nv">$_</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">,</span> <span class="nv">@numbers</span><span class="p">));</span> <span class="c1"># prints 6..15</span>
+<span class="k">print</span> <span class="p">"</span><span class="si">$_</span><span class="se">\n</span><span class="p">"</span> <span class="k">for</span><span class="p">(</span><span class="nb">grep</span><span class="p">(</span><span class="vg">$_</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">,</span> <span class="nv">@numbers</span><span class="p">));</span> <span class="c1"># prints 6..15</span>
 
 <span class="k">my</span> <span class="nv">@shuffled</span> <span class="o">=</span> <span class="sx">qw(4 foo 593 bar 22)</span><span class="p">;</span>
 <span class="c1"># Grab the numbers</span>
-<span class="k">print</span> <span class="s">"$_\n"</span> <span class="k">for</span><span class="p">(</span><span class="nb">grep</span><span class="p">{</span><span class="sr">/\d+/</span><span class="p">}</span> <span class="nv">@shuffled</span><span class="p">;</span>   <span class="c1"># prints 4, 593, 22</span></code></pre></figure>
+<span class="k">print</span> <span class="p">"</span><span class="si">$_</span><span class="se">\n</span><span class="p">"</span> <span class="k">for</span><span class="p">(</span><span class="nb">grep</span><span class="p">{</span><span class="sr">/\d+/</span><span class="p">}</span> <span class="nv">@shuffled</span><span class="p">;</span>   <span class="c1"># prints 4, 593, 22</span></code></pre></figure>
 
 <p><em>Sidenote</em>: \d matches a single character that’s considered to be a digit.
 Digits are not necessarily 0-9 - it depends on the encoding of the source string
@@ -157,7 +155,6 @@ might deal with more exotic things.</p>
   <div class="wrapper">
 
 <!--    <h2 class="footer-heading">http/japh.se</h2> -->
-    <a href="https://paypal.me/trapd00r"><img src="/assets/paypal.svg" alt="Donate"></a>
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">

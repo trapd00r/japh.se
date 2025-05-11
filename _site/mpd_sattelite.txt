@@ -1,0 +1,32 @@
+# /etc/exports on nfs server:
+/mnt/music8 192.168.1.*(ro,insecure,sync,no_subtree_check,anonuid=1000,anongid=1000) 
+
+# for vpn
+/mnt/music8 *(ro,insecure,sync,no_subtree_check,anonuid=1000,anongid=1000) 
+
+
+Use the builtin ftp server in solid explorer, or any other means to add this mpd.conf to the
+Android/data/org.musicpd/files/ directory:
+
+music_directory "nfs://192.168.1.18/mnt/music8/+TAGGED"
+
+database {
+  plugin "proxy"
+  host "192.168.1.55"
+}
+
+Here, 192.168.1.18 is my nfs server debbie, and 192.168.1.55 is the mpd server
+
+The config location was changed as detailed here:
+
+https://github.com/MusicPlayerDaemon/MPD/commit/40bc60d6ae7c722516d357dcb59d98c72bf836bf#diff-b61f200706313226d75a19bd12ab2eb66d744fa5373d0ff66d03e361bcad58d8R39
+
+
+
+###
+
+!!!!
+
+input_cache {
+  size "1 GB"
+}
