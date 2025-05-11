@@ -19,7 +19,7 @@ email: m@japh.se
 description: >- # this means to ignore newlines until "baseurl:"
   just another {perl,} hacker
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://japh.se" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://japh.se" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  trapd00r
 #irc_username: japh
 rss: rss

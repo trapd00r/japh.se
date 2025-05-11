@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://japh.se/2022/05/21/jump_to_function_definition_in_vim.html</loc>
+    <lastmod>2022-05-21T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2021/08/03/use-perl-modules-in-python3.html</loc>
+    <lastmod>2021-08-03T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2021/07/14/a_better_titlecase_function_for_beets.html</loc>
+    <lastmod>2021-07-14T08:48:08+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2021/06/01/special-rule-for-live-performances-in-beets.html</loc>
+    <lastmod>2021-06-01T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2021/06/01/capture-primary-artist-as-a-separate-field-in-beets.html</loc>
+    <lastmod>2021-06-01T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2021/05/26/how-to-add-singletons-to-artist-dir-correctly-in-beets.html</loc>
+    <lastmod>2021-05-26T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2021/05/23/custom-beet-path-rules-for-record-labels.html</loc>
+    <lastmod>2021-05-23T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2021/05/14/advanced-lscolor-rules-with-ls++.html</loc>
+    <lastmod>2021-05-14T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2021/05/09/abusing-permission-flags-to-distinguish-watched-episodes.html</loc>
+    <lastmod>2021-05-09T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2021/03/21/ratpoison-urxvt-and-borders.html</loc>
+    <lastmod>2021-03-21T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2020/07/18/rip-all-images-from-all-subreddits-in-one-go.html</loc>
+    <lastmod>2020-07-18T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2019/04/12/edit-files-changed-in-last-git-commit.html</loc>
+    <lastmod>2019-04-12T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2019/03/26/adding-LS_COLORS-to-ack3.html</loc>
+    <lastmod>2019-03-26T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2019/03/25/a-hr-tag-for-your-terminal.html</loc>
+    <lastmod>2019-03-25T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2019/03/09/solve-rtorrent-harddrive-lockup-with-many-torrents.html</loc>
+    <lastmod>2019-03-09T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2019/02/20/ignore-blob-of-text-on-irssi-channel-join.html</loc>
+    <lastmod>2019-02-20T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2019/02/04/clone_all_github_repos_and_gists_in_one_go.html</loc>
+    <lastmod>2019-02-04T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2019/02/02/use-a-custom-sound-file-for-terminal-bell.html</loc>
+    <lastmod>2019-02-02T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2019/01/27/use-mhddfs-to-mount-several-physical-disks-as-one.html</loc>
+    <lastmod>2019-01-27T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2019/01/23/color-urls-in-urxvt-without-abusing-underline-property.html</loc>
+    <lastmod>2019-01-23T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2019/01/16/automatically_fetch_lyrics_with_mpd.html</loc>
+    <lastmod>2019-01-16T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2018/12/17/issues-with-cpan-indexing.html</loc>
+    <lastmod>2018-12-17T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2018/12/13/make-perl-distribution-making-automatic.html</loc>
+    <lastmod>2018-12-13T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2018/12/02/how-i-use-vimbindings-everywhere.html</loc>
+    <lastmod>2018-12-02T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2018/11/28/modifying-x-resources-on-the-fly.html</loc>
+    <lastmod>2018-11-28T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2018/11/27/use-vim-to-cat-files-in-style.html</loc>
+    <lastmod>2018-11-27T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2011/07/17/dotshare.html</loc>
+    <lastmod>2011-07-17T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2011/02/05/archlinux-and-perl,-take-two.html</loc>
+    <lastmod>2011-02-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2011/02/04/use-several-gtk-themes-simultaneously.html</loc>
+    <lastmod>2011-02-04T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2011/01/22/xkcd.html</loc>
+    <lastmod>2011-01-22T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2011/01/22/re.pl.html</loc>
+    <lastmod>2011-01-22T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2011/01/21/Readline.html</loc>
+    <lastmod>2011-01-21T13:04:02+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2010/12/05/each-on-arrays.html</loc>
+    <lastmod>2010-12-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2010/12/05/Term-ExtendedColor.html</loc>
+    <lastmod>2010-12-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2010/10/04/archlinux-and-perl-5.12.html</loc>
+    <lastmod>2010-10-04T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2010/10/03/top-25-commands-used-in-your-shell.html</loc>
+    <lastmod>2010-10-03T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2010/10/03/24bit-colordepth-in-a-terminal-near-you.html</loc>
+    <lastmod>2010-10-03T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2010/08/10/reset-high-speed-USB-device-using-ehci_hcd-Solution.html</loc>
+    <lastmod>2010-08-10T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2010/06/30/The-quest-for-The-Element.html</loc>
+    <lastmod>2010-06-30T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2010/06/04/GNU-Screen-hardstatus-fun.html</loc>
+    <lastmod>2010-06-04T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2010/05/30/rmshit-solves-annoying-Desktop-(et-al)-creation.html</loc>
+    <lastmod>2010-05-30T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2010/05/21/radio-playing-daemon.html</loc>
+    <lastmod>2010-05-21T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2010/05/19/control-firefox-remotely.html</loc>
+    <lastmod>2010-05-19T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2010/05/18/expand-function-calls-in-a-string.html</loc>
+    <lastmod>2010-05-18T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://japh.se/2010/05/18/but-how-do-i-add-a-user.html</loc>
+    <lastmod>2010-05-18T00:00:00+02:00</lastmod>
+  </url>
+  
+  
+    
+  <url>
+    <loc>https://japh.se/dev/LS_COLORS/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/c256/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/colorcoke/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/daemon-mplayer/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/dontbeahero/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/file-lscolor/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/knradio/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/ls++/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/mplayer-nowplaying/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/pimpd/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/pimpd2/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/rgbterm/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/rmcd/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/rmshit/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/screenfo/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/term-extendedcolor-xresources/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/term-extendedcolor/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/ttycolor/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/utils/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  <url>
+    <loc>https://japh.se/dev/vidir/</loc>
+    <lastmod>2025-05-11T11:15:09+02:00</lastmod>
+  </url>
+    
+  
+    
+  
+    
+  
+</urlset> 
